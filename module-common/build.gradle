@@ -34,7 +34,6 @@ dependencies {
 
     implementation 'com.google.code.gson:gson'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
-    compile 'org.mariadb.jdbc:mariadb-java-client:2.4.4'
 }
 
 //querydsl 추가
