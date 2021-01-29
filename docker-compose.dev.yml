@@ -1,0 +1,33 @@
+version: '3'
+
+services:
+  soltsdsdb:
+    image: mariadb10.3:v1
+    container_name: mariadb-solt-sds
+    ports:
+      - "3306:3306"
+    volumes:
+      - ./db-data/:/var/lib/mysql
+      - ./config/mariadb/custom.cnf:/etc/mysql/mariadb.conf.d/custom.cnf
+      - ./config/dbdata:/docker-entrypoint-initdb.d
+    environment:
+      MYSQL_ROOT_PASSWORD: soltsds
+      MYSQL_USER: soltsds
+      MYSQL_PASSWORD: soltsds
+      MYSQL_DATABASE: soltsds
+      TZ: Asia/Seoul
+    #restart: always
+    networks:
+      - solt_sds_net
+
+networks:
+  solt_sds_net:
+    driver: bridge
+
+#docker-compose -f docker-compose.dev.yml up -d
+# 최초
+# docker-compose up -d
+# docker-compose logs
+# override 처리
+# docker-compose -f docker-compose.yml -f docker-compose.dev.yml up
+# docker-compose logs

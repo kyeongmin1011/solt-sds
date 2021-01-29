@@ -1,0 +1,2 @@
+rootProject.name = 'solt-sds'
+include 'module-client-api', 'module-admin-api', 'module-common'

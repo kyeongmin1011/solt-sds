@@ -1,0 +1,29 @@
+plugins {
+    id 'java'
+}
+
+group 'com.safetyas.sds'
+version '1.0-SNAPSHOT'
+
+sourceCompatibility = 1.8
+
+repositories {
+    mavenCentral()
+}
+
+bootJar { enabled = false }
+jar { enabled = true }
+
+dependencies {
+    implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    runtimeOnly 'com.h2database:h2'
+    compileOnly 'org.projectlombok:lombok'
+    testCompile 'org.projectlombok:lombok'
+    annotationProcessor 'org.projectlombok:lombok'
+    testAnnotationProcessor 'org.projectlombok:lombok'
+    testImplementation 'org.springframework.boot:spring-boot-starter-test'
+
+    implementation 'com.google.code.gson:gson'
+    compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    compile 'org.mariadb.jdbc:mariadb-java-client:2.4.4'
+}

@@ -1,0 +1,27 @@
+server:
+  port: 8080
+
+spring:
+  profiles:
+    active: test # 테스트 서버 연결
+
+  datasource:
+    url: jdbc:mariadb://192.168.0.200:3306/soltsds
+    driver-class-name: org.mariadb.jdbc.Driver
+    username: soltsds
+    password: soltsds
+  jwt:
+    secret: safetyas@$&!use;
+  smtp:
+    host: smtps.hiworks.com
+    user: web@safety-as.com
+    pwd: safetyas2018!*
+  resources:
+    static-locations: classpath:/css/
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template: true
+    check-template-location: true
+    enabled: true
+    suffix: .html
+    mode: HTML
