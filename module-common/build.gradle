@@ -1,11 +1,18 @@
 plugins {
     id 'java'
+    id 'com.ewerk.gradle.plugins.querydsl' version '1.0.10'
 }
 
 group 'com.safetyas.sds'
 version '1.0-SNAPSHOT'
 
 sourceCompatibility = 1.8
+
+configurations {
+    compileOnly {
+        extendsFrom annotationProcessor
+    }
+}
 
 repositories {
     mavenCentral()
@@ -16,6 +23,8 @@ jar { enabled = true }
 
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
+    implementation 'com.querydsl:querydsl-jpa'
+
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
     testCompile 'org.projectlombok:lombok'
@@ -26,4 +35,20 @@ dependencies {
     implementation 'com.google.code.gson:gson'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
     compile 'org.mariadb.jdbc:mariadb-java-client:2.4.4'
+}
+
+//querydsl 추가
+def querydslDir = "$buildDir/generated/querydsl"
+querydsl {
+    jpa = true
+    querydslSourcesDir = querydslDir
+}
+sourceSets {
+    main.java.srcDir querydslDir
+}
+configurations {
+    querydsl.extendsFrom compileClasspath
+}
+compileQuerydsl {
+    options.annotationProcessorPath = configurations.querydsl
 }
