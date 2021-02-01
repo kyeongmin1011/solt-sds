@@ -6,10 +6,11 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.QMember;
 import javax.persistence.EntityManager;
-import org.assertj.core.api.Assertions;
 import org.junit.Test;
+import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.test.annotation.Commit;
 import org.springframework.transaction.annotation.Transactional;
 
 @SpringBootTest
@@ -18,9 +19,8 @@ public class ClientApplicationTests {
   @Autowired
   EntityManager em;
 
-  @Test
-  void contextLoads() {
-
+  @BeforeEach
+  public void before() {
     Member member = Member.builder().memberId("test11").companyName("test-company").build();
     em.persist(member);
 
@@ -33,6 +33,6 @@ public class ClientApplicationTests {
 
     assertThat(result).isEqualTo(member);
     assertThat(result.getMemberId()).isEqualTo(member.getMemberId());
-
   }
+
 }

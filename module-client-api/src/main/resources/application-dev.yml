@@ -37,3 +37,7 @@ spring:
     enabled: true
     suffix: .html
     mode: HTML
+
+logging.level:
+  org.hibernate.SQL: info
+  org.hibernate.type: trace

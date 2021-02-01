@@ -1,12 +1,16 @@
 package com.safetyas.sds.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,7 +31,7 @@ public class Member extends CommonEntity implements Serializable {
       String managerEmail2, String phone1, String phone2, String newsletterYn, String joinRoute, String consultingYn,
       String msdsTermsYn, String privateTermsYn, LocalDateTime loginLast, Integer loginCount, LocalDateTime inDate,
       LocalDateTime modDate, LocalDateTime delDate) {
-    super();
+    super(inDate, modDate, delDate);
     this.memberSeq = memberSeq;
     this.level = level;
     this.role = role;
@@ -122,5 +126,13 @@ public class Member extends CommonEntity implements Serializable {
 
   @Column(name = "login_count", length = 10)
   private Integer loginCount;  // 로그인 횟수
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "member")
+  List<MemberSupplier> memberSupplierList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "member")
+  List<MemberBoard> memberBoardList = new ArrayList<>();
 
 }

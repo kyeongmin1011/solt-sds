@@ -13,9 +13,9 @@ repositories {
 
 def swaggerVersion = '2.8.0'
 
-test {
-    exclude '**/*'
-}
+//test {
+//    exclude '**/*'
+//}
 
 dependencies {
     compile project(':module-common')
