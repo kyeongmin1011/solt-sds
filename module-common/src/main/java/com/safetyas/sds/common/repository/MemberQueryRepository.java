@@ -17,4 +17,5 @@ public class MemberQueryRepository {
         .where(QMember.member.memberId.eq(memberId))
         .fetch();
   }
+
 }
