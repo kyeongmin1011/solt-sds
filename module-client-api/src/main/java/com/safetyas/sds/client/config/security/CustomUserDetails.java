@@ -18,9 +18,9 @@ public class CustomUserDetails implements UserDetails {
   private String role;
   private String companyName;
 
-  Set<GrantedAuthority> authorities;
+  private Set<GrantedAuthority> authorities;
 
-  public CustomUserDetails (Member member) {
+  public CustomUserDetails(Member member) {
     this.memberSeq = member.getMemberSeq();
     this.memberId = member.getMemberId();
     this.level = member.getLevel();
@@ -68,5 +68,9 @@ public class CustomUserDetails implements UserDetails {
   @Override
   public boolean isEnabled() {
     return false;
+  }
+
+  public String getCompanyName() {
+    return this.companyName;
   }
 }
