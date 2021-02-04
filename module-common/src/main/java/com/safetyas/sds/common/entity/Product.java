@@ -1,13 +1,17 @@
 package com.safetyas.sds.common.entity;
 
+import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -29,7 +33,24 @@ public class Product extends CommonEntity implements Serializable {
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
-
+    this.productSeq = productSeq;
+    this.productUid = productUid;
+    this.msds = msds;
+    this.language = language;
+    this.writer = writer;
+    this.writerEmail = writerEmail;
+    this.tonsYear = tonsYear;
+    this.submissionYn = submissionYn;
+    this.orYn = orYn;
+    this.agencySubmissionYn = agencySubmissionYn;
+    this.agencyTranslateYn = agencyTranslateYn;
+    this.agencyRevisionYn = agencyRevisionYn;
+    this.agencyOrYn = agencyOrYn;
+    this.agencyCbiYn = agencyCbiYn;
+    this.agencyRenewYn = agencyRenewYn;
+    this.validStart = validStart;
+    this.validFinish = validFinish;
+    this.finalSaveYn = finalSaveYn;
   }
 
   @Id
@@ -87,4 +108,28 @@ public class Product extends CommonEntity implements Serializable {
 
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<CbiAgency> cbiAgencyList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<OrAgency> orAgencyList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<TranslationAgency> translationAgencyList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<RevisionAgency> revisionAgencyList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<SubmissionAgency> submissionAgencyList  = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "product")
+  private List<RenewAgency> renewAgencyList = new ArrayList<>();
 }

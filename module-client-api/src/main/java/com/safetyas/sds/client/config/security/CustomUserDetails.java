@@ -25,7 +25,6 @@ public class CustomUserDetails implements UserDetails {
     this.memberId = member.getMemberId();
     this.level = member.getLevel();
     this.role = member.getRole();
-    this.companyName = member.getCompanyName();
     setAuthorities(member.getRole());
   }
 

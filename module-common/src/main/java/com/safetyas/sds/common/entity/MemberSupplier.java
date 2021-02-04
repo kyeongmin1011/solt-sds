@@ -23,17 +23,17 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "sds_member_suppliers")
+@Table(name = "sds_member_supplier")
 public class MemberSupplier extends CommonEntity implements Serializable {
 
   @Builder
-  public MemberSupplier(Member member, Long memberSupplierSeq, String group, String name,
+  public MemberSupplier(Member member, Long memberSupplierSeq, String supplierGroup, String name,
       String phone, String addr, String defaultYn, LocalDateTime inDate,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     setMember(member);
     this.memberSupplierSeq = memberSupplierSeq;
-    this.group = group;
+    this.supplierGroup = supplierGroup;
     this.name = name;
     this.phone = phone;
     this.addr = addr;
@@ -45,8 +45,8 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   @Column(name = "member_supplier_seq", nullable = false, length = 20)
   private Long memberSupplierSeq;
 
-  @Column(name = "group", nullable = false, length = 100)
-  private String group;
+  @Column(name = "supplier_group", nullable = false, length = 100)
+  private String supplierGroup;
 
   @Column(name = "name", nullable = false, length = 100)
   private String name;

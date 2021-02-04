@@ -1,11 +1,8 @@
 package com.safetyas.sds.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
-import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -16,7 +13,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,16 +24,15 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "sds_member_board")
-public class MemberBoard extends CommonEntity implements Serializable {
+@Table(name = "sds_member_board_comment")
+public class MemberBoardComment extends CommonEntity implements Serializable {
 
   @Builder
-  public MemberBoard(Member member, Long memberBoardSeq, String category, String title,
+  public MemberBoardComment(Long commentSeq, String category, String title,
       String writer, String writerEmail, String content, LocalDateTime inDate, Integer viewCount,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
-    setMember(member);
-    this.memberBoardSeq = memberBoardSeq;
+    this.commentSeq = commentSeq;
     this.category = category;
     this.title = title;
     this.writer = writer;
@@ -47,8 +42,8 @@ public class MemberBoard extends CommonEntity implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "member_board_seq", nullable = false, length = 20)
-  private Long memberBoardSeq;
+  @Column(name = "comment_seq", nullable = false, length = 20)
+  private Long commentSeq;
 
   @Column(name = "category", nullable = false, length = 100)
   private String category;
@@ -59,7 +54,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @Column(name = "writer", nullable = false, length = 100)
   private String writer;
 
-  @Column(name = "writer_email", nullable = false)
+  @Column(name = "writer_email", nullable = false, length = 255)
   private String writerEmail;
 
   @Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
@@ -68,21 +63,18 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
+
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_board_fk"))
-  private Member member;
+  @JoinColumn(name = "member_board_seq", foreignKey = @ForeignKey(name = "member_board_seq_member_board_comment_fk"))
+  private MemberBoard memberBoard;
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "memberBoard")
-  List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
-
-  public void setMember(Member member) {
-    if (this.member != null) {
-      this.member.getMemberBoardList().remove(this);
+  public void setMemberBoard(MemberBoard memberBoard) {
+    if (this.memberBoard != null) {
+      this.memberBoard.getMemberBoardCommentList().remove(this);
     }
-    this.member = member;
-    member.getMemberBoardList().add(this);
+    this.memberBoard = memberBoard;
+    memberBoard.getMemberBoardCommentList().add(this);
   }
 
 }
