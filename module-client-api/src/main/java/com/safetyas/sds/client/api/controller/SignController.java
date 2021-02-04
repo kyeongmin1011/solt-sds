@@ -28,9 +28,9 @@ public class SignController {
   private final ApiMemberService apiMemberService;
   private final JwtTokenProvider jwtTokenProvider;
 
-  @ApiOperation(value = "로그인", notes = "이메일 회원 로그인을 한다.")
+  @ApiOperation(value = "로그인", notes = "회원 아이디 로그인을 한다.")
   @PostMapping(value = "/sign-in")
-  public SingleResult<String> signIn(@ApiParam(value = "회원ID : 이메일", required = true) @RequestParam String memberId,
+  public SingleResult<String> signIn(@ApiParam(value = "회원ID", required = true) @RequestParam String memberId,
       @ApiParam(value = "비밀번호", required = true) @RequestParam String password) {
 
     Member member = apiMemberService.findByMemberId(memberId).orElseThrow(CustomUserNotFoundException::new);

@@ -24,6 +24,7 @@ jar { enabled = true }
 dependencies {
     implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
     implementation 'com.querydsl:querydsl-jpa'
+    implementation 'com.querydsl:querydsl-apt'
 
     runtimeOnly 'com.h2database:h2'
     compileOnly 'org.projectlombok:lombok'
@@ -39,6 +40,7 @@ dependencies {
 //querydsl 추가
 def querydslDir = "$buildDir/generated/querydsl"
 querydsl {
+    library = "com.querydsl:querydsl-apt"
     jpa = true
     querydslSourcesDir = querydslDir
 }
