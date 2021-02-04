@@ -23,14 +23,15 @@ public class Notice extends CommonEntity implements Serializable {
 
   @Builder
   public Notice(Long noticeSeq, String category, String title, String content, Integer viewCount,
-      Long adminSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+      String writerName, Long memberSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.noticeSeq = noticeSeq;
     this.category = category;
     this.title = title;
     this.content = content;
     this.viewCount = viewCount;
-    this.adminSeq = adminSeq;
+    this.writerName = writerName;
+    this.memberSeq = memberSeq;
   }
 
   @Id
@@ -50,6 +51,9 @@ public class Notice extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
-  @Column(name = "admin_seq")
-  private Long adminSeq;
+  @Column(name = "writer_name")
+  private String writerName; // 입력자 이름
+
+  @Column(name = "member_seq")
+  private Long memberSeq; // 입력자 멤버 시퀀스
 }

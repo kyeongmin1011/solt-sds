@@ -28,18 +28,14 @@ import lombok.NoArgsConstructor;
 public class AdminInfo extends CommonEntity implements Serializable {
 
   @Builder
-  public AdminInfo(Long adminSeq, Integer level, String role, String adminId, String pwd,
-      String name, String email, LocalDateTime lastLogin,
+  public AdminInfo(Long adminSeq, String dept, String position, String name, String email,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.adminSeq = adminSeq;
-    this.level = level;
-    this.role = role;
-    this.adminId = adminId;
-    this.pwd = pwd;
+    this.dept = dept;
+    this.position = position;
     this.name = name;
     this.email = email;
-    this.lastLogin = lastLogin;
   }
 
   @Id
@@ -47,26 +43,17 @@ public class AdminInfo extends CommonEntity implements Serializable {
   @Column(name = "admin_seq", nullable = false, length = 20)
   private Long adminSeq;  // 시퀀스
 
-  @Column(name = "level", length = 10)
-  private Integer level;  // 멤버 레벨
+  @Column(name = "dept", length = 10)
+  private String dept;  // 부서
 
-  @Column(name = "role", length = 100)
-  private String role;  // 멤버 롤
-
-  @Column(name = "admin_id", length = 50)
-  private String adminId;  // 아이디
-
-  @Column(name = "pwd", length = 100)
-  private String pwd; // 패스워드
+  @Column(name = "position", length = 100)
+  private String position;  // 직급
 
   @Column(name = "name", length = 100)
   private String name; // 이름
 
   @Column(name = "email", length = 100)
   private String email; // 이메일
-
-  @Column(name = "lastLogin")
-  private LocalDateTime lastLogin; // 마지막 로그인
 
   @JsonManagedReference
   @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)

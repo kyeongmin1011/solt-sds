@@ -28,15 +28,16 @@ import lombok.NoArgsConstructor;
 public class Faq extends CommonEntity implements Serializable {
 
   @Builder
-  public Faq(Long faqSeq, String category, String title, String content, Integer viewCount,
-      Long adminSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+  public Faq(Long faqSeq, String category, String title, String content, Integer viewCount, String writerName,
+      Long memberSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.faqSeq = faqSeq;
     this.category = category;
     this.title = title;
     this.content = content;
     this.viewCount = viewCount;
-    this.adminSeq = adminSeq;
+    this.writerName = writerName;
+    this.memberSeq = memberSeq;
   }
 
   @Id
@@ -56,6 +57,9 @@ public class Faq extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
+  @Column(name = "writer_name")
+  private String writerName; // 입력자 이름
+
   @Column(name = "member_seq")
-  private Long adminSeq;
+  private Long memberSeq; // 입력자 멤버 시퀀스
 }
