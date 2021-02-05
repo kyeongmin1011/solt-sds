@@ -12,6 +12,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,7 +29,7 @@ public class MemberSupplier extends CommonEntity implements Serializable {
 
   @Builder
   public MemberSupplier(Member member, Long memberSupplierSeq, String supplierGroup, String name,
-      String phone, String addr, String defaultYn, LocalDateTime inDate,
+      String dept, String phone, String addr, String defaultYn, LocalDateTime inDate,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     setMember(member);
@@ -45,25 +46,28 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   @Column(name = "member_supplier_seq", nullable = false, length = 20)
   private Long memberSupplierSeq;
 
-  @Column(name = "supplier_group", nullable = false, length = 100)
+  @Column(name = "supplier_group", columnDefinition = "varchar(1) comment '공급사 그룹 구분. 당사: T, 타사: O'")
   private String supplierGroup;
 
-  @Column(name = "name", nullable = false, length = 100)
+  @Column(name = "dept", columnDefinition = "varchar(100) comment '조직명'")
+  private String dept;
+
+  @Column(name = "name", columnDefinition = "varchar(100) comment '공급자 이름'")
   private String name;
 
-  @Column(name = "phone", nullable = false, length = 100)
+  @Column(name = "phone", columnDefinition = "varchar(100) comment '전화번호'")
   private String phone;
 
-  @Column(name = "addr", nullable = false, length = 500)
+  @Column(name = "addr", columnDefinition = "varchar(500) comment '주소'")
   private String addr;
 
-  @Column(name = "default_yn", nullable = false, length = 1)
+  @Column(name = "default_yn", columnDefinition = "varchar(1) comment '기본공급자 설정'")
   private String defaultYn;
 
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_supplier_fk"))
-  private Member member;
+  private Member member;  // 멤버
 
   public void setMember(Member member) {
     if (this.member != null) {

@@ -22,13 +22,13 @@ public abstract class CommonEntity implements Serializable {
 
   @Column(name = "in_date", updatable = false)
   @CreationTimestamp
-  private LocalDateTime inDate; // 생성일
+  private LocalDateTime inDate;
 
   @Column(name = "mod_date")
   @UpdateTimestamp
-  private LocalDateTime modDate; // 수정일
+  private LocalDateTime modDate;
 
   @Column(name = "del_date")
-  private LocalDateTime delDate; // 삭제일
+  private LocalDateTime delDate;
 
 }

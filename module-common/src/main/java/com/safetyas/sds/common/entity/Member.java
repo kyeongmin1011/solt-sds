@@ -6,15 +6,11 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
-import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -49,38 +45,28 @@ public class Member extends CommonEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "member_seq", nullable = false, length = 20)
-  private Long memberSeq;  // 멤버 시퀀스
+  private Long memberSeq;
 
-  @Column(name = "level", length = 10)
-  private Integer level;  // 멤버 레벨
+  @Column(name = "level", columnDefinition = "int(11) comment '멤버레벨'")
+  private Integer level;
 
-  @Column(name = "role", length = 100)
-  private String role;  // 멤버 롤
+  @Column(name = "role", columnDefinition = "varchar(100) comment '멤버롤'")
+  private String role;
 
-  @Column(name = "member_id", length = 50)
-  private String memberId;  // 아이디
+  @Column(name = "member_id", columnDefinition = "varchar(100) comment '멤버아이디'")
+  private String memberId;
 
-  @Column(name = "pwd")
-  private String pwd; // 패스워드
+  @Column(name = "pwd", columnDefinition = "varchar(255) comment '패스워드'")
+  private String pwd;
 
-  @Column(name = "token")
-  private String token; // 토큰정보
+  @Column(name = "token", columnDefinition = "varchar(255) comment '토큰정보'")
+  private String token;
 
-  @Column(name = "login_last")
-  private LocalDateTime loginLast;  // 마지막 로그인
+  @Column(name = "login_last", columnDefinition = "datetime comment '마지막 로그인'")
+  private LocalDateTime loginLast;
 
-  @Column(name = "login_count", length = 10)
-  private Integer loginCount;  // 로그인 횟수
-
-/*  @JsonManagedReference
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_info_seq", foreignKey = @ForeignKey(name = "member_info_seq_member_fk"))
-  private MemberInfo memberInfo;
-
-  @JsonManagedReference
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "admin_info_seq", foreignKey = @ForeignKey(name = "admin_info_seq_member_fk"))
-  private AdminInfo adminInfo;*/
+  @Column(name = "login_count", length = 10, columnDefinition = "datetime comment '로그인 횟수'")
+  private Integer loginCount;
 
   @OneToOne
   @JsonBackReference
@@ -92,9 +78,13 @@ public class Member extends CommonEntity implements Serializable {
 
   @JsonManagedReference
   @OneToMany(mappedBy = "member")
-  List<MemberSupplier> memberSupplierList = new ArrayList<>();
+  private List<MemberSupplier> memberSupplierList = new ArrayList<>();
 
   @JsonManagedReference
   @OneToMany(mappedBy = "member")
-  List<MemberBoard> memberBoardList = new ArrayList<>();
+  private List<MemberBoard> memberBoardList = new ArrayList<>();
+
+  @JsonManagedReference
+  @OneToMany(mappedBy = "member")
+  private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 }
