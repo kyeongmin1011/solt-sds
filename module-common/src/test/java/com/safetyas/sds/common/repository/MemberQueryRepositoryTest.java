@@ -1,25 +1,26 @@
 package com.safetyas.sds.common.repository;
 
-import static org.assertj.core.api.Assertions.*;
+import static org.assertj.core.api.Assertions.assertThat;
 
 import com.safetyas.sds.common.entity.Member;
 import java.util.List;
-
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
+import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit4.SpringRunner;
 
 @RunWith(SpringRunner.class)
-@DataJpaTest
-class MemberRepositoryTest {
+@SpringBootTest
+class MemberQueryRepositoryTest {
 
   @Autowired
   MemberRepository memberRepository;
+  @Autowired
+  MemberQueryRepository memberQueryRepository;
 
   @Test
-  void testMemberRepo(){
+  void testMemberQuery() {
     //given
     String id = "test1";
     Member member = Member.builder()
@@ -30,12 +31,11 @@ class MemberRepositoryTest {
     memberRepository.save(member);
 
     //when
-    List<Member> result = memberRepository.findAll();
+    List<Member> result = memberQueryRepository.findByMemberId("test1");
 
+    System.out.println(result.get(0).getMemberId());
     //then
-    assertThat(result.size()).isEqualTo(1);
     assertThat(result.get(0).getMemberId()).isEqualTo(member.getMemberId());
   }
-
 
 }
