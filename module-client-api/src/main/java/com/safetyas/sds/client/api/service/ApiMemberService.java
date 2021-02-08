@@ -1,7 +1,7 @@
 package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.common.entity.Member;
-import com.safetyas.sds.common.service.MemberService;
+import com.safetyas.sds.common.service.client.MemberService;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

@@ -50,19 +50,19 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @Column(name = "member_board_seq", nullable = false, length = 20)
   private Long memberBoardSeq;
 
-  @Column(name = "category", nullable = false, length = 100)
+  @Column(name = "category", nullable = false, columnDefinition = "varchar(100) comment '카테고리'")
   private String category;
 
-  @Column(name = "title", nullable = false, length = 250)
+  @Column(name = "title", nullable = false, columnDefinition = "varchar(500) comment '제목'")
   private String title;
 
-  @Column(name = "writer", nullable = false, length = 100)
+  @Column(name = "writer", nullable = false, columnDefinition = "varchar(100) comment '글쓴이'")
   private String writer;
 
-  @Column(name = "writer_email", nullable = false)
+  @Column(name = "writer_email", nullable = false, columnDefinition = "varchar(100) comment '글쓴이 이메일'")
   private String writerEmail;
 
-  @Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
+  @Column(name = "content", nullable = false, columnDefinition = "LONGTEXT comment '내용'")
   private String content;
 
   @Column(name = "view_count")
@@ -75,7 +75,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
 
   @JsonManagedReference
   @OneToMany(mappedBy = "memberBoard")
-  List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
+  private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 
   public void setMember(Member member) {
     if (this.member != null) {

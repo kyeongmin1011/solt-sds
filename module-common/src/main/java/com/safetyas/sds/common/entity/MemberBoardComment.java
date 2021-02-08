@@ -54,7 +54,7 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
   @Column(name = "writer", nullable = false, length = 100)
   private String writer;
 
-  @Column(name = "writer_email", nullable = false, length = 255)
+  @Column(name = "writer_email", nullable = false)
   private String writerEmail;
 
   @Column(name = "content", nullable = false, columnDefinition = "LONGTEXT")
@@ -63,6 +63,10 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
+  @JsonBackReference
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_board_comment_fk"))
+  private Member member;
 
   @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -41,19 +41,19 @@ public class AdminInfo extends CommonEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "admin_seq", nullable = false, length = 20)
-  private Long adminSeq;  // 시퀀스
+  private Long adminSeq;
 
-  @Column(name = "dept", length = 10)
-  private String dept;  // 부서
+  @Column(name = "dept", columnDefinition = "varchar(100) not null comment '부서'")
+  private String dept;
 
-  @Column(name = "position", length = 100)
-  private String position;  // 직급
+  @Column(name = "position", columnDefinition = "varchar(100) comment '직급'")
+  private String position;
 
-  @Column(name = "name", length = 100)
-  private String name; // 이름
+  @Column(name = "name", columnDefinition = "varchar(100) comment '이름'")
+  private String name;
 
-  @Column(name = "email", length = 100)
-  private String email; // 이메일
+  @Column(name = "email", columnDefinition = "varchar(100) comment '이메일'")
+  private String email;
 
   @JsonManagedReference
   @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)

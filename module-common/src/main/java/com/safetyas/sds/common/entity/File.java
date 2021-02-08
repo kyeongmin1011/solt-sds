@@ -23,7 +23,7 @@ public class File extends CommonEntity implements Serializable {
 
   @Builder
   public File(Long fileSeq, String relateTable, Long recordSeq, String type, String path,
-      String name, String size, String ext, String oriName, Long regUserSeq, Long modUserSeq,
+      String name, Integer size, String ext, String oriName, Long regUserSeq, Long modUserSeq,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.fileSeq = fileSeq;
@@ -44,33 +44,33 @@ public class File extends CommonEntity implements Serializable {
   @Column(name = "file_seq")
   private Long fileSeq;
 
-  @Column(name = "relate_table")
+  @Column(name = "relate_table", columnDefinition = "varchar(100) comment '관련 테이블'")
   private String relateTable;
 
-  @Column(name = "record_seq")
+  @Column(name = "record_seq", columnDefinition = "bigint(20) comment '관련 시퀀스'")
   private Long recordSeq;
 
-  @Column(name = "type")
+  @Column(name = "type", columnDefinition = "varchar(100) comment '파일 타입'")
   private String type;
 
-  @Column(name = "path")
+  @Column(name = "path", columnDefinition = "varchar(500) comment '파일 경로'")
   private String path;
 
-  @Column(name = "name")
+  @Column(name = "name", columnDefinition = "varchar(500) comment '파일 이름'")
   private String name;
 
-  @Column(name = "size")
-  private String size;
+  @Column(name = "size", columnDefinition = "int(11) comment '파일 사이즈'")
+  private Integer size;
 
-  @Column(name = "ext")
+  @Column(name = "ext", columnDefinition = "varchar(100) comment '파일 확장자'")
   private String ext;
 
-  @Column(name = "ori_name")
+  @Column(name = "ori_name", columnDefinition = "varchar(500) comment '오리지널 이름'")
   private String oriName;
 
-  @Column(name = "req_user_seq")
-  private Long regUserSeq; // 등록사용자
+  @Column(name = "req_user_seq", columnDefinition = "bigint(20) comment '등록 사용자'")
+  private Long regUserSeq;
 
-  @Column(name = "mod_user_seq")
-  private Long modUserSeq; // 수정사용자
+  @Column(name = "mod_user_seq", columnDefinition = "bigint(20) comment '수정사용자'")
+  private Long modUserSeq;
 }

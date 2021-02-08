@@ -21,7 +21,7 @@ public class ClientApplicationTests {
 
   @BeforeEach
   public void before() {
-    Member member = Member.builder().memberId("test11").companyName("test-company").build();
+    Member member = Member.builder().memberId("test11").build();
     em.persist(member);
 
     JPAQueryFactory query = new JPAQueryFactory(em);

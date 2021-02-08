@@ -6,7 +6,6 @@ import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ApiMemberService;
 import com.safetyas.sds.client.config.security.JwtTokenProvider;
 import com.safetyas.sds.common.entity.Member;
-import com.safetyas.sds.common.service.MemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;

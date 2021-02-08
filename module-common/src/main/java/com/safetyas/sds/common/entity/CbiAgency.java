@@ -42,10 +42,10 @@ public class CbiAgency extends CommonEntity implements Serializable {
   @Column(name = "cbi_agency_seq")
   private Long cbiAgencySeq;
 
-  @Column(name = "state")
+  @Column(name = "state", columnDefinition = "varchar(100) comment '상태'")
   private String state;
 
-  @Column(name = "note")
+  @Column(name = "note", columnDefinition = "varchar(255) comment '설명메모'")
   private String note;
 
   @JsonBackReference

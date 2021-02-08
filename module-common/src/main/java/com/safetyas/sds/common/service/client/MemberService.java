@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.service;
+package com.safetyas.sds.common.service.client;
 
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.repository.MemberRepository;
