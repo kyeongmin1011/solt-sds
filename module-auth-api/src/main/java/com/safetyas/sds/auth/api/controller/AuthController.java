@@ -71,7 +71,8 @@ public class AuthController {
     return responseService.getSingleResult(new AuthDTO(token));
   }
 
-  @GetMapping(value = "/refreshtoken")
+  @ApiOperation(value = "refresh token 으로 토큰발급")
+  @GetMapping(value = "/refresh-token")
   public CommonResult getRefreshToken(HttpServletRequest request) {
     DefaultClaims claims = (DefaultClaims) request.getAttribute("claims");
 
