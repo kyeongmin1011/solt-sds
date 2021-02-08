@@ -1,12 +1,13 @@
 package com.safetyas.sds.auth.config.security;
 
-import com.safetyas.sds.common.entity.Member;
+import com.safetyas.sds.auth.api.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import java.util.Base64;
 import java.util.Date;
+import java.util.Map;
 import javax.annotation.PostConstruct;
 import javax.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
@@ -33,21 +34,21 @@ public class JwtTokenProvider {
   /**
    * Jwt 토큰 생성
    *
-   * @param memberId String
-   * @param role String
+   * @param userDetails UserDetails
+   *
    * @return 토큰
    */
-  public String createToken(String memberId, String role) {
-    Claims claims = Jwts.claims().setSubject(memberId);
-    claims.put("role", role);
+  public String createToken(CustomUserDetails userDetails) {
+
+    Claims claims = Jwts.claims().setSubject(userDetails.getMemberId());
+    claims.put("role", userDetails.getRole());
     // TODO: 토큰 claims 에 필요한 CustomUserDetail 값 더 넣어줌.
-    Date now = new Date();
     // 24시간 유효
-    long tokenValidMilisecond = 1000L * 60 * 60 * 24;
+    long tokenValidMilisecond = 1000L * 60 * 60 * 2;
     return Jwts.builder()
         .setClaims(claims) // 데이터
-        .setIssuedAt(now) // 발행일자
-        .setExpiration(new Date(now.getTime() + tokenValidMilisecond)) // set Expire Time
+        .setIssuedAt(new Date(System.currentTimeMillis())) // 발행일자
+        .setExpiration(new Date(System.currentTimeMillis() + tokenValidMilisecond)) // set Expire Time
         .signWith(SignatureAlgorithm.HS256, secretKey) // 암호화 알고리즘, secret값 세팅
         .compact();
   }
@@ -57,9 +58,16 @@ public class JwtTokenProvider {
    *
    * @return refresh token
    */
-/*  public String createRefreshToken() {
-
-  }*/
+  public String createRefreshToken(Map<String, Object> claims, String subject) {
+    long refreshValidMilisecond = 1000L * 60 * 60 * 24;
+    return Jwts.builder()
+        .setClaims(claims)
+        .setSubject(subject)
+        .setIssuedAt(new Date(System.currentTimeMillis()))
+        .setExpiration(new Date(System.currentTimeMillis() + refreshValidMilisecond))
+        .signWith(SignatureAlgorithm.HS512, secretKey)
+        .compact();
+  }
 
   /**
    * 토큰으로 인증 정보를 조회

@@ -1,6 +1,6 @@
 package com.safetyas.sds.auth.config.security;
 
-import com.safetyas.sds.common.entity.Member;
+import com.safetyas.sds.auth.api.entity.Member;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Set;

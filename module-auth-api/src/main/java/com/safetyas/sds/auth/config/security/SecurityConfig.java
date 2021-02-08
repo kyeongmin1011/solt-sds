@@ -38,17 +38,14 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS) // jwt token으로 인증할것이므로 세션필요없으므로 생성안함.
         .and()
         .authorizeRequests() // 다음 리퀘스트에 대한 사용권한 체크
-        .antMatchers("/*/sign/**", "/*/**").permitAll() // 가입 및 인증 주소는 누구나 접근가능
-        .antMatchers(HttpMethod.POST, "/exception/**", "/*/sign/**", "/*/**" ).permitAll() // 가입 및 인증 POST요청 리소스는 누구나 접근가능
-        .antMatchers(HttpMethod.GET, "/exception/**","/actuator/health","/*/**").permitAll() // 다음의 GET요청 리소스는 누구나 접근가능
-        .antMatchers(HttpMethod.PUT, "/*/**").permitAll()
-        .anyRequest().hasRole("USER") // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
+        .antMatchers( "/exception/**", "/authenticate", "/register" ).permitAll() // 가입 및 인증 요청 누구나 접근가능
+        .anyRequest().hasAnyRole("USER", "ADMIN") // 그외 나머지 요청은 모두 인증된 회원만 접근 가능
         .and()
         .exceptionHandling().accessDeniedHandler(new CustomAccessDeniedHandler())
         .and()
         .exceptionHandling().authenticationEntryPoint(new CustomAuthenticationEntryPoint())
         .and()
-        .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣어라.
+        .addFilterBefore(new JwtAuthenticationFilter(jwtTokenProvider), UsernamePasswordAuthenticationFilter.class); // jwt token 필터를 id/password 인증 필터 전에 넣음.
 
   }
 
