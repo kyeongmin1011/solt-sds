@@ -2,7 +2,7 @@ package com.safetyas.sds.client.api.controller;
 
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
-import com.safetyas.sds.client.api.service.ApiHazardService;
+import com.safetyas.sds.client.api.service.ClientHazardService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RestController;
 public class HazardIdentificationController {
 
   private final ResponseService responseService;
-  private final ApiHazardService apiHazardService;
+  private final ClientHazardService clientHazardService;
 
   @ApiOperation(value = "유해물질 구분값", notes = "카스번호에 따른 유해물질 구분값을 가져온다")
   @PostMapping(value = "/get-info")

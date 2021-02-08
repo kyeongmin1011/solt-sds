@@ -1,4 +1,4 @@
-package com.safetyas.sds.client.config.security;
+package com.safetyas.sds.auth.config.security;
 
 import com.safetyas.sds.common.entity.Member;
 import io.jsonwebtoken.Claims;

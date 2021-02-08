@@ -1,4 +1,4 @@
-package com.safetyas.sds.client.config.security;
+package com.safetyas.sds.auth.config.security;
 
 import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
