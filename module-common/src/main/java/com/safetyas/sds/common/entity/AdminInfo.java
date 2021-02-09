@@ -55,7 +55,6 @@ public class AdminInfo extends CommonEntity implements Serializable {
   @Column(name = "email", columnDefinition = "varchar(100) comment '이메일'")
   private String email;
 
-  @JsonManagedReference
   @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_admin_info_fk"))
   private Member member;

@@ -69,22 +69,17 @@ public class Member extends CommonEntity implements Serializable {
   private Integer loginCount;
 
   @OneToOne
-  @JsonBackReference
   private MemberInfo memberInfo; // 고객 정보
 
   @OneToOne
-  @JsonBackReference
   private AdminInfo adminInfo; // 관리자 정보
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "member")
   private List<MemberSupplier> memberSupplierList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "member")
   private List<MemberBoard> memberBoardList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "member")
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 }

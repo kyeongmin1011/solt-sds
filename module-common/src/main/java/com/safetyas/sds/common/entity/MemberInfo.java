@@ -96,7 +96,6 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @Column(name = "member_valid_finish", columnDefinition = "datetime comment '계약종료일'")
   private LocalDateTime memberValidFinish; // 계약종료일
 
-  @JsonManagedReference
   @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_info_fk"))
   private Member member;

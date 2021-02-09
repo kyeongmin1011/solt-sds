@@ -1,7 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.safetyas.sds.common.model.MemberBoardDto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -68,12 +67,10 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_board_fk"))
   private Member member;
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "memberBoard")
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 
@@ -85,4 +82,10 @@ public class MemberBoard extends CommonEntity implements Serializable {
     member.getMemberBoardList().add(this);
   }
 
+  public void updateMemberBoard(MemberBoardDto memberBoardDto){
+    this.category = memberBoardDto.getCategory();
+    this.title = memberBoardDto.getTitle();
+    this.writer = memberBoardDto.getWriterEmail();
+    this.content = memberBoardDto.getContent();
+  }
 }

@@ -39,6 +39,7 @@ dependencies {
 
     implementation 'com.google.code.gson:gson'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
+    compile 'org.modelmapper:modelmapper:0.7.8'
 }
 
 //querydsl 추가

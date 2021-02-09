@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.model.FaqDto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -22,7 +23,8 @@ import lombok.NoArgsConstructor;
 public class Faq extends CommonEntity implements Serializable {
 
   @Builder
-  public Faq(Long faqSeq, String category, String title, String content, Integer viewCount, String writerName,
+  public Faq(Long faqSeq, String category, String title, String content, Integer viewCount,
+      String writerName,
       Long memberSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.faqSeq = faqSeq;
@@ -56,4 +58,12 @@ public class Faq extends CommonEntity implements Serializable {
 
   @Column(name = "member_seq", columnDefinition = "bigint(100) comment '입력자 멤버 시퀀스'")
   private Long memberSeq; // 입력자 멤버 시퀀스
+
+  public void updateFaq(FaqDto faqDto) {
+    this.category = faqDto.getCategory();
+    this.title = faqDto.getTitle();
+    this.content = faqDto.getContent();
+    this.writerName = faqDto.getWriterName();
+    this.memberSeq = faqDto.getMemberSeq();
+  }
 }

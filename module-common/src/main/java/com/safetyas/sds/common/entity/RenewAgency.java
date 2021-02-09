@@ -48,7 +48,6 @@ public class RenewAgency extends CommonEntity implements Serializable {
   @Column(name = "note")
   private String note;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_renew_agency_fk"))
   private Product product;

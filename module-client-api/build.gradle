@@ -40,7 +40,6 @@ dependencies {
     implementation 'io.springfox:springfox-swagger-ui:2.8.0'
     compile 'com.fasterxml.jackson.core:jackson-annotations:2.9.8'
     compile 'com.sun.mail:javax.mail:1.6.2'
-    compile 'org.modelmapper:modelmapper:0.7.8'
     compile 'org.mariadb.jdbc:mariadb-java-client:2.4.4'
     compile 'com.openhtmltopdf:openhtmltopdf-core:1.0.3'
     compile 'com.openhtmltopdf:openhtmltopdf-pdfbox:1.0.3'

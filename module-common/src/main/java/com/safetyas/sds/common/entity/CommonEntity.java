@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
+import jdk.vm.ci.meta.Local;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -30,5 +31,9 @@ public abstract class CommonEntity implements Serializable {
 
   @Column(name = "del_date")
   private LocalDateTime delDate;
+
+  public void updateDelDate(){
+    this.delDate = LocalDateTime.now();
+  }
 
 }

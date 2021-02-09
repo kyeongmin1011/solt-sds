@@ -109,27 +109,21 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<CbiAgency> cbiAgencyList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<OrAgency> orAgencyList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<TranslationAgency> translationAgencyList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<RevisionAgency> revisionAgencyList = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<SubmissionAgency> submissionAgencyList  = new ArrayList<>();
 
-  @JsonManagedReference
   @OneToMany(mappedBy = "product")
   private List<RenewAgency> renewAgencyList = new ArrayList<>();
 }
