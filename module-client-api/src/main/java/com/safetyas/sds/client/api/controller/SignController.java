@@ -41,7 +41,6 @@ public class SignController {
   public CommonResult signIn(@RequestBody MemberInfoRequest memberInfoRequest, final MultipartHttpServletRequest multiRequest) {
     MultipartFile file = multiRequest.getFile("companyCertificate");
     clientMemberService.saveJoinMember(memberInfoRequest, file);
-    // TODO: 사업자 등록증 파일 저장 처리
 
     return responseService.getSuccessResult();
   }
