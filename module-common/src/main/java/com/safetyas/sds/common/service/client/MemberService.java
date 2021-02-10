@@ -17,4 +17,8 @@ public class MemberService {
     return memberRepository.findByMemberId(memberId);
   }
 
+  public long saveMember(Member member) {
+    Member savedMember = memberRepository.save(member);
+    return savedMember.getMemberSeq();
+  }
 }

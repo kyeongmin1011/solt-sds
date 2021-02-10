@@ -30,7 +30,7 @@ public class Member extends CommonEntity implements Serializable {
   @Builder
   public Member(Long memberSeq, Integer level, String role, String memberId, String pwd, String token,
       LocalDateTime loginLast, Integer loginCount, LocalDateTime inDate,
-      LocalDateTime modDate, LocalDateTime delDate) {
+      LocalDateTime modDate, LocalDateTime delDate, MemberInfo memberInfo, AdminInfo adminInfo) {
     super(inDate, modDate, delDate);
     this.memberSeq = memberSeq;
     this.level = level;
@@ -40,6 +40,8 @@ public class Member extends CommonEntity implements Serializable {
     this.token = token;
     this.loginLast = loginLast;
     this.loginCount = loginCount;
+    this.memberInfo = memberInfo;
+    this.adminInfo = adminInfo;
   }
 
   @Id

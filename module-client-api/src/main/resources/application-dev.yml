@@ -37,6 +37,8 @@ spring:
     enabled: true
     suffix: .html
     mode: HTML
+  file:
+    path: C:\\PROJECT\\solt-sds\\upload\\
 
 logging.level:
   org.hibernate.SQL: info
