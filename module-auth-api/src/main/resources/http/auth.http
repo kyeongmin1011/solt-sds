@@ -1,0 +1,25 @@
+### 로그인 인증 후 token 발급
+POST http://localhost:8180/auth/authenticate
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username" : "test11",
+  "password" : "pwd11"
+}
+
+### 고객 회원 저장
+POST http://localhost:8180/auth/register
+Content-Type: application/json
+Accept: application/json
+
+{
+  "username" : "test11",
+  "password" : "pwd11"
+}
+
+
+### refresh 토큰 발급
+POST http://localhost:8180/auth/refresh-token
+Content-Type: application/json
+Accept: application/json

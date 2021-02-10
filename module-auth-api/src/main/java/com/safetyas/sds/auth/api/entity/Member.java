@@ -2,6 +2,7 @@ package com.safetyas.sds.auth.api.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.safetyas.sds.auth.api.dto.MemberSummary;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -67,5 +68,12 @@ public class Member extends CommonEntity implements Serializable {
 
   @Column(name = "login_count", length = 10, columnDefinition = "datetime comment '로그인 횟수'")
   private Integer loginCount;
+
+  public MemberSummary toMemberSummary() {
+    MemberSummary memberSummary = new MemberSummary();
+    memberSummary.setMemberId(this.memberId);
+    memberSummary.setRole(this.role);
+    return memberSummary;
+  }
 
 }

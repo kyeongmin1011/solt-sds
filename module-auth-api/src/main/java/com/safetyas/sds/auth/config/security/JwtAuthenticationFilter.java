@@ -41,7 +41,7 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
       String isRefreshToken = req.getHeader("isRefreshToken");
       String requestURL =  req.getRequestURL().toString();
       // allow for Refresh Token creation if following conditions are true.
-      if (isRefreshToken != null && isRefreshToken.equals("true") && requestURL.contains("refreshtoken")) {
+      if (isRefreshToken != null && isRefreshToken.equals("true") && requestURL.contains("refresh-token")) {
         allowForRefreshToken(ex, req);
       } else
         request.setAttribute("exception", ex);
