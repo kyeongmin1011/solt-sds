@@ -2,13 +2,15 @@ package com.safetyas.sds.common.service.admin;
 
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberBoard;
+import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import com.safetyas.sds.common.repository.MemberBoardRepository;
 import com.safetyas.sds.common.repository.MemberRepository;
 import java.util.NoSuchElementException;
-import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -28,16 +30,18 @@ public class MemberBoardService {
 
   @Transactional
   public void insertMemberBoard(MemberBoard memberBoard) {
-
     Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
+    memberBoard.updateMember(member);
     memberBoardRepository.save(memberBoard);
   }
 
   @Transactional
   public void updateMemberBoard(Long id, MemberBoardDto memberBoardDto) {
+
+    Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
     MemberBoard memberBoard = memberBoardRepository.findById(id)
         .orElseThrow(NoSuchElementException::new);
-    memberBoard.updateMemberBoard(memberBoardDto);
+    memberBoard.updateMemberBoard(memberBoardDto, member);
     memberBoardRepository.save(memberBoard);
   }
 
@@ -47,5 +51,10 @@ public class MemberBoardService {
         .orElseThrow(NoSuchElementException::new);
     memberBoard.updateDelDate();
     memberBoardRepository.save(memberBoard);
+  }
+
+  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+      Pageable pageable) {
+    return memberBoardRepository.searchMemberBoard(condition, pageable);
   }
 }

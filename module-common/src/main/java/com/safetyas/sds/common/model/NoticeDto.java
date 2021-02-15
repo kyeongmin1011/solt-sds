@@ -1,6 +1,7 @@
 package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.Notice;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -14,7 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class NoticeDto {
+public class NoticeDto implements Serializable {
+
+  private static final long serialVersionUID = 1886349326519647570L;
 
   @Builder
   public NoticeDto(Long noticeSeq, String category, String title, String content, Integer viewCount,
@@ -39,7 +42,7 @@ public class NoticeDto {
   private LocalDateTime delDate;
 
   public Notice toEntity() {
-    Notice notice = Notice.builder()
+    return Notice.builder()
         .category(this.category)
         .title(this.title)
         .content(this.content)
@@ -47,6 +50,5 @@ public class NoticeDto {
         .memberSeq(this.memberSeq)
         .delDate(this.delDate)
         .build();
-    return notice;
   }
 }

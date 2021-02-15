@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ApiNoticeService {
+public class AdminNoticeService {
 
   private final NoticeService noticeService;
 
@@ -16,7 +16,7 @@ public class ApiNoticeService {
   }
 
   public void insertNotice(NoticeDto noticeDto) {
-    noticeService.insertNotice(noticeDto);
+    noticeService.insertNotice(noticeDto.toEntity());
   }
 
   public void updateNotice(Long id, NoticeDto noticeDto) {

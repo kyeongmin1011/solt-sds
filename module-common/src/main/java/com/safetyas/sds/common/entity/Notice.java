@@ -59,6 +59,10 @@ public class Notice extends CommonEntity implements Serializable {
   @Column(name = "member_seq")
   private Long memberSeq; // 입력자 멤버 시퀀스
 
+  public void updateMember(Member member) {
+    this.memberSeq = member.getMemberSeq();
+  }
+
   public void updateNotice(NoticeDto noticeDto) {
     this.category = noticeDto.getCategory();
     this.title = noticeDto.getTitle();
@@ -66,7 +70,8 @@ public class Notice extends CommonEntity implements Serializable {
     this.writerName = noticeDto.getWriterName();
     this.memberSeq = noticeDto.getMemberSeq();
   }
-  public void updateDelDate(){
+
+  public void updateDelDate() {
     super.updateDelDate();
   }
 }

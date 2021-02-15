@@ -1,6 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;

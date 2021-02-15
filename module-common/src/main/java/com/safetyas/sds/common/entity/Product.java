@@ -1,6 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;

@@ -3,8 +3,8 @@ package com.safetyas.sds.admin.api.controller;
 import com.safetyas.sds.admin.api.response.CommonResult;
 import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.response.SingleResult;
-import com.safetyas.sds.admin.api.service.ApiFaqService;
-import com.safetyas.sds.admin.api.service.ApiNoticeService;
+import com.safetyas.sds.admin.api.service.AdminFaqService;
+import com.safetyas.sds.admin.api.service.AdminNoticeService;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.model.NoticeDto;
 import io.swagger.annotations.Api;
@@ -28,8 +28,8 @@ import org.springframework.web.bind.annotation.RestController;
 public class InformController {
 
   private final ResponseService responseService;
-  private final ApiNoticeService noticeService;
-  private final ApiFaqService faqService;
+  private final AdminNoticeService noticeService;
+  private final AdminFaqService faqService;
 
   @GetMapping("/notice")
   @ApiOperation("공지 게시판 목록 조회")
@@ -66,7 +66,7 @@ public class InformController {
   }
 
   @GetMapping("/faq")
-  @ApiOperation("자주 묻는 조회 목록")
+  @ApiOperation("자주 묻는 질문 목록 조회")
   public SingleResult<?> selectFaqList() {
     return null;
   }
@@ -77,7 +77,7 @@ public class InformController {
     return responseService.getSingleResult(faqService.selectFaq(id));
   }
 
-  @PostMapping("/faq/{id}")
+  @PostMapping("/faq")
   @ApiOperation("자주 묻는 질문 작성")
   public CommonResult insertFaq(@RequestBody FaqDto faqDto) {
     faqService.insertFaq(faqDto);

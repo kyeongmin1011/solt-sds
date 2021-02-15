@@ -1,6 +1,7 @@
 package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.Faq;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +11,9 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FaqDto {
+public class FaqDto implements Serializable {
+
+  private static final long serialVersionUID = 921022290655154681L;
 
   private Long faqSeq;
   private String category;
@@ -21,13 +24,12 @@ public class FaqDto {
   private Long memberSeq; // 입력자 멤버 시퀀스
 
   public Faq toEntity() {
-    Faq faq = Faq.builder()
+    return Faq.builder()
         .category(this.category)
         .title(this.title)
         .content(this.content)
         .writerName(writerName)
         .memberSeq(memberSeq)
         .build();
-    return faq;
   }
 }

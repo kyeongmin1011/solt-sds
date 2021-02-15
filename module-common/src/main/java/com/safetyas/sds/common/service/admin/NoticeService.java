@@ -1,9 +1,10 @@
 package com.safetyas.sds.common.service.admin;
 
+import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.Notice;
 import com.safetyas.sds.common.model.NoticeDto;
+import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.admin.NoticeRepository;
-import java.time.LocalDateTime;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -16,6 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class NoticeService {
 
+  private final MemberRepository memberRepository;
   private final NoticeRepository noticeRepository;
   private final ModelMapper modelMapper;
 
@@ -26,8 +28,10 @@ public class NoticeService {
   }
 
   @Transactional
-  public void insertNotice(NoticeDto noticeDto) {
-    noticeRepository.save(noticeDto.toEntity());
+  public void insertNotice(Notice notice) {
+    Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
+    notice.updateMember(member);
+    noticeRepository.save(notice);
   }
 
   @Transactional

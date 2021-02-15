@@ -1,7 +1,9 @@
 package com.safetyas.sds.common.service.admin;
 
 import com.safetyas.sds.common.entity.Faq;
+import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.model.FaqDto;
+import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.admin.FaqRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
@@ -13,6 +15,7 @@ import org.springframework.transaction.annotation.Transactional;
 @RequiredArgsConstructor
 public class FaqService {
 
+  private final MemberRepository memberRepository;
   private final FaqRepository faqRepository;
   private final ModelMapper modelMapper;
 
@@ -22,15 +25,17 @@ public class FaqService {
   }
 
   @Transactional
-  public void updateFaq(Long id, FaqDto faqDto) {
-    Faq faq = faqRepository.findById(id).orElseThrow(NoSuchElementException::new);
-    faq.updateFaq(faqDto);
+  public void insertFaq(Faq faq) {
+    Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
+    faq.updateMember(member);
     faqRepository.save(faq);
   }
 
   @Transactional
-  public void insertFaq(FaqDto faqDto) {
-    faqRepository.save(faqDto.toEntity());
+  public void updateFaq(Long id, FaqDto faqDto) {
+    Faq faq = faqRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    faq.updateFaq(faqDto);
+    faqRepository.save(faq);
   }
 
   @Transactional

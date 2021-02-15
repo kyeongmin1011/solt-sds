@@ -59,6 +59,10 @@ public class Faq extends CommonEntity implements Serializable {
   @Column(name = "member_seq", columnDefinition = "bigint(100) comment '입력자 멤버 시퀀스'")
   private Long memberSeq; // 입력자 멤버 시퀀스
 
+  public void updateMember(Member member) {
+    this.memberSeq = member.getMemberSeq();
+  }
+
   public void updateFaq(FaqDto faqDto) {
     this.category = faqDto.getCategory();
     this.title = faqDto.getTitle();

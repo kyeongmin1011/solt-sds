@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ApiMemberService {
+public class AdminMemberService {
 
   private final MemberService memberService;
 

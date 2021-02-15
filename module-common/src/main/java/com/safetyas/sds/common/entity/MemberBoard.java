@@ -31,15 +31,14 @@ import lombok.NoArgsConstructor;
 public class MemberBoard extends CommonEntity implements Serializable {
 
   @Builder
-  public MemberBoard(Member member, Long memberBoardSeq, String category, String title,
-      String writer, String writerEmail, String content, LocalDateTime inDate, Integer viewCount,
+  public MemberBoard(Long memberBoardSeq, String category, String title,
+      String writerName, String writerEmail, String content, LocalDateTime inDate, Integer viewCount,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
-    setMember(member);
     this.memberBoardSeq = memberBoardSeq;
     this.category = category;
     this.title = title;
-    this.writer = writer;
+    this.writerName = writerName;
     this.writerEmail = writerEmail;
     this.content = content;
   }
@@ -55,8 +54,8 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @Column(name = "title", nullable = false, columnDefinition = "varchar(500) comment '제목'")
   private String title;
 
-  @Column(name = "writer", nullable = false, columnDefinition = "varchar(100) comment '글쓴이'")
-  private String writer;
+  @Column(name = "writer_name", nullable = false, columnDefinition = "varchar(100) comment '글쓴이'")
+  private String writerName;
 
   @Column(name = "writer_email", nullable = false, columnDefinition = "varchar(100) comment '글쓴이 이메일'")
   private String writerEmail;
@@ -74,7 +73,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @OneToMany(mappedBy = "memberBoard")
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 
-  public void setMember(Member member) {
+  public void updateMember(Member member) {
     if (this.member != null) {
       this.member.getMemberBoardList().remove(this);
     }
@@ -82,10 +81,12 @@ public class MemberBoard extends CommonEntity implements Serializable {
     member.getMemberBoardList().add(this);
   }
 
-  public void updateMemberBoard(MemberBoardDto memberBoardDto){
+  public void updateMemberBoard(MemberBoardDto memberBoardDto, Member member){
+    updateMember(member);
     this.category = memberBoardDto.getCategory();
     this.title = memberBoardDto.getTitle();
-    this.writer = memberBoardDto.getWriterEmail();
+    this.writerName = memberBoardDto.getWriterName();
+    this.writerEmail = memberBoardDto.getWriterEmail();
     this.content = memberBoardDto.getContent();
   }
 }

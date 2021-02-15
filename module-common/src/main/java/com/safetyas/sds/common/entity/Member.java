@@ -1,13 +1,12 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -28,7 +27,8 @@ import lombok.NoArgsConstructor;
 public class Member extends CommonEntity implements Serializable {
 
   @Builder
-  public Member(Long memberSeq, Integer level, String role, String memberId, String pwd, String token,
+  public Member(Long memberSeq, Integer level, String role, String memberId, String pwd,
+      String token,
       LocalDateTime loginLast, Integer loginCount, LocalDateTime inDate,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
@@ -74,12 +74,12 @@ public class Member extends CommonEntity implements Serializable {
   @OneToOne
   private AdminInfo adminInfo; // 관리자 정보
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberSupplier> memberSupplierList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoard> memberBoardList = new ArrayList<>();
 
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 }

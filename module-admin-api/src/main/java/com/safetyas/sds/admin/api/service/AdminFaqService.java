@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 @Service
 @RequiredArgsConstructor
-public class ApiFaqService {
+public class AdminFaqService {
 
   private final FaqService faqService;
 
@@ -15,12 +15,12 @@ public class ApiFaqService {
     return faqService.selectFaq(id);
   }
 
-  public void updateFaq(Long id,FaqDto faqDto) {
-    faqService.updateFaq(id,faqDto);
+  public void insertFaq(FaqDto faqDto) {
+    faqService.insertFaq(faqDto.toEntity());
   }
 
-  public void insertFaq(FaqDto faqDto) {
-    faqService.insertFaq(faqDto);
+  public void updateFaq(Long id,FaqDto faqDto) {
+    faqService.updateFaq(id,faqDto);
   }
 
   public void deleteFaq(Long id) {
