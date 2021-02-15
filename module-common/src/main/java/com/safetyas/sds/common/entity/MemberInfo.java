@@ -2,6 +2,7 @@ package com.safetyas.sds.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.safetyas.sds.common.dto.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -35,6 +36,22 @@ public class MemberInfo extends CommonEntity implements Serializable {
       String msdsTermsYn, String privateTermsYn,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
+    this.memberInfoSeq  = memberInfoSeq;
+    this.companyName = companyName;
+    this.companyNumber = companyNumber;
+    this.companyAddr1 = companyAddr2;
+    this.managerDept = managerDept;
+    this.managerPosition = managerPosition;
+    this.managerName = managerName;
+    this.managerEmail1 = managerEmail1;
+    this.managerEmail2 = managerEmail2;
+    this.phone1 = phone1;
+    this.phone2 = phone2;
+    this.newsletterYn = newsletterYn;
+    this.joinRoute = joinRoute;
+    this.consultingYn = consultingYn;
+    this.msdsTermsYn = msdsTermsYn;
+    this.privateTermsYn = privateTermsYn;
   }
 
   @Id
@@ -101,4 +118,21 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_info_fk"))
   private Member member;
 
+  public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {
+    this.companyName = memberInfoDTO.getCompanyName();
+    this.companyNumber = memberInfoDTO.getCompanyNumber();
+    this.companyAddr1 = memberInfoDTO.getAddr1();
+    this.companyAddr2 = memberInfoDTO.getAddr2();
+    this.managerDept = memberInfoDTO.getManagerDept();
+    this.managerPosition = memberInfoDTO.getManagerPosition();
+    this.managerName = memberInfoDTO.getManagerName();
+    this.managerEmail1 = memberInfoDTO.getManagerEmail();
+    this.phone1 = memberInfoDTO.getPhone1();
+    this.phone2 = memberInfoDTO.getPhone2();
+    this.newsletterYn = memberInfoDTO.getNewsletterYn();
+    this.joinRoute = memberInfoDTO.getJoinRoute();
+    this.consultingYn = memberInfoDTO.getConsultingYn();
+    this.msdsTermsYn = memberInfoDTO.getMsdsTermsYn();
+    this.privateTermsYn = memberInfoDTO.getPrivateTermsYn();
+  }
 }

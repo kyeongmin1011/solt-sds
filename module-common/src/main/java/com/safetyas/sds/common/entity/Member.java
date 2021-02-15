@@ -2,6 +2,7 @@ package com.safetyas.sds.common.entity;
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
 import com.fasterxml.jackson.annotation.JsonManagedReference;
+import com.safetyas.sds.common.dto.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -89,4 +90,8 @@ public class Member extends CommonEntity implements Serializable {
   @JsonManagedReference
   @OneToMany(mappedBy = "member")
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
+
+  public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {
+    this.memberInfo.updateMemberInfo(memberInfoDTO);
+  }
 }

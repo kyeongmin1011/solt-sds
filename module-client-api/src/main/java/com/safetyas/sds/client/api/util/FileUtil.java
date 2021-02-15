@@ -3,6 +3,7 @@ package com.safetyas.sds.client.api.util;
 import com.safetyas.sds.common.dto.FileDTO;
 import java.io.File;
 import java.io.IOException;
+import java.nio.file.NoSuchFileException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
 import java.util.Date;
@@ -86,5 +87,17 @@ public class FileUtil {
     returnValue = returnValue.replaceAll("\\.\\.\\\\", ""); // ..\
 
     return returnValue;
+  }
+
+  public boolean deleteFile(String filePath, String name) {
+    boolean flag = false;
+
+    String path = filePath + File.separator + name;
+    File file = new File(path);
+    if(file.exists()) {
+      flag = file.delete();
+    }
+
+    return flag;
   }
 }

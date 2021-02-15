@@ -26,7 +26,10 @@ public class HazardIdentification {
   @Column(name = "cas", columnDefinition = "varchar(50) comment '카스번호'")
   private String cas;
 
-  @Column(name = "identification", columnDefinition = "varchar(100) comment '분류값'")
-  private String identification;
+  @Column(name = "cause", columnDefinition = "varchar(500) comment '사유'")
+  private String cause;
+
+  @Column(name = "refer", columnDefinition = "varchar(500) comment '참고사항'")
+  private String refer;
 
 }

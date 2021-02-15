@@ -3,12 +3,14 @@ package com.safetyas.sds.client.api.service;
 import com.safetyas.sds.client.api.request.MemberInfoRequest;
 import com.safetyas.sds.client.api.util.FileUtil;
 import com.safetyas.sds.common.dto.FileDTO;
+import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberInfo;
 import com.safetyas.sds.common.service.client.FileService;
 import com.safetyas.sds.common.service.client.MemberService;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -30,13 +32,13 @@ public class ClientMemberService {
 
   /**
    * 회원가입 멤버
-   * @param memberInfoRequest
-   * @param file
+   * @param memberInfoRequest MemberInfoRequest
+   * @param file MultipartFile
    */
   public void saveJoinMember(MemberInfoRequest memberInfoRequest, MultipartFile file) {
     long memberSeq = saveMember(memberInfoRequest);
     if (file != null) {
-      Map<String, Object> info = new HashMap<String, Object>();
+      Map<String, Object> info = new HashMap<>();
       info.put("path", "companyCertificate");
       info.put("table", "sds_member");
       info.put("recordSeq", memberSeq);
@@ -53,7 +55,7 @@ public class ClientMemberService {
 
   /**
    * 멤버 저장
-   * @param memberInfoRequest
+   * @param memberInfoRequest MemberInfoRequest
    */
   public long saveMember(MemberInfoRequest memberInfoRequest) {
     MemberInfo memberInfo = MemberInfo.builder()
@@ -83,5 +85,35 @@ public class ClientMemberService {
         .memberInfo(memberInfo)
         .build();
     return memberService.saveMember(member);
+  }
+
+  public void updateMemberInfo(MemberInfoRequest memberInfoRequest, MultipartFile file) {
+    Member member = memberService.findByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
+        NoSuchElementException::new);
+    member.updateMemberInfo(memberInfoRequest.toMemberInfoDTO());
+    memberService.saveMember(member);
+
+    if (file != null) {
+      FileDTO fileDTO = FileDTO.builder()
+          .relateTable("sds_member")
+          .recordSeq(member.getMemberSeq())
+          .type("companyCertificate")
+          .build();
+      File preFile = fileService.selectCompanyCertificate(fileDTO);
+      fileUtil.deleteFile(preFile.getPath(), preFile.getName());
+
+      Map<String, Object> info = new HashMap<>();
+      info.put("path", "companyCertificate");
+      info.put("table", "sds_member");
+      info.put("recordSeq", member.getMemberSeq());
+      info.put("type", "companyCertificate"); //파일(문서 등) : ATTACH , 이미지 : IMAGE
+      info.put("regUserSeq", memberInfoRequest.getMemberSeq());
+      // 첨부파일 등록
+      FileDTO companyFile = fileUtil.parseFile(file, info);
+
+      if (null != companyFile) {
+        fileService.saveFile(companyFile);
+      }
+    }
   }
 }

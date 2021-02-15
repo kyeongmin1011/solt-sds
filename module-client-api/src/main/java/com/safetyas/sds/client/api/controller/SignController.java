@@ -29,7 +29,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 public class SignController {
 
   private final ResponseService responseService;
-  private final PasswordEncoder passwordEncoder;
   private final ClientMemberService clientMemberService;
 
 
