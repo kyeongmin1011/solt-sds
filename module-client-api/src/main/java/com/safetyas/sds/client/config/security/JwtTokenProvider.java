@@ -1,5 +1,6 @@
 package com.safetyas.sds.client.config.security;
 
+import com.safetyas.sds.common.entity.Member;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jws;
 import io.jsonwebtoken.Jwts;
@@ -52,6 +53,15 @@ public class JwtTokenProvider {
   }
 
   /**
+   * JWT refresh 토큰 생성
+   *
+   * @return refresh token
+   */
+/*  public String createRefreshToken() {
+
+  }*/
+
+  /**
    * 토큰으로 인증 정보를 조회
    *
    * @param token 토큰
@@ -70,11 +80,10 @@ public class JwtTokenProvider {
    */
   public Authentication getTokenAuthentication(String token) {
     String memberId = getMemberId(token);
-    /*Member member = Member.builder().useKey(memberId).role("USER").build();
+    Member member = Member.builder().memberId(memberId).role("USER").build();
     UserDetails user = new CustomUserDetails(member);
-    return new UsernamePasswordAuthenticationToken(user,"USER", user.getAuthorities());*/
+    return new UsernamePasswordAuthenticationToken(user,"USER", user.getAuthorities());
     //TODO: 멤버 정보 토큰 반환
-    return null;
   }
 
   /**

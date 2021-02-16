@@ -1,6 +1,6 @@
 package com.safetyas.sds.client.config.security;
 
-import com.safetyas.sds.client.api.service.ApiMemberService;
+import com.safetyas.sds.client.api.service.ClientMemberService;
 import com.safetyas.sds.common.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -12,11 +12,11 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-  private final ApiMemberService apiMemberService;
+  private final ClientMemberService clientMemberService;
 
   @Override
   public UserDetails loadUserByUsername(String memberId) throws UsernameNotFoundException {
-    Member member = apiMemberService.findByMemberId(memberId).get();
+    Member member = clientMemberService.findByMemberId(memberId).get();
     return new CustomUserDetails(member);
   }
 }

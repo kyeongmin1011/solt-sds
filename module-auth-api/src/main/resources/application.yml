@@ -1,0 +1,19 @@
+server:
+  port: 8080
+
+spring:
+  jwt:
+    secret: safetyas@$&!use;
+  smtp:
+    host: smtps.hiworks.com
+    user: web@safety-as.com
+    pwd: safetyas2018!*
+  resources:
+    static-locations: classpath:/css/
+  thymeleaf:
+    prefix: classpath:/templates/
+    check-template: true
+    check-template-location: true
+    enabled: true
+    suffix: .html
+    mode: HTML

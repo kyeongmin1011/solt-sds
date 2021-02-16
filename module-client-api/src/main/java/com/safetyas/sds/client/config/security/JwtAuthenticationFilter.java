@@ -1,5 +1,6 @@
 package com.safetyas.sds.client.config.security;
 
+import io.jsonwebtoken.ExpiredJwtException;
 import java.io.IOException;
 import javax.servlet.FilterChain;
 import javax.servlet.ServletException;
@@ -33,5 +34,9 @@ public class JwtAuthenticationFilter extends GenericFilterBean {
       */
     }
     filterChain.doFilter(request, response);
+  }
+
+  private void allowForRefreshToken(ExpiredJwtException ex, HttpServletRequest request) {
+    //
   }
 }
