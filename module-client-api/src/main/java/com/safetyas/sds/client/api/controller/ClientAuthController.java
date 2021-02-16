@@ -18,7 +18,7 @@ public class ClientAuthController {
 
   Logger log = LoggerFactory.getLogger(this.getClass());
 
-  private final RestTemplate restTemplate;
+/*  private final RestTemplate restTemplate;
 
   private static final String REGISTRATION_URL = "http://localhost:8080/register";
   private static final String AUTHENTICATION_URL = "http://localhost:8080/authenticate";
@@ -32,7 +32,7 @@ public class ClientAuthController {
     String response = null;
 
     return null;
-  }
+  }*/
 
 
 }

@@ -18,8 +18,8 @@ public class ClientApplication {
     SpringApplication.run(ClientApplication.class, args);
   }
 
-/*  @Bean
+  @Bean
   public PasswordEncoder passwordEncoder() {
     return PasswordEncoderFactories.createDelegatingPasswordEncoder();
-  }*/
+  }
 }
