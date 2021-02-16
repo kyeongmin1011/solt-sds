@@ -6,5 +6,5 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MemberBoardRepositoryCustom {
-  Page<MemberBoardDto> searchMemberBoard(BoardSearchCondition boardSearchCondition, Pageable pageable);
+  Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition, Pageable pageable);
 }

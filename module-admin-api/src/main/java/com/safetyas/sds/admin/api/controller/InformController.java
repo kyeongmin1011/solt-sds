@@ -5,12 +5,16 @@ import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.response.SingleResult;
 import com.safetyas.sds.admin.api.service.AdminFaqService;
 import com.safetyas.sds.admin.api.service.AdminNoticeService;
+import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.model.NoticeDto;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -33,8 +37,9 @@ public class InformController {
 
   @GetMapping("/notice")
   @ApiOperation("공지 게시판 목록 조회")
-  public SingleResult<?> selectNoticeList() {
-    return null;
+  public SingleResult<Page<NoticeDto>> selectNoticeList(BoardSearchCondition condition,
+      @PageableDefault Pageable pageable) {
+    return responseService.getSingleResult(noticeService.selectNoticeList(condition, pageable));
   }
 
   @GetMapping("/notice/{id}")
@@ -67,8 +72,9 @@ public class InformController {
 
   @GetMapping("/faq")
   @ApiOperation("자주 묻는 질문 목록 조회")
-  public SingleResult<?> selectFaqList() {
-    return null;
+  public SingleResult<Page<FaqDto>> selectFaqList(BoardSearchCondition condition,
+      @PageableDefault Pageable pageable) {
+    return responseService.getSingleResult(faqService.selectFaqList(condition, pageable));
   }
 
   @GetMapping("/faq/{id}")

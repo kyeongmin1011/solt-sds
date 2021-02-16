@@ -1,8 +1,11 @@
 package com.safetyas.sds.admin.api.service;
 
+import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.service.admin.FaqService;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,5 +28,9 @@ public class AdminFaqService {
 
   public void deleteFaq(Long id) {
     faqService.deleteFaq(id);
+  }
+
+  public Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+    return faqService.selectFaqList(condition,pageable);
   }
 }

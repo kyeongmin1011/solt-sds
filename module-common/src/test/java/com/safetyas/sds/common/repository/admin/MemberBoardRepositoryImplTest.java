@@ -27,7 +27,7 @@ class MemberBoardRepositoryImplTest {
     PageRequest pageRequest = PageRequest.of(1, 3);
 
     Page<MemberBoardDto> result = memberBoardRepository
-        .searchMemberBoard(condition, pageRequest);
+        .selectMemberBoardList(condition, pageRequest);
 
   }
 }

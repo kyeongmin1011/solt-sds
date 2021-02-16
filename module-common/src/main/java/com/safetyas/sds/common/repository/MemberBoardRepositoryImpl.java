@@ -25,7 +25,7 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
   }
 
   @Override
-  public Page<MemberBoardDto> searchMemberBoard(BoardSearchCondition boardSearchCondition,
+  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
     QueryResults<MemberBoardDto> results = queryFactory
         .select(new QMemberBoardDto(
@@ -36,11 +36,12 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
             memberBoard.writerEmail))
         .from(memberBoard)
         .leftJoin(memberBoard.member, member)
-        .where(categoryEq(boardSearchCondition.getCategory()),
-            titleEq(boardSearchCondition.getTitle()),
-            contentEq(boardSearchCondition.getContent()),
-            writerNameEq(boardSearchCondition.getWriterName()))
+        .where(categoryEq(condition.getCategory()),
+            titleEq(condition.getTitle()),
+            contentEq(condition.getContent()),
+            writerNameEq(condition.getWriterName()))
         .offset(pageable.getOffset())
+        .orderBy(memberBoard.memberBoardSeq.desc())
         .limit(pageable.getPageSize())
         .fetchResults();
 

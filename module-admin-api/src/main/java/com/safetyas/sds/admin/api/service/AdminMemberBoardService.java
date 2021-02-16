@@ -16,6 +16,11 @@ public class AdminMemberBoardService {
 
   private final MemberBoardService memberBoardService;
 
+  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+      Pageable pageable) {
+    return memberBoardService.selectMemberBoardList(condition, pageable);
+  }
+
   public MemberBoardDto selectMemberBoard(Long id) {
     return memberBoardService.selectMemberBoard(id);
   }
@@ -25,14 +30,10 @@ public class AdminMemberBoardService {
   }
 
   public void updateMemberBoard(Long id, MemberBoardDto memberBoardDto) {
-    memberBoardService.updateMemberBoard(id,memberBoardDto);
+    memberBoardService.updateMemberBoard(id, memberBoardDto);
   }
 
   public void deleteMemberBoard(Long id) {
     memberBoardService.deleteMemberBoard(id);
-  }
-
-  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition, Pageable pageable) {
-    return memberBoardService.selectMemberBoardList(condition,pageable);
   }
 }

@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.Notice;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -40,6 +41,14 @@ public class NoticeDto implements Serializable {
   private String writerName; // 입력자 이름
   private Long memberSeq; // 입력자 멤버 시퀀스
   private LocalDateTime delDate;
+
+  @QueryProjection
+  public NoticeDto(String category, String title, String content, String writerName){
+    this.category = category;
+    this.title = title;
+    this.content = content;
+    this.writerName = writerName;
+  }
 
   public Notice toEntity() {
     return Notice.builder()

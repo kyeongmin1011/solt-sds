@@ -2,12 +2,15 @@ package com.safetyas.sds.common.service.admin;
 
 import com.safetyas.sds.common.entity.Faq;
 import com.safetyas.sds.common.entity.Member;
+import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.admin.FaqRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -43,5 +46,9 @@ public class FaqService {
     Faq faq = faqRepository.findById(id).orElseThrow(NoSuchElementException::new);
     faq.updateDelDate();
     faqRepository.save(faq);
+  }
+
+  public Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+    return faqRepository.selectFaqList(condition,pageable);
   }
 }

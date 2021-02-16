@@ -2,6 +2,7 @@ package com.safetyas.sds.common.service.admin;
 
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.Notice;
+import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.NoticeDto;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.admin.NoticeRepository;
@@ -9,6 +10,8 @@ import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.modelmapper.ModelMapper;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -46,5 +49,9 @@ public class NoticeService {
     Notice notice = noticeRepository.findById(id).orElseThrow(NoSuchElementException::new);
     notice.updateDelDate();
     noticeRepository.save(notice);
+  }
+
+  public Page<NoticeDto> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
+    return noticeRepository.selectNoticeList(condition, pageable);
   }
 }

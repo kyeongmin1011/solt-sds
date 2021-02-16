@@ -4,7 +4,6 @@ import com.safetyas.sds.admin.api.response.CommonResult;
 import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.response.SingleResult;
 import com.safetyas.sds.admin.api.service.AdminMemberBoardService;
-import com.safetyas.sds.admin.api.util.PageRequest;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import io.swagger.annotations.Api;
@@ -13,7 +12,6 @@ import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
-import org.springframework.data.domain.Sort.Direction;
 import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -22,7 +20,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @Slf4j
@@ -32,29 +29,29 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("/member-board")
 public class MemberBoardController {
 
-  private final AdminMemberBoardService adminMemberBoardService;
+  private final AdminMemberBoardService memberBoardService;
   private final ResponseService responseService;
 
-  @GetMapping("/")
+  @GetMapping("")
   @ApiOperation("고객 게시판 목록 조회")
   public SingleResult<Page<MemberBoardDto>> selectMemberBoardList(
-      @PageableDefault(sort = "memberBoardSeq" ,direction = Direction.DESC) PageRequest pageRequest,
-      @RequestBody BoardSearchCondition condition) {
+      BoardSearchCondition condition,
+      @PageableDefault Pageable pageable) {
 
     return responseService.getSingleResult(
-        adminMemberBoardService.selectMemberBoardList(condition, pageRequest.of()));
+        memberBoardService.selectMemberBoardList(condition, pageable));
   }
 
   @GetMapping("/{id}")
   @ApiOperation("고객 게시판 조회")
   public SingleResult<MemberBoardDto> selectMemberBoard(@PathVariable Long id) {
-    return responseService.getSingleResult(adminMemberBoardService.selectMemberBoard(id));
+    return responseService.getSingleResult(memberBoardService.selectMemberBoard(id));
   }
 
-  @PostMapping("/")
+  @PostMapping("")
   @ApiOperation("고객 게시판 저장")
   public CommonResult insertMemberBoard(@RequestBody MemberBoardDto memberBoardDto) {
-    adminMemberBoardService.insertMemberBoard(memberBoardDto);
+    memberBoardService.insertMemberBoard(memberBoardDto);
     return responseService.getSuccessResult();
   }
 
@@ -62,14 +59,14 @@ public class MemberBoardController {
   @ApiOperation("고객 게시판 수정")
   public CommonResult updateMemberBoard(@PathVariable Long id,
       @RequestBody MemberBoardDto memberBoardDto) {
-    adminMemberBoardService.updateMemberBoard(id, memberBoardDto);
+    memberBoardService.updateMemberBoard(id, memberBoardDto);
     return responseService.getSuccessResult();
   }
 
   @DeleteMapping("/{id}")
   @ApiOperation("고객 게시판 삭제")
   public CommonResult deleteMemberBoard(@PathVariable Long id) {
-    adminMemberBoardService.deleteMemberBoard(id);
+    memberBoardService.deleteMemberBoard(id);
     return responseService.getSuccessResult();
   }
 }

@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.Faq;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
@@ -22,6 +23,14 @@ public class FaqDto implements Serializable {
   private Integer viewCount;
   private String writerName; // 입력자 이름
   private Long memberSeq; // 입력자 멤버 시퀀스
+
+  @QueryProjection
+  public FaqDto(String category, String title, String content, String writerName) {
+    this.category = category;
+    this.title = title;
+    this.content = content;
+    this.writerName = writerName;
+  }
 
   public Faq toEntity() {
     return Faq.builder()

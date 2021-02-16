@@ -22,6 +22,11 @@ public class MemberBoardService {
   private final MemberRepository memberRepository;
   private final ModelMapper modelMapper;
 
+  @Transactional
+  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+      Pageable pageable) {
+    return memberBoardRepository.selectMemberBoardList(condition, pageable);
+  }
 
   @Transactional
   public MemberBoardDto selectMemberBoard(Long id) {
@@ -51,10 +56,5 @@ public class MemberBoardService {
         .orElseThrow(NoSuchElementException::new);
     memberBoard.updateDelDate();
     memberBoardRepository.save(memberBoard);
-  }
-
-  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
-      Pageable pageable) {
-    return memberBoardRepository.searchMemberBoard(condition, pageable);
   }
 }
