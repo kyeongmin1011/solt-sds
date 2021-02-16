@@ -44,9 +44,9 @@ public class MemberBoardService {
   public void updateMemberBoard(Long id, MemberBoardDto memberBoardDto) {
 
     Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
-    MemberBoard memberBoard = memberBoardRepository.findById(id)
-        .orElseThrow(NoSuchElementException::new);
-    memberBoard.updateMemberBoard(memberBoardDto, member);
+    MemberBoard memberBoard = memberBoardRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    memberBoard.updateMemberBoard(memberBoardDto);
+    memberBoard.updateMember(member);
     memberBoardRepository.save(memberBoard);
   }
 

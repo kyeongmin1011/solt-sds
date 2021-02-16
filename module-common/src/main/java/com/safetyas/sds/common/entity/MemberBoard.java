@@ -81,8 +81,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
     member.getMemberBoardList().add(this);
   }
 
-  public void updateMemberBoard(MemberBoardDto memberBoardDto, Member member){
-    updateMember(member);
+  public void updateMemberBoard(MemberBoardDto memberBoardDto){
     this.category = memberBoardDto.getCategory();
     this.title = memberBoardDto.getTitle();
     this.writerName = memberBoardDto.getWriterName();

@@ -1,12 +1,11 @@
 package com.safetyas.sds.common.repository.admin;
 
-import static com.safetyas.sds.common.entity.QFaq.*;
+import static com.safetyas.sds.common.entity.QFaq.faq;
 import static org.reflections.util.Utils.isEmpty;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.safetyas.sds.common.entity.QFaq;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.model.QFaqDto;
