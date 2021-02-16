@@ -1,6 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -12,7 +11,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
-import javax.persistence.MapKeyColumn;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -64,7 +62,6 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   @Column(name = "default_yn", columnDefinition = "varchar(1) comment '기본공급자 설정'")
   private String defaultYn;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_supplier_fk"))
   private Member member;  // 멤버

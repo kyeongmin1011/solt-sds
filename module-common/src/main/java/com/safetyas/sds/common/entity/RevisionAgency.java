@@ -1,6 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -48,7 +47,6 @@ public class RevisionAgency extends CommonEntity implements Serializable {
   @Column(name = "note")
   private String note;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_revision_agency_fk"))
   private Product product;

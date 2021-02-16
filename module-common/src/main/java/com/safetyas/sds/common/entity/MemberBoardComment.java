@@ -1,6 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -63,12 +62,10 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
   @Column(name = "view_count")
   private Integer viewCount;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_board_comment_fk"))
   private Member member;
 
-  @JsonBackReference
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_board_seq", foreignKey = @ForeignKey(name = "member_board_seq_member_board_comment_fk"))
   private MemberBoard memberBoard;

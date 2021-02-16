@@ -1,7 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.safetyas.sds.common.dto.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -9,6 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -72,23 +71,18 @@ public class Member extends CommonEntity implements Serializable {
   private Integer loginCount;
 
   @OneToOne
-  @JsonBackReference
   private MemberInfo memberInfo; // 고객 정보
 
   @OneToOne
-  @JsonBackReference
   private AdminInfo adminInfo; // 관리자 정보
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberSupplier> memberSupplierList = new ArrayList<>();
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoard> memberBoardList = new ArrayList<>();
 
-  @JsonManagedReference
-  @OneToMany(mappedBy = "member")
+  @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 
   public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {

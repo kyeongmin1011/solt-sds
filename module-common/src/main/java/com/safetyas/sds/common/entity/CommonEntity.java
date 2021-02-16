@@ -31,4 +31,8 @@ public abstract class CommonEntity implements Serializable {
   @Column(name = "del_date")
   private LocalDateTime delDate;
 
+  public void updateDelDate(){
+    this.delDate = LocalDateTime.now();
+  }
+
 }

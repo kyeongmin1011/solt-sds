@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.model.NoticeDto;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -23,7 +24,8 @@ public class Notice extends CommonEntity implements Serializable {
 
   @Builder
   public Notice(Long noticeSeq, String category, String title, String content, Integer viewCount,
-      String writerName, Long memberSeq, LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+      String writerName, Long memberSeq, LocalDateTime inDate, LocalDateTime modDate,
+      LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.noticeSeq = noticeSeq;
     this.category = category;
@@ -56,4 +58,20 @@ public class Notice extends CommonEntity implements Serializable {
 
   @Column(name = "member_seq")
   private Long memberSeq; // 입력자 멤버 시퀀스
+
+  public void updateMember(Member member) {
+    this.memberSeq = member.getMemberSeq();
+  }
+
+  public void updateNotice(NoticeDto noticeDto) {
+    this.category = noticeDto.getCategory();
+    this.title = noticeDto.getTitle();
+    this.content = noticeDto.getContent();
+    this.writerName = noticeDto.getWriterName();
+    this.memberSeq = noticeDto.getMemberSeq();
+  }
+
+  public void updateDelDate() {
+    super.updateDelDate();
+  }
 }
