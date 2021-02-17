@@ -21,8 +21,6 @@ public class MemberBoardCommentDto {
   private String writerEmail;
   private String content;
   private Integer viewCount;
-  private MemberDto member;
-  private MemberBoardDto memberBoard;
 
   public MemberBoardComment toEntity() {
     return MemberBoardComment.builder()

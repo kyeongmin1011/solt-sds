@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.service.admin;
+package com.safetyas.sds.common.service;
 
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberBoard;
@@ -30,7 +30,7 @@ public class MemberBoardService {
 
   @Transactional
   public MemberBoardDto selectMemberBoard(Long id) {
-    return modelMapper.map(memberBoardRepository.findById(id), MemberBoardDto.class);
+    return modelMapper.map(memberBoardRepository.selectMemberBoard(id),MemberBoardDto.class);
   }
 
   @Transactional

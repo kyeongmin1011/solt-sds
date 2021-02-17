@@ -29,8 +29,7 @@ public class MemberBoardDto implements Serializable {
   private String writerEmail;
   private String content;
   private Integer viewCount;
-  private Member member;
-  private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
+  private List<MemberBoardCommentDto> memberBoardCommentList = new ArrayList<>();
 
   @QueryProjection
   public MemberBoardDto(String category, String title, String content, String writerName,

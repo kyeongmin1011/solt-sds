@@ -1,16 +1,19 @@
 package com.safetyas.sds.common.repository;
 
 import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QMemberBoard.*;
 import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
 import static org.reflections.util.Utils.isEmpty;
 
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.safetyas.sds.common.entity.MemberBoard;
+import com.safetyas.sds.common.entity.QMemberBoard;
+import com.safetyas.sds.common.entity.QMemberBoardComment;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import com.safetyas.sds.common.model.QMemberBoardDto;
-import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -51,6 +54,16 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
     long total = results.getTotal();
 
     return new PageImpl<>(content, pageable, total);
+  }
+
+  @Override
+  public MemberBoard selectMemberBoard(Long id) {
+
+    return queryFactory
+        .select(memberBoard)
+        .from(memberBoard)
+        .where(memberBoard.memberBoardSeq.eq(id),memberBoard.delDate.isNull())
+        .fetchOne();
   }
 
   private BooleanExpression categoryEq(String category) {

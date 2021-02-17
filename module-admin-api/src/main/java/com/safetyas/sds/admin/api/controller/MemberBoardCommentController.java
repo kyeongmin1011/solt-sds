@@ -4,6 +4,7 @@ import com.safetyas.sds.admin.api.response.CommonResult;
 import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.service.AdminMemberBoardCommentService;
 import com.safetyas.sds.common.model.MemberBoardCommentDto;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ public class MemberBoardCommentController {
   private final AdminMemberBoardCommentService commentService;
 
   @PostMapping("/{id}")
+  @ApiOperation("1:1 게시판 댓글 저장")
   public CommonResult insertMemberBoardComment(@PathVariable Long id,
       @RequestBody MemberBoardCommentDto commentDto) {
     commentService.insertMemberBoardComment(id, commentDto);
@@ -31,6 +33,7 @@ public class MemberBoardCommentController {
   }
 
   @PutMapping("/{id}")
+  @ApiOperation("1:1 게시판 댓글 수정")
   public CommonResult updateMemberBoardComment(@PathVariable Long id,
       @RequestBody MemberBoardCommentDto commentDto) {
     commentService.updateMemberBoardComment(id, commentDto);
@@ -38,6 +41,7 @@ public class MemberBoardCommentController {
   }
 
   @DeleteMapping("/{id}")
+  @ApiOperation("1:1 게시판 댓글 삭제")
   public CommonResult deleteMemberBoardComment(@PathVariable Long id) {
     commentService.deleteMemberBoardComment(id);
     return responseService.getSuccessResult();

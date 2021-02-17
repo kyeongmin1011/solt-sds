@@ -2,7 +2,7 @@ package com.safetyas.sds.admin.api.service;
 
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
-import com.safetyas.sds.common.service.admin.MemberBoardService;
+import com.safetyas.sds.common.service.MemberBoardService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
