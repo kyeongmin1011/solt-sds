@@ -40,7 +40,7 @@ public class ClientMemberService {
     if (file != null) {
       Map<String, Object> info = new HashMap<>();
       info.put("path", "companyCertificate");
-      info.put("table", "sds_member");
+      info.put("relateTable", "sds_member");
       info.put("recordSeq", memberSeq);
       info.put("type", "companyCertificate"); //파일(문서 등) : ATTACH , 이미지 : IMAGE
       info.put("regUserSeq", memberSeq);
@@ -75,6 +75,7 @@ public class ClientMemberService {
         .msdsTermsYn(memberInfoRequest.getMsdsTermsYn())
         .privateTermsYn(memberInfoRequest.getPrivateTermsYn())
         .build();
+    MemberInfo memberInfoResult = memberService.saveMemberInfo(memberInfo);
 
     Member member = Member.builder()
         .memberId(memberInfoRequest.getMemberId())
@@ -82,7 +83,7 @@ public class ClientMemberService {
         .role("USER")
         .level(1)
         .loginCount(1)
-        .memberInfo(memberInfo)
+        .memberInfo(memberInfoResult)
         .build();
     return memberService.saveMember(member);
   }
