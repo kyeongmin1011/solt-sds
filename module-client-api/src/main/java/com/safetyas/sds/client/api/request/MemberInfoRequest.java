@@ -5,6 +5,7 @@ import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Data;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
 public class MemberInfoRequest {
@@ -90,6 +91,8 @@ public class MemberInfoRequest {
   @Size(max = 20)
   @ApiModelProperty(value = "개인정보 취급방침 동의")
   private String privateTermsYn;
+
+  private MultipartFile companyCertificate;
 
   public MemberInfoDTO toMemberInfoDTO() {
     return MemberInfoDTO.builder()

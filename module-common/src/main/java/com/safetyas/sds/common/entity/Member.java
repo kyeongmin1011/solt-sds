@@ -67,7 +67,7 @@ public class Member extends CommonEntity implements Serializable {
   @Column(name = "login_last", columnDefinition = "datetime comment '마지막 로그인'")
   private LocalDateTime loginLast;
 
-  @Column(name = "login_count", length = 10, columnDefinition = "datetime comment '로그인 횟수'")
+  @Column(name = "login_count", columnDefinition = "int(11) comment '로그인 횟수'")
   private Integer loginCount;
 
   @OneToOne
