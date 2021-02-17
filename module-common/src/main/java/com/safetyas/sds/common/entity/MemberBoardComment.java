@@ -29,13 +29,13 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
 
   @Builder
   public MemberBoardComment(Long commentSeq, String category, String title,
-      String writer, String writerEmail, String content, LocalDateTime inDate, Integer viewCount,
+      String writerName, String writerEmail, String content, LocalDateTime inDate, Integer viewCount,
       LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.commentSeq = commentSeq;
     this.category = category;
     this.title = title;
-    this.writer = writer;
+    this.writerName = writerName;
     this.writerEmail = writerEmail;
     this.content = content;
   }
@@ -52,7 +52,7 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
   private String title;
 
   @Column(name = "writer", nullable = false, length = 100)
-  private String writer;
+  private String writerName;
 
   @Column(name = "writer_email", nullable = false)
   private String writerEmail;
@@ -75,7 +75,7 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
     this.category = commentDto.getCategory();
     this.title = commentDto.getTitle();
     this.content = commentDto.getContent();
-    this.writer = commentDto.getWriter();
+    this.writerName = commentDto.getWriterName();
     this.writerEmail = commentDto.getWriterEmail();
   }
 

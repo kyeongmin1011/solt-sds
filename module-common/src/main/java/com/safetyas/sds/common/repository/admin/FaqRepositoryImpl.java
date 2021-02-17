@@ -36,7 +36,8 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
         .where(categoryEq(condition.getCategory()),
             titleEq(condition.getTitle()),
             contentEq(condition.getContent()),
-            writerNameEq(condition.getWriterName()))
+            writerNameEq(condition.getWriterName()),
+            faq.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(faq.faqSeq.desc())
         .limit(pageable.getPageSize())

@@ -17,7 +17,7 @@ public class MemberBoardCommentDto {
   private Long commentSeq;
   private String category;
   private String title;
-  private String writer;
+  private String writerName;
   private String writerEmail;
   private String content;
   private Integer viewCount;
@@ -28,7 +28,7 @@ public class MemberBoardCommentDto {
     return MemberBoardComment.builder()
         .category(this.category)
         .title(this.title)
-        .writer(this.writer)
+        .writerName(this.writerName)
         .writerEmail(this.writerEmail)
         .content(this.content)
         .build();

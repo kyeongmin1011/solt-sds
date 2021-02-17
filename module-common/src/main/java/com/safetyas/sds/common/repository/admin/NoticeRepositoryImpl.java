@@ -35,7 +35,8 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
         .where(categoryEq(condition.getCategory()),
             titleEq(condition.getTitle()),
             contentEq(condition.getContent()),
-            writerNameEq(condition.getWriterName()))
+            writerNameEq(condition.getWriterName()),
+            notice.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(notice.noticeSeq.desc())
         .limit(pageable.getPageSize())
@@ -44,7 +45,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
     List<NoticeDto> content = results.getResults();
     long total = results.getTotal();
 
-    return new PageImpl<>(content,pageable,total);
+    return new PageImpl<>(content, pageable, total);
   }
 
   private BooleanExpression categoryEq(String category) {

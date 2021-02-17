@@ -10,6 +10,7 @@ import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import com.safetyas.sds.common.model.QMemberBoardDto;
+import java.time.LocalDateTime;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
@@ -39,7 +40,8 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
         .where(categoryEq(condition.getCategory()),
             titleEq(condition.getTitle()),
             contentEq(condition.getContent()),
-            writerNameEq(condition.getWriterName()))
+            writerNameEq(condition.getWriterName()),
+            memberBoard.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(memberBoard.memberBoardSeq.desc())
         .limit(pageable.getPageSize())
