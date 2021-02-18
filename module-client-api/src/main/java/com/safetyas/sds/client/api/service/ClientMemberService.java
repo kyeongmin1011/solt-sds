@@ -58,6 +58,15 @@ public class ClientMemberService {
    * @param memberInfoRequest MemberInfoRequest
    */
   public long saveMember(MemberInfoRequest memberInfoRequest) {
+    Member member = Member.builder()
+        .memberId(memberInfoRequest.getMemberId())
+        .pwd(passwordEncoder.encode(memberInfoRequest.getPwd()))
+        .role("USER")
+        .level(1)
+        .loginCount(1)
+        .build();
+    memberService.saveMember(member);
+
     MemberInfo memberInfo = MemberInfo.builder()
         .companyName(memberInfoRequest.getCompanyName())
         .companyNumber(memberInfoRequest.getCompanyNumber())
@@ -74,25 +83,22 @@ public class ClientMemberService {
         .consultingYn(memberInfoRequest.getConsultingYn())
         .msdsTermsYn(memberInfoRequest.getMsdsTermsYn())
         .privateTermsYn(memberInfoRequest.getPrivateTermsYn())
+        .member(member)
         .build();
-
-    Member member = Member.builder()
-        .memberId(memberInfoRequest.getMemberId())
-        .pwd(passwordEncoder.encode(memberInfoRequest.getPwd()))
-        .role("USER")
-        .level(1)
-        .loginCount(1)
-        .memberInfo(memberInfo)
-        .build();
-    return memberService.saveMember(member);
+    MemberInfo memberInfoResult = memberService.saveMemberInfo(memberInfo);
+    return memberInfoResult.getMember().getMemberSeq();
   }
 
-  public void updateMemberInfo(MemberInfoRequest memberInfoRequest, MultipartFile file) {
+  public void updateMemberInfo(MemberInfoRequest memberInfoRequest) {
     Member member = memberService.findByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
         NoSuchElementException::new);
+    if(memberInfoRequest.getPwd() != null) { //패스워드 재설정
+      memberInfoRequest.setPwd(passwordEncoder.encode(memberInfoRequest.getPwd()));
+    }
     member.updateMemberInfo(memberInfoRequest.toMemberInfoDTO());
     memberService.saveMember(member);
 
+    MultipartFile file = memberInfoRequest.getCompanyCertificate();
     if (file != null) {
       FileDTO fileDTO = FileDTO.builder()
           .relateTable("sds_member")
@@ -101,10 +107,11 @@ public class ClientMemberService {
           .build();
       File preFile = fileService.selectFileByFileDTO(fileDTO);
       fileUtil.deleteFile(preFile.getPath(), preFile.getName());
+      fileService.deleteFileData(preFile);
 
       Map<String, Object> info = new HashMap<>();
       info.put("path", "companyCertificate");
-      info.put("table", "sds_member");
+      info.put("relateTable", "sds_member");
       info.put("recordSeq", member.getMemberSeq());
       info.put("type", "companyCertificate");
       info.put("regUserSeq", memberInfoRequest.getMemberSeq());

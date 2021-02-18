@@ -32,6 +32,9 @@ public class FileService {
     return fileQueryRepository.selectCompanyCertificate(fileDTO);
   }
 
+  public void deleteFileData(File file) {
+    fileRepository.delete(file);
+  }
   public List<FileDTO> selectFileList(Long id, String relateTable) {
     return fileQueryRepository.selectFileList(id, relateTable);
   }

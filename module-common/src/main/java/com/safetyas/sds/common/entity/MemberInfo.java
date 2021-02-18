@@ -31,13 +31,14 @@ public class MemberInfo extends CommonEntity implements Serializable {
   public MemberInfo(Long memberInfoSeq, String companyName, String companyNumber, String companyAddr1,
       String companyAddr2, String managerDept, String managerPosition, String managerName, String managerEmail1,
       String managerEmail2, String phone1, String phone2, String newsletterYn, String joinRoute, String consultingYn,
-      String msdsTermsYn, String privateTermsYn,
+      Member member, String msdsTermsYn, String privateTermsYn,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.memberInfoSeq  = memberInfoSeq;
     this.companyName = companyName;
     this.companyNumber = companyNumber;
-    this.companyAddr1 = companyAddr2;
+    this.companyAddr1 = companyAddr1;
+    this.companyAddr2 = companyAddr2;
     this.managerDept = managerDept;
     this.managerPosition = managerPosition;
     this.managerName = managerName;
@@ -50,6 +51,7 @@ public class MemberInfo extends CommonEntity implements Serializable {
     this.consultingYn = consultingYn;
     this.msdsTermsYn = msdsTermsYn;
     this.privateTermsYn = privateTermsYn;
+    setMember(member);
   }
 
   @Id
@@ -93,7 +95,7 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @Column(name = "newsletter_yn", columnDefinition = "varchar(1) comment '뉴스레터 수신여부'")
   private String newsletterYn;  // 뉴스레터 수신여부
 
-  @Column(name = "join_route", columnDefinition = "varchar(1) comment '가입경로'")
+  @Column(name = "join_route", columnDefinition = "varchar(50) comment '가입경로'")
   private String joinRoute;  // 가입경로
 
   @Column(name = "consulting_yn", columnDefinition = "varchar(1) comment '컨설팅 여부'")
@@ -111,9 +113,13 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @Column(name = "member_valid_finish", columnDefinition = "datetime comment '계약종료일'")
   private LocalDateTime memberValidFinish; // 계약종료일
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_info_fk"))
+  @OneToOne(mappedBy = "memberInfo")
   private Member member;
+
+  public void setMember(Member member) {
+    this.member = member;
+    member.setMemberInfo(this);
+  }
 
   public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {
     this.companyName = memberInfoDTO.getCompanyName();
