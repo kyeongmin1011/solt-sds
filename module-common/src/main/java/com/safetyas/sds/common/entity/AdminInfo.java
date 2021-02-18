@@ -28,13 +28,14 @@ public class AdminInfo extends CommonEntity implements Serializable {
 
   @Builder
   public AdminInfo(Long adminSeq, String dept, String position, String name, String email,
-      LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+      Member member,LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.adminSeq = adminSeq;
     this.dept = dept;
     this.position = position;
     this.name = name;
     this.email = email;
+    setMember(member);
   }
 
   @Id
@@ -54,8 +55,11 @@ public class AdminInfo extends CommonEntity implements Serializable {
   @Column(name = "email", columnDefinition = "varchar(100) comment '이메일'")
   private String email;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_admin_info_fk"))
+  @OneToOne(mappedBy = "adminInfo")
   private Member member;
 
+  public void setMember(Member member) {
+    this.member = member;
+    member.setAdminInfo(this);
+  }
 }

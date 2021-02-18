@@ -5,12 +5,15 @@ import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -40,8 +43,8 @@ public class Member extends CommonEntity implements Serializable {
     this.token = token;
     this.loginLast = loginLast;
     this.loginCount = loginCount;
-    this.memberInfo = memberInfo;
-    this.adminInfo = adminInfo;
+    setMemberInfo(memberInfo);
+    setAdminInfo(adminInfo);
   }
 
   @Id
@@ -70,10 +73,12 @@ public class Member extends CommonEntity implements Serializable {
   @Column(name = "login_count", columnDefinition = "int(11) comment '로그인 횟수'")
   private Integer loginCount;
 
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "member_info_seq", foreignKey = @ForeignKey(name = "member_info_seq_member_fk"))
   private MemberInfo memberInfo; // 고객 정보
 
-  @OneToOne
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "admin_seq", foreignKey = @ForeignKey(name = "admin_seq_member_fk"))
   private AdminInfo adminInfo; // 관리자 정보
 
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
@@ -84,6 +89,14 @@ public class Member extends CommonEntity implements Serializable {
 
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
+
+  public void setMemberInfo(MemberInfo memberInfo) {
+    this.memberInfo = memberInfo;
+  }
+
+  public void setAdminInfo(AdminInfo adminInfo) {
+    this.adminInfo = adminInfo;
+  }
 
   public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {
     this.memberInfo.updateMemberInfo(memberInfoDTO);

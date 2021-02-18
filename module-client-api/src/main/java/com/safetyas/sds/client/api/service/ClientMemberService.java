@@ -58,6 +58,15 @@ public class ClientMemberService {
    * @param memberInfoRequest MemberInfoRequest
    */
   public long saveMember(MemberInfoRequest memberInfoRequest) {
+    Member member = Member.builder()
+        .memberId(memberInfoRequest.getMemberId())
+        .pwd(passwordEncoder.encode(memberInfoRequest.getPwd()))
+        .role("USER")
+        .level(1)
+        .loginCount(1)
+        .build();
+    memberService.saveMember(member);
+
     MemberInfo memberInfo = MemberInfo.builder()
         .companyName(memberInfoRequest.getCompanyName())
         .companyNumber(memberInfoRequest.getCompanyNumber())
@@ -74,18 +83,10 @@ public class ClientMemberService {
         .consultingYn(memberInfoRequest.getConsultingYn())
         .msdsTermsYn(memberInfoRequest.getMsdsTermsYn())
         .privateTermsYn(memberInfoRequest.getPrivateTermsYn())
+        .member(member)
         .build();
     MemberInfo memberInfoResult = memberService.saveMemberInfo(memberInfo);
-
-    Member member = Member.builder()
-        .memberId(memberInfoRequest.getMemberId())
-        .pwd(passwordEncoder.encode(memberInfoRequest.getPwd()))
-        .role("USER")
-        .level(1)
-        .loginCount(1)
-        .memberInfo(memberInfoResult)
-        .build();
-    return memberService.saveMember(member);
+    return memberInfoResult.getMember().getMemberSeq();
   }
 
   public void updateMemberInfo(MemberInfoRequest memberInfoRequest, MultipartFile file) {
