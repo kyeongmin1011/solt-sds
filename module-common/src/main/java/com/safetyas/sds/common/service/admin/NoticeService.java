@@ -5,7 +5,7 @@ import com.safetyas.sds.common.entity.Notice;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.NoticeDto;
 import com.safetyas.sds.common.repository.MemberRepository;
-import com.safetyas.sds.common.repository.admin.NoticeRepository;
+import com.safetyas.sds.common.repository.NoticeRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;

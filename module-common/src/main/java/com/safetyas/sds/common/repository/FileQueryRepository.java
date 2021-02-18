@@ -22,12 +22,12 @@ public class FileQueryRepository {
     this.queryFactory = new JPAQueryFactory(em);
   }
 
-  public File selectCompanyCertificate(FileDTO fileDTO) {
+  public File selectFileByFileDTO(FileDTO fileDTO) {
     return queryFactory.selectFrom(file)
         .where(typeEq(fileDTO.getType()),
             relateTableEq(fileDTO.getRelateTable()),
-            recordSeqEq(fileDTO.getRecordSeq()))
-        .fetchFirst();
+            recordSeqEq(fileDTO.getRecordSeq()), file.delDate.isNull())
+        .fetchOne();
   }
 
   public List<FileDTO> selectFileList(Long id, String relateTable) {

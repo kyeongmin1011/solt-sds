@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.repository.admin;
+package com.safetyas.sds.common.repository;
 
 import static com.safetyas.sds.common.entity.QNotice.notice;
 import static org.reflections.util.Utils.isEmpty;

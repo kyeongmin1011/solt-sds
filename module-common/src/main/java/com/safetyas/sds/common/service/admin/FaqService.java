@@ -5,7 +5,7 @@ import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FaqDto;
 import com.safetyas.sds.common.repository.MemberRepository;
-import com.safetyas.sds.common.repository.admin.FaqRepository;
+import com.safetyas.sds.common.repository.FaqRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;

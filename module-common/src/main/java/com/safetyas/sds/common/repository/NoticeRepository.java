@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.repository.admin;
+package com.safetyas.sds.common.repository;
 
 import com.safetyas.sds.common.entity.Notice;
 import org.springframework.data.jpa.repository.JpaRepository;

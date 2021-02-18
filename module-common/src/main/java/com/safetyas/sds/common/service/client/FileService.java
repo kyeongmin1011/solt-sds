@@ -29,7 +29,7 @@ public class FileService {
   }
 
   public File selectFileByFileDTO(FileDTO fileDTO) {
-    return fileQueryRepository.selectCompanyCertificate(fileDTO);
+    return fileQueryRepository.selectFileByFileDTO(fileDTO);
   }
 
   public void deleteFileData(File file) {

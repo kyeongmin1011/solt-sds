@@ -38,7 +38,7 @@ class FileQueryRepositoryTest {
         .name("name3")
         .oriName("originName3")
         .build();
-    File result = fileQueryRepository.selectCompanyCertificate(fileDTO);
+    File result = fileQueryRepository.selectFileByFileDTO(fileDTO);
     //then
     System.out.println(result.getOriName());
     assertThat(result.getOriName()).isEqualTo(file.getOriName());

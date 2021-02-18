@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.repository.admin;
+package com.safetyas.sds.common.repository;
 
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.NoticeDto;
