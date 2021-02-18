@@ -1,9 +1,8 @@
 package com.safetyas.sds.common.model;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.safetyas.sds.common.entity.Member;
+import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.MemberBoard;
-import com.safetyas.sds.common.entity.MemberBoardComment;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -30,6 +29,7 @@ public class MemberBoardDto implements Serializable {
   private String content;
   private Integer viewCount;
   private List<MemberBoardCommentDto> memberBoardCommentList = new ArrayList<>();
+  private List<FileDTO> fileDTOList = new ArrayList<>();
 
   @QueryProjection
   public MemberBoardDto(String category, String title, String content, String writerName,

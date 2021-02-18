@@ -1,16 +1,11 @@
 package com.safetyas.sds.common.repository;
 
-import static com.safetyas.sds.common.entity.QMember.member;
-import static com.safetyas.sds.common.entity.QMemberBoard.*;
-import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
-import static org.reflections.util.Utils.isEmpty;
-
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.entity.MemberBoard;
-import com.safetyas.sds.common.entity.QMemberBoard;
-import com.safetyas.sds.common.entity.QMemberBoardComment;
+import com.safetyas.sds.common.entity.QFile;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import com.safetyas.sds.common.model.QMemberBoardDto;
@@ -19,6 +14,11 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import static com.safetyas.sds.common.entity.QFile.file;
+import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
+import static org.reflections.util.Utils.isEmpty;
 
 public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
 
@@ -58,7 +58,6 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
 
   @Override
   public MemberBoard selectMemberBoard(Long id) {
-
     return queryFactory
         .select(memberBoard)
         .from(memberBoard)

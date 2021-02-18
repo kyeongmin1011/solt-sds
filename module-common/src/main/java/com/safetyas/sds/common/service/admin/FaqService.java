@@ -28,10 +28,10 @@ public class FaqService {
   }
 
   @Transactional
-  public void insertFaq(Faq faq) {
+  public long insertFaq(Faq faq) {
     Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
     faq.updateMember(member);
-    faqRepository.save(faq);
+    return faqRepository.save(faq).getFaqSeq();
   }
 
   @Transactional

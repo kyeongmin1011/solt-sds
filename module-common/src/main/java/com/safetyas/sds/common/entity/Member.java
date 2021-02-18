@@ -70,10 +70,10 @@ public class Member extends CommonEntity implements Serializable {
   @Column(name = "login_count", columnDefinition = "int(11) comment '로그인 횟수'")
   private Integer loginCount;
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   private MemberInfo memberInfo; // 고객 정보
 
-  @OneToOne
+  @OneToOne(fetch = FetchType.LAZY)
   private AdminInfo adminInfo; // 관리자 정보
 
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)

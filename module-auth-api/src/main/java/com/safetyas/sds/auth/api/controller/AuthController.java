@@ -3,12 +3,10 @@ package com.safetyas.sds.auth.api.controller;
 import com.safetyas.sds.auth.api.dto.LoginResponse;
 import com.safetyas.sds.auth.api.request.LoginRequest;
 import com.safetyas.sds.auth.api.response.ResponseService;
-import com.safetyas.sds.auth.api.response.SingleResult;
 import com.safetyas.sds.auth.api.service.MemberService;
 import com.safetyas.sds.auth.api.util.SecurityCipher;
 import io.swagger.annotations.Api;
 import lombok.RequiredArgsConstructor;
-
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.http.MediaType;

@@ -31,10 +31,10 @@ public class NoticeService {
   }
 
   @Transactional
-  public void insertNotice(Notice notice) {
+  public long insertNotice(Notice notice) {
     Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
     notice.updateMember(member);
-    noticeRepository.save(notice);
+    return noticeRepository.save(notice).getNoticeSeq();
   }
 
   @Transactional

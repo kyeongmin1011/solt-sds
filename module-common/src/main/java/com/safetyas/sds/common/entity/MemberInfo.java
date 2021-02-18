@@ -1,7 +1,5 @@
 package com.safetyas.sds.common.entity;
 
-import com.fasterxml.jackson.annotation.JsonBackReference;
-import com.fasterxml.jackson.annotation.JsonManagedReference;
 import com.safetyas.sds.common.dto.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
