@@ -99,6 +99,7 @@ public class Member extends CommonEntity implements Serializable {
   }
 
   public void updateMemberInfo(MemberInfoDTO memberInfoDTO) {
+    this.pwd = memberInfoDTO.getPwd();
     this.memberInfo.updateMemberInfo(memberInfoDTO);
   }
 }

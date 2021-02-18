@@ -89,12 +89,16 @@ public class ClientMemberService {
     return memberInfoResult.getMember().getMemberSeq();
   }
 
-  public void updateMemberInfo(MemberInfoRequest memberInfoRequest, MultipartFile file) {
+  public void updateMemberInfo(MemberInfoRequest memberInfoRequest) {
     Member member = memberService.findByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
         NoSuchElementException::new);
+    if(memberInfoRequest.getPwd() != null) { //패스워드 재설정
+      memberInfoRequest.setPwd(passwordEncoder.encode(memberInfoRequest.getPwd()));
+    }
     member.updateMemberInfo(memberInfoRequest.toMemberInfoDTO());
     memberService.saveMember(member);
 
+    MultipartFile file = memberInfoRequest.getCompanyCertificate();
     if (file != null) {
       FileDTO fileDTO = FileDTO.builder()
           .relateTable("sds_member")
@@ -103,13 +107,14 @@ public class ClientMemberService {
           .build();
       File preFile = fileService.selectCompanyCertificate(fileDTO);
       fileUtil.deleteFile(preFile.getPath(), preFile.getName());
+      fileService.deleteFileData(preFile);
 
       Map<String, Object> info = new HashMap<>();
       info.put("path", "companyCertificate");
-      info.put("table", "sds_member");
+      info.put("relateTable", "sds_member");
       info.put("recordSeq", member.getMemberSeq());
       info.put("type", "companyCertificate"); //파일(문서 등) : ATTACH , 이미지 : IMAGE
-      info.put("regUserSeq", memberInfoRequest.getMemberSeq());
+      info.put("regUserSeq", member.getMemberSeq());
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
 

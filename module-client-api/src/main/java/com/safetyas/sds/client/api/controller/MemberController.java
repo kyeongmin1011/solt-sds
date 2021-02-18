@@ -25,9 +25,8 @@ public class MemberController {
 
   @ApiOperation(value = "멤버정보 수정", notes = "멤버 정보 수정한다.")
   @PostMapping(value = "/update-member-info")
-  public CommonResult signIn(@RequestBody MemberInfoRequest memberInfoRequest, final MultipartHttpServletRequest multiRequest) {
-    MultipartFile file = multiRequest.getFile("companyCertificate");
-    clientMemberService.updateMemberInfo(memberInfoRequest, file);
+  public CommonResult signIn(MemberInfoRequest memberInfoRequest) {
+    clientMemberService.updateMemberInfo(memberInfoRequest);
 
     return responseService.getSuccessResult();
   }
