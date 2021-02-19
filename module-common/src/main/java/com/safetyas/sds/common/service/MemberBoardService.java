@@ -1,23 +1,17 @@
 package com.safetyas.sds.common.service;
 
 import com.safetyas.sds.common.dto.FileDTO;
-import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberBoard;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.MemberBoardDto;
-import com.safetyas.sds.common.repository.FileQueryRepository;
-import com.safetyas.sds.common.repository.FileRepository;
+import com.safetyas.sds.common.model.MemberBoardDTO;
 import com.safetyas.sds.common.repository.MemberBoardRepository;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.service.client.FileService;
-import java.util.Collections;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.BeanUtils;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -33,17 +27,17 @@ public class MemberBoardService {
   private final ModelMapper modelMapper;
 
   @Transactional
-  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
     return memberBoardRepository.selectMemberBoardList(condition, pageable);
   }
 
   @Transactional
-  public MemberBoardDto selectMemberBoard(Long id) {
+  public MemberBoardDTO selectMemberBoard(Long id) {
     String relateTable = "sds_member_board";
 
-    MemberBoardDto memberBoardDto = modelMapper
-        .map(memberBoardRepository.selectMemberBoard(id), MemberBoardDto.class);
+    MemberBoardDTO memberBoardDto = modelMapper
+        .map(memberBoardRepository.selectMemberBoard(id), MemberBoardDTO.class);
 
     List<FileDTO> fileDTOList = fileService.selectFileList(id, relateTable);
 
@@ -61,7 +55,7 @@ public class MemberBoardService {
   }
 
   @Transactional
-  public void updateMemberBoard(Long id, MemberBoardDto memberBoardDto) {
+  public void updateMemberBoard(Long id, MemberBoardDTO memberBoardDto) {
     MemberBoard memberBoard = memberBoardRepository.findById(id).orElseThrow(NoSuchElementException::new);
     memberBoard.updateMemberBoard(memberBoardDto);
 

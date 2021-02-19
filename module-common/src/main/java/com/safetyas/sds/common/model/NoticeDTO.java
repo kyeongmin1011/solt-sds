@@ -16,12 +16,12 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class NoticeDto implements Serializable {
+public class NoticeDTO implements Serializable {
 
   private static final long serialVersionUID = 1886349326519647570L;
 
   @Builder
-  public NoticeDto(Long noticeSeq, String category, String title, String content, Integer viewCount,
+  public NoticeDTO(Long noticeSeq, String category, String title, String content, Integer viewCount,
       String writerName, Long memberSeq, LocalDateTime inDate, LocalDateTime modDate,
       LocalDateTime delDate) {
     this.noticeSeq = noticeSeq;
@@ -43,7 +43,7 @@ public class NoticeDto implements Serializable {
   private LocalDateTime delDate;
 
   @QueryProjection
-  public NoticeDto(String category, String title, String content, String writerName){
+  public NoticeDTO(String category, String title, String content, String writerName){
     this.category = category;
     this.title = title;
     this.content = content;

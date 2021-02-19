@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.model.NoticeDto;
+import com.safetyas.sds.common.model.NoticeDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -63,7 +63,7 @@ public class Notice extends CommonEntity implements Serializable {
     this.memberSeq = member.getMemberSeq();
   }
 
-  public void updateNotice(NoticeDto noticeDto) {
+  public void updateNotice(NoticeDTO noticeDto) {
     this.category = noticeDto.getCategory();
     this.title = noticeDto.getTitle();
     this.content = noticeDto.getContent();

@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberDto {
+public class MemberDTO {
 
   private Long memberSeq;
   private Integer level;
@@ -27,6 +27,6 @@ public class MemberDto {
   //private MemberInfoDto memberInfo; // 고객 정보
   //private AdminInfoDto adminInfo; // 관리자 정보
   //private List<MemberSupplierDto> memberSupplierList = new ArrayList<>();
-  private List<MemberBoardDto> memberBoardList = new ArrayList<>();
-  private List<MemberBoardCommentDto> memberBoardCommentList = new ArrayList<>();
+  private List<MemberBoardDTO> memberBoardList = new ArrayList<>();
+  private List<MemberBoardCommentDTO> memberBoardCommentList = new ArrayList<>();
 }

@@ -2,13 +2,13 @@ package com.safetyas.sds.common.repository;
 
 import com.safetyas.sds.common.entity.MemberBoard;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.MemberBoardDto;
+import com.safetyas.sds.common.model.MemberBoardDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface MemberBoardRepositoryCustom {
 
-  Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition, Pageable pageable);
+  Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition, Pageable pageable);
 
   MemberBoard selectMemberBoard(Long id);
 }

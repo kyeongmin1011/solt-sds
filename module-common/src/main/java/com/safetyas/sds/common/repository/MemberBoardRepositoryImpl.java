@@ -3,19 +3,16 @@ package com.safetyas.sds.common.repository;
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.entity.MemberBoard;
-import com.safetyas.sds.common.entity.QFile;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.MemberBoardDto;
-import com.safetyas.sds.common.model.QMemberBoardDto;
+import com.safetyas.sds.common.model.MemberBoardDTO;
+import com.safetyas.sds.common.model.QMemberBoardDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-import static com.safetyas.sds.common.entity.QFile.file;
 import static com.safetyas.sds.common.entity.QMember.member;
 import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
 import static org.reflections.util.Utils.isEmpty;
@@ -29,10 +26,10 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
   }
 
   @Override
-  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
-    QueryResults<MemberBoardDto> results = queryFactory
-        .select(new QMemberBoardDto(
+    QueryResults<MemberBoardDTO> results = queryFactory
+        .select(new QMemberBoardDTO(
             memberBoard.category,
             memberBoard.title,
             memberBoard.content,
@@ -50,7 +47,7 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
         .limit(pageable.getPageSize())
         .fetchResults();
 
-    List<MemberBoardDto> content = results.getResults();
+    List<MemberBoardDTO> content = results.getResults();
     long total = results.getTotal();
 
     return new PageImpl<>(content, pageable, total);

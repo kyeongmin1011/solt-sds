@@ -3,7 +3,7 @@ package com.safetyas.sds.common.service;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberBoard;
 import com.safetyas.sds.common.entity.MemberBoardComment;
-import com.safetyas.sds.common.model.MemberBoardCommentDto;
+import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import com.safetyas.sds.common.repository.MemberBoardCommentRepository;
 import com.safetyas.sds.common.repository.MemberBoardRepository;
 import com.safetyas.sds.common.repository.MemberRepository;
@@ -30,7 +30,7 @@ public class MemberBoardCommentService {
     commentRepository.save(memberBoardComment);
   }
 
-  public void updateMemberBoardComment(Long id, MemberBoardCommentDto commentDto) {
+  public void updateMemberBoardComment(Long id, MemberBoardCommentDTO commentDto) {
     MemberBoardComment memberBoardComment = commentRepository.findById(id)
         .orElseThrow(NoSuchElementException::new);
     memberBoardComment.updateMemberBoardComment(commentDto);

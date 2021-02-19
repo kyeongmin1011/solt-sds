@@ -1,19 +1,19 @@
 package com.safetyas.sds.common.repository;
 
-import static com.safetyas.sds.common.entity.QFaq.faq;
-import static org.reflections.util.Utils.isEmpty;
-
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.FaqDto;
-import com.safetyas.sds.common.model.QFaqDto;
+import com.safetyas.sds.common.model.FaqDTO;
+import com.safetyas.sds.common.model.QFaqDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import static com.safetyas.sds.common.entity.QFaq.faq;
+import static org.reflections.util.Utils.isEmpty;
 
 public class FaqRepositoryImpl implements FaqRepositoryCustom {
 
@@ -24,9 +24,9 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
   }
 
   @Override
-  public Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
-    QueryResults<FaqDto> results = queryFactory
-        .select(new QFaqDto(
+  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+    QueryResults<FaqDTO> results = queryFactory
+        .select(new QFaqDTO(
             faq.category,
             faq.title,
             faq.content,
@@ -43,7 +43,7 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
         .limit(pageable.getPageSize())
         .fetchResults();
 
-    List<FaqDto> content = results.getResults();
+    List<FaqDTO> content = results.getResults();
     long total = results.getTotal();
 
     return new PageImpl<>(content, pageable, total);

@@ -12,7 +12,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberBoardCommentDto {
+public class MemberBoardCommentDTO {
 
   private Long commentSeq;
   private String category;

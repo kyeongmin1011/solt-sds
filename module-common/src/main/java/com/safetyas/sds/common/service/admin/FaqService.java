@@ -3,9 +3,9 @@ package com.safetyas.sds.common.service.admin;
 import com.safetyas.sds.common.entity.Faq;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.FaqDto;
-import com.safetyas.sds.common.repository.MemberRepository;
+import com.safetyas.sds.common.model.FaqDTO;
 import com.safetyas.sds.common.repository.FaqRepository;
+import com.safetyas.sds.common.repository.MemberRepository;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
@@ -23,8 +23,8 @@ public class FaqService {
   private final ModelMapper modelMapper;
 
   @Transactional
-  public FaqDto selectFaq(Long id) {
-    return modelMapper.map(faqRepository.findById(id), FaqDto.class);
+  public FaqDTO selectFaq(Long id) {
+    return modelMapper.map(faqRepository.findById(id), FaqDTO.class);
   }
 
   @Transactional
@@ -35,7 +35,7 @@ public class FaqService {
   }
 
   @Transactional
-  public void updateFaq(Long id, FaqDto faqDto) {
+  public void updateFaq(Long id, FaqDTO faqDto) {
     Faq faq = faqRepository.findById(id).orElseThrow(NoSuchElementException::new);
     faq.updateFaq(faqDto);
     faqRepository.save(faq);
@@ -48,7 +48,7 @@ public class FaqService {
     faqRepository.save(faq);
   }
 
-  public Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
     return faqRepository.selectFaqList(condition,pageable);
   }
 }

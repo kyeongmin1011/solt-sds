@@ -12,7 +12,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-public class FaqDto implements Serializable {
+public class FaqDTO implements Serializable {
 
   private static final long serialVersionUID = 921022290655154681L;
 
@@ -25,7 +25,7 @@ public class FaqDto implements Serializable {
   private Long memberSeq; // 입력자 멤버 시퀀스
 
   @QueryProjection
-  public FaqDto(String category, String title, String content, String writerName) {
+  public FaqDTO(String category, String title, String content, String writerName) {
     this.category = category;
     this.title = title;
     this.content = content;

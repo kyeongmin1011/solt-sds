@@ -3,7 +3,7 @@ package com.safetyas.sds.admin.api.controller;
 import com.safetyas.sds.admin.api.response.CommonResult;
 import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.service.AdminMemberBoardCommentService;
-import com.safetyas.sds.common.model.MemberBoardCommentDto;
+import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -27,7 +27,7 @@ public class MemberBoardCommentController {
   @PostMapping("/{id}")
   @ApiOperation("1:1 게시판 댓글 저장")
   public CommonResult insertMemberBoardComment(@PathVariable Long id,
-      @RequestBody MemberBoardCommentDto commentDto) {
+      @RequestBody MemberBoardCommentDTO commentDto) {
     commentService.insertMemberBoardComment(id, commentDto);
     return responseService.getSuccessResult();
   }
@@ -35,7 +35,7 @@ public class MemberBoardCommentController {
   @PutMapping("/{id}")
   @ApiOperation("1:1 게시판 댓글 수정")
   public CommonResult updateMemberBoardComment(@PathVariable Long id,
-      @RequestBody MemberBoardCommentDto commentDto) {
+      @RequestBody MemberBoardCommentDTO commentDto) {
     commentService.updateMemberBoardComment(id, commentDto);
     return responseService.getSuccessResult();
   }

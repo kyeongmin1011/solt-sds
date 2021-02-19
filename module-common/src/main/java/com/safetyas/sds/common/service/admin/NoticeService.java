@@ -3,7 +3,7 @@ package com.safetyas.sds.common.service.admin;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.Notice;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.NoticeDto;
+import com.safetyas.sds.common.model.NoticeDTO;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.NoticeRepository;
 import java.util.NoSuchElementException;
@@ -25,9 +25,9 @@ public class NoticeService {
   private final ModelMapper modelMapper;
 
   @Transactional
-  public NoticeDto selectNotice(Long id) {
+  public NoticeDTO selectNotice(Long id) {
     return modelMapper.map(noticeRepository.findById(id).orElseThrow(NoSuchElementException::new),
-        NoticeDto.class);
+        NoticeDTO.class);
   }
 
   @Transactional
@@ -38,7 +38,7 @@ public class NoticeService {
   }
 
   @Transactional
-  public void updateNotice(Long id, NoticeDto noticeDto) {
+  public void updateNotice(Long id, NoticeDTO noticeDto) {
     Notice notice = noticeRepository.findById(id).orElseThrow(NoSuchElementException::new);
     notice.updateNotice(noticeDto);
     noticeRepository.save(notice);
@@ -51,7 +51,7 @@ public class NoticeService {
     noticeRepository.save(notice);
   }
 
-  public Page<NoticeDto> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
     return noticeRepository.selectNoticeList(condition, pageable);
   }
 }

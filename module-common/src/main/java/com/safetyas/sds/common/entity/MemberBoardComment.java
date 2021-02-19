@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.model.MemberBoardCommentDto;
+import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -71,7 +71,7 @@ public class MemberBoardComment extends CommonEntity implements Serializable {
   @JoinColumn(name = "member_board_seq", foreignKey = @ForeignKey(name = "member_board_seq_member_board_comment_fk"))
   private MemberBoard memberBoard;
 
-  public void updateMemberBoardComment(MemberBoardCommentDto commentDto){
+  public void updateMemberBoardComment(MemberBoardCommentDTO commentDto){
     this.category = commentDto.getCategory();
     this.title = commentDto.getTitle();
     this.content = commentDto.getContent();
