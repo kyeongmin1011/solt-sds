@@ -93,7 +93,7 @@ public class AdminMemberBoardService {
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());
 
-    List<Long> responseFileList = memberBoardDto.getFileDTOList()
+    List<Long> responseFileList = memberBoardDto.getFileList()
         .stream()
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());

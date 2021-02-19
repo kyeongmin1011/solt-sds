@@ -14,13 +14,12 @@ public class HazardService {
   private final HazardQueryRepository hazardQueryRepository;
 
   public List<HazardIdentificationDTO> selectHazardInfo(List<String> casList) {
-    List<HazardIdentificationDTO> hazardIdentificationDTOList = new ArrayList<>();
+    List<HazardIdentificationDTO> hazardIdentificationList = new ArrayList<>();
     for (String cas : casList) {
       HazardIdentificationDTO hazardIdentificationDTO = new HazardIdentificationDTO();
-      hazardIdentificationDTO.setCas(cas);
       hazardIdentificationDTO.updateHazardInfoDTO(cas, hazardQueryRepository.selectHazardInfo(cas));
-      hazardIdentificationDTOList.add(hazardIdentificationDTO);
+      hazardIdentificationList.add(hazardIdentificationDTO);
     }
-    return hazardIdentificationDTOList;
+    return hazardIdentificationList;
   }
 }

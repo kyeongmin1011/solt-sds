@@ -6,6 +6,7 @@ import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.NoticeDTO;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.NoticeRepository;
+import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -51,7 +52,13 @@ public class NoticeService {
     noticeRepository.save(notice);
   }
 
+  @Transactional
   public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
     return noticeRepository.selectNoticeList(condition, pageable);
+  }
+
+  @Transactional
+  public List<Notice> findTop5ByOrderByNoticeSeqDesc() {
+    return noticeRepository.findTop5ByOrderByNoticeSeqDesc();
   }
 }

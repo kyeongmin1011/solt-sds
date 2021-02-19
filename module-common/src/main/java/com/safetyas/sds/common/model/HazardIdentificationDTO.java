@@ -13,10 +13,10 @@ import lombok.ToString;
 public class HazardIdentificationDTO {
 
   String cas;
-  List<HazardInfoDTO> hazardInfoDTOList;
+  List<HazardInfoDTO> hazardInfoList;
 
-  public void updateHazardInfoDTO(String cas, List<HazardInfoDTO> hazardInfoDTOList) {
+  public void updateHazardInfoDTO(String cas, List<HazardInfoDTO> hazardInfoList) {
     this.cas = cas;
-    this.hazardInfoDTOList = hazardInfoDTOList;
+    this.hazardInfoList = hazardInfoList;
   }
 }

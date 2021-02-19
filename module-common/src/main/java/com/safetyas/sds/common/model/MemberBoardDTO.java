@@ -29,7 +29,7 @@ public class MemberBoardDTO implements Serializable {
   private String content;
   private Integer viewCount;
   private List<MemberBoardCommentDTO> memberBoardCommentList = new ArrayList<>();
-  private List<FileDTO> fileDTOList = new ArrayList<>();
+  private List<FileDTO> fileList = new ArrayList<>();
 
   @QueryProjection
   public MemberBoardDTO(String category, String title, String content, String writerName,

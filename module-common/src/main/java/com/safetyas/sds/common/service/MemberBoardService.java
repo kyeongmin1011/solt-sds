@@ -39,10 +39,11 @@ public class MemberBoardService {
     MemberBoardDTO memberBoardDto = modelMapper
         .map(memberBoardRepository.selectMemberBoard(id), MemberBoardDTO.class);
 
-    List<FileDTO> fileDTOList = fileService.selectFileList(id, relateTable);
+    List<FileDTO> fileList = fileService.selectFileList(id, relateTable);
 
-    if (!fileDTOList.isEmpty()) {
-      fileDTOList.stream().forEach(file -> memberBoardDto.getFileDTOList().add(file));
+    if (!fileList.isEmpty()) {
+          fileList
+          .forEach(file -> memberBoardDto.getFileList().add(file));
     }
     return memberBoardDto;
   }
