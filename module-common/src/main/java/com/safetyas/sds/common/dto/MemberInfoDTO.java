@@ -7,7 +7,7 @@ import lombok.Data;
 @Builder
 public class MemberInfoDTO {
 
-  private String memberSeq;
+  private Long memberSeq;
   private String memberId;
   private String pwd;
   private String companyName;
@@ -25,5 +25,9 @@ public class MemberInfoDTO {
   private String consultingYn;
   private String msdsTermsYn;
   private String privateTermsYn;
+
+  private String companyCertificate;
+
+
 
 }

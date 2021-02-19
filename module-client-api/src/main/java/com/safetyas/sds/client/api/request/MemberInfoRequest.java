@@ -11,7 +11,7 @@ import org.springframework.web.multipart.MultipartFile;
 public class MemberInfoRequest {
 
   @ApiModelProperty(value = "멤버 시퀀스")
-  private String memberSeq;
+  private Long memberSeq;
 
   @NotEmpty
   @Size(min = 2, max = 20)

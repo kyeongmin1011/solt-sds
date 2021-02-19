@@ -7,14 +7,10 @@ import com.safetyas.sds.client.api.service.ClientMemberService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Api(tags = {"회원가입, 로그인, 로그아웃 "})
 @RestController
@@ -33,6 +29,13 @@ public class SignController {
     clientMemberService.saveJoinMember(memberInfoRequest, file);
 
     return responseService.getSuccessResult();
+  }
+
+  @ApiOperation(value = "아이디 체크", notes = "아이디 중복체크 한다.")
+  @PostMapping(value = "/check-id")
+  public CommonResult checkDuplicateId() {
+    //TODO: 아이디 중복 체크
+    return null;
   }
 
 }
