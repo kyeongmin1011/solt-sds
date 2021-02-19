@@ -37,7 +37,7 @@ public class ClientMemberService {
   private final ModelMapper modelMapper;
 
   public Optional<Member> findByMemberId(String memberId) {
-    return memberService.findByMemberId(memberId);
+    return memberService.findMemberByMemberId(memberId);
   }
 
   /**
@@ -100,7 +100,7 @@ public class ClientMemberService {
   }
 
   public void updateMemberInfo(MemberInfoRequest memberInfoRequest) {
-    Member member = memberService.findByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
+    Member member = memberService.findMemberByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
         NoSuchElementException::new);
     if(memberInfoRequest.getPwd() != null) { //패스워드 재설정
       memberInfoRequest.setPwd(passwordEncoder.encode(memberInfoRequest.getPwd()));
@@ -148,7 +148,7 @@ public class ClientMemberService {
         .recordSeq(member.getMemberSeq())
         .type("companyCertificate")
         .build();
-    File companyFile = fileService.selectCompanyCertificate(fileDTO);
+    File companyFile = fileService.selectFileByFileDTO(fileDTO);
 
     return MemberInfoDTO.builder()
         .memberSeq(member.getMemberSeq())
@@ -187,7 +187,37 @@ public class ClientMemberService {
    * @param memberSupplierDTO 공급자 정보
    * @return dto
    */
-  public MemberSupplierDTO saveMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
-    return null;
+  public void saveMemberSupplier(MemberSupplierDTO memberSupplierDTO, Long memberSeq) {
+    System.out.println("멤버시퀀스"+ memberSeq);
+    Member member = memberService.findMemberById(memberSeq)
+        .orElseThrow(CustomUserNotFoundException::new);
+    memberService.saveMemberSupplier(memberSupplierDTO.toEntity(member));
+  }
+
+  /**
+   * 공급자 수정
+   * @param memberSupplierDTO
+   */
+  public void updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+    MemberSupplier memberSupplier = memberService
+        .selectMemberSupplier(memberSupplierDTO.getMemberSupplierSeq())
+        .orElseThrow(CustomUserNotFoundException::new);
+    memberSupplier.update(memberSupplierDTO);
+
+    memberService.saveMemberSupplier(memberSupplier);
+  }
+
+  /**
+   * 공급자 삭제
+   * @param memberSupplierSeq
+   */
+  public boolean deleteMemberSupplier(Long memberSupplierSeq) {
+    // 공급자가 제품을 가지고 있는지 확인
+    if(!memberService.checkMemberSupplierProduct(memberSupplierSeq)) {
+      return false;
+    } else {
+      memberService.deleteMemberSupplier(memberSupplierSeq);
+    }
+    return true;
   }
 }

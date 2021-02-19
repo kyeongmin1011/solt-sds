@@ -24,8 +24,16 @@ public class MemberService {
   private final MemberSupplierQueryRepository memberSupplierQueryRepository;
 
   @Transactional
-  public Optional<Member> findByMemberId(String memberId) {
+  public Optional<Member> findMemberByMemberId(String memberId) {
     return memberRepository.findByMemberId(memberId);
+  }
+
+  /**
+   * 멤버 가져오기
+   * @param memberSeq
+   */
+  public Optional<Member> findMemberById(Long memberSeq) {
+    return memberRepository.findById(memberSeq);
   }
 
   /**
@@ -64,20 +72,37 @@ public class MemberService {
   }
 
   /**
-   * 공급자 입력
+   * 공급자 저장
    * @param memberSupplier 공급자
    * @return 공급자
    */
-  public MemberSupplier insertMemberSupplier(MemberSupplier memberSupplier) {
+  public MemberSupplier saveMemberSupplier(MemberSupplier memberSupplier) {
     return memberSupplierRepository.save(memberSupplier);
   }
 
   /**
-   *
-   * @param memberSupplier
+   * 공급자에 상품 있는지 체크
+   * @param memberSupplierSeq
    * @return
    */
-  public MemberSupplier checkMemberSupplierProduct(MemberSupplier memberSupplier) {
-    return null;
+  public boolean checkMemberSupplierProduct(Long memberSupplierSeq) {
+    return memberSupplierQueryRepository
+        .existsByProduct(memberSupplierSeq);
+  }
+
+  /**
+   * 공급자 가져오기
+   * @param memberSupplierSeq
+   */
+  public Optional<MemberSupplier> selectMemberSupplier(Long memberSupplierSeq) {
+    return memberSupplierRepository.findById(memberSupplierSeq);
+  }
+
+  /**
+   * 공급자 삭제
+   * @param memberSupplierSeq
+   */
+  public void deleteMemberSupplier(Long memberSupplierSeq) {
+    memberSupplierRepository.deleteById(memberSupplierSeq);
   }
 }

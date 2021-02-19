@@ -29,7 +29,7 @@ public class MemberController {
   private final ClientMemberService clientMemberService;
 
   @ApiOperation(value = "멤버정보", notes = "멤버 정보 가져오기")
-  @GetMapping(value = "/member-info/{id}")
+  @GetMapping(value = "/info/{id}")
   public CommonResult selectMemberInfo(@PathVariable String id) {
     //testid1: dGVzdGlkMQ==
     MemberInfoDTO memberInfoDTO = clientMemberService.selectMemberInfo(id);
@@ -54,21 +54,29 @@ public class MemberController {
   @ApiOperation(value = "멤버 공급자 입력", notes = "새로운 멤버 공급자 입력한다.")
   @PostMapping(value = "/supplier-save")
   public CommonResult insertMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
-    clientMemberService.saveMemberSupplier(memberSupplierDTO);
-    return null;
+    Long memberSeq = 1L;
+    clientMemberService.saveMemberSupplier(memberSupplierDTO, memberSeq);
+    return responseService.getSuccessResult();
   }
 
   @ApiOperation(value = "멤버 공급자 수정", notes = "새로운 멤버 공급자 수정 입력한다.")
   @PostMapping(value = "/supplier-update")
-  public CommonResult updateMemberSupplier() {
-    return null;
+  public CommonResult updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+    clientMemberService.updateMemberSupplier(memberSupplierDTO);
+    return responseService.getSuccessResult();
   }
 
   @ApiOperation(value = "멤버 공급자 삭제",
       notes = "제품을 가진 멤버 공급자인지 확인 후 삭제한다. 제품을 가질경우 삭제 불가.")
-  @PostMapping(value = "/supplier-del/{seq}")
-  public CommonResult deleteMemberSupplier() {
-    return null;
+  @GetMapping(value = "/supplier-del/{seq}")
+  public CommonResult deleteMemberSupplier(@PathVariable Long seq) {
+    boolean deleted = clientMemberService.deleteMemberSupplier(seq);
+    if (deleted) {
+      return responseService.getSuccessResult();
+    } else {
+      return responseService.getFailResult(-1,
+          "공급하는 제품이 존재하여 삭제 할 수 없습니다. 제품 삭제 후 가능합니다.");
+    }
   }
 
 }

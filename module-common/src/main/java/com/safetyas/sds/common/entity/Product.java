@@ -5,11 +5,16 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
@@ -30,7 +35,7 @@ public class Product extends CommonEntity implements Serializable {
       String writerEmail, String tonsYear, String submissionYn, String orYn, String agencySubmissionYn,
       String agencyTranslateYn, String agencyRevisionYn, String agencyOrYn, String agencyCbiYn,
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
-      LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+      MemberSupplier memberSupplier ,LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.productSeq = productSeq;
     this.productUid = productUid;
@@ -50,6 +55,7 @@ public class Product extends CommonEntity implements Serializable {
     this.validStart = validStart;
     this.validFinish = validFinish;
     this.finalSaveYn = finalSaveYn;
+    setMemberSupplier(memberSupplier);
   }
 
   @Id
@@ -108,6 +114,10 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
 
+  @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+  @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
+  private MemberSupplier memberSupplier;
+
   @OneToMany(mappedBy = "product")
   private List<CbiAgency> cbiAgencyList = new ArrayList<>();
 
@@ -125,4 +135,12 @@ public class Product extends CommonEntity implements Serializable {
 
   @OneToMany(mappedBy = "product")
   private List<RenewAgency> renewAgencyList = new ArrayList<>();
+
+  public void setMemberSupplier(MemberSupplier memberSupplier) {
+    if (this.memberSupplier != null) {
+      this.memberSupplier.getProductList().remove(this);
+    }
+    this.memberSupplier = memberSupplier;
+    memberSupplier.getProductList().add(this);
+  }
 }

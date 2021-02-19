@@ -1,7 +1,10 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.dto.MemberSupplierDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -11,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -71,11 +75,24 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_supplier_fk"))
   private Member member;  // 멤버
 
+  @OneToMany(mappedBy = "memberSupplier")
+  private List<Product> productList = new ArrayList<>();
+
   public void setMember(Member member) {
     if (this.member != null) {
       this.member.getMemberSupplierList().remove(this);
     }
     this.member = member;
     member.getMemberSupplierList().add(this);
+  }
+
+  public void update(MemberSupplierDTO memberSupplierDTO) {
+    this.supplierGroup = memberSupplierDTO.getSupplierGroup();
+    this.dept = memberSupplierDTO.getDept();
+    this.name = memberSupplierDTO.getName();
+    this.phone = memberSupplierDTO.getPhone();
+    this.addr1 = memberSupplierDTO.getAddr1();
+    this.addr2 = memberSupplierDTO.getAddr2();
+    this.defaultYn = memberSupplierDTO.getDefaultYn();
   }
 }
