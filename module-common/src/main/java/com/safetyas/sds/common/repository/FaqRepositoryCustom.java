@@ -1,11 +1,11 @@
 package com.safetyas.sds.common.repository;
 
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.FaqDto;
+import com.safetyas.sds.common.model.FaqDTO;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
 public interface FaqRepositoryCustom {
 
-  Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable);
+  Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable);
 }

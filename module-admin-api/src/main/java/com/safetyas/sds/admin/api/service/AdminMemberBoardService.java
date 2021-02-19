@@ -4,7 +4,7 @@ import com.safetyas.sds.admin.api.util.FileUtil;
 import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.MemberBoardDto;
+import com.safetyas.sds.common.model.MemberBoardDTO;
 import com.safetyas.sds.common.service.MemberBoardService;
 import com.safetyas.sds.common.service.client.FileService;
 import java.util.HashMap;
@@ -32,22 +32,22 @@ public class AdminMemberBoardService {
   private static final String TABLE = "sds_member_board";
   private static final String PATH = "memberBoard";
 
-  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
+  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
     return memberBoardService.selectMemberBoardList(condition, pageable);
   }
 
-  public MemberBoardDto selectMemberBoard(Long id) {
+  public MemberBoardDTO selectMemberBoard(Long id) {
     return memberBoardService.selectMemberBoard(id);
   }
 
-  public void insertMemberBoard(MemberBoardDto memberBoardDto,
+  public void insertMemberBoard(MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     long seq = memberBoardService.insertMemberBoard(memberBoardDto.toEntity());
     insertFile(seq, multipartHttpServletRequest);
   }
 
-  public void updateMemberBoard(Long id, MemberBoardDto memberBoardDto,
+  public void updateMemberBoard(Long id, MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     memberBoardService.updateMemberBoard(id, memberBoardDto);
 
@@ -85,7 +85,7 @@ public class AdminMemberBoardService {
     fileService.saveFiles(fileList);
   }
 
-  private void updateFile(long memberBoardSeq, MemberBoardDto memberBoardDto,
+  private void updateFile(long memberBoardSeq, MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
 
     List<Long> originFileList = fileService.selectFileList(memberBoardSeq, TABLE)
@@ -93,7 +93,7 @@ public class AdminMemberBoardService {
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());
 
-    List<Long> responseFileList = memberBoardDto.getFileDTOList()
+    List<Long> responseFileList = memberBoardDto.getFileList()
         .stream()
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());

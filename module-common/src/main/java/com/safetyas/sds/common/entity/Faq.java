@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.model.FaqDto;
+import com.safetyas.sds.common.model.FaqDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;
@@ -63,7 +63,7 @@ public class Faq extends CommonEntity implements Serializable {
     this.memberSeq = member.getMemberSeq();
   }
 
-  public void updateFaq(FaqDto faqDto) {
+  public void updateFaq(FaqDTO faqDto) {
     this.category = faqDto.getCategory();
     this.title = faqDto.getTitle();
     this.content = faqDto.getContent();

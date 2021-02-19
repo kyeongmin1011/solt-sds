@@ -2,7 +2,6 @@ package com.safetyas.sds.admin.api.util;
 
 import com.safetyas.sds.common.dto.FileDTO;
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -81,7 +80,7 @@ public class FileUtil {
     Iterator<Entry<String, MultipartFile>> itr = files.entrySet().iterator();
     MultipartFile file;
     String filePath = "";
-    List<FileDTO> fileDTOList = new ArrayList<>();
+    List<FileDTO> fileList = new ArrayList<>();
 
     int fileKey = 0;
     while (itr.hasNext()) {
@@ -121,9 +120,9 @@ public class FileUtil {
           .oriName(originFileName)
           .regUserSeq((long) info.get("regUserSeq"))
           .build();
-      fileDTOList.add(fileDTO);
+      fileList.add(fileDTO);
     }
-    return fileDTOList;
+    return fileList;
   }
 
   private static String getTimeStamp() {

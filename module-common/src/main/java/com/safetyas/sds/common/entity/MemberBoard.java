@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.model.MemberBoardDto;
+import com.safetyas.sds.common.model.MemberBoardDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -81,7 +81,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
     member.getMemberBoardList().add(this);
   }
 
-  public void updateMemberBoard(MemberBoardDto memberBoardDto){
+  public void updateMemberBoard(MemberBoardDTO memberBoardDto){
     this.category = memberBoardDto.getCategory();
     this.title = memberBoardDto.getTitle();
     this.writerName = memberBoardDto.getWriterName();

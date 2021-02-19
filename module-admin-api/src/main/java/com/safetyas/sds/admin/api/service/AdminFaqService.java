@@ -4,7 +4,7 @@ import com.safetyas.sds.admin.api.util.FileUtil;
 import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.FaqDto;
+import com.safetyas.sds.common.model.FaqDTO;
 import com.safetyas.sds.common.service.admin.FaqService;
 import com.safetyas.sds.common.service.client.FileService;
 import java.util.HashMap;
@@ -27,18 +27,18 @@ public class AdminFaqService {
   private static final String RELATE_TABLE = "sds_faq";
   private static final String TYPE = "attach";
 
-  public FaqDto selectFaq(Long id) {
+  public FaqDTO selectFaq(Long id) {
     return faqService.selectFaq(id);
   }
 
-  public void insertFaq(FaqDto faqDto, MultipartHttpServletRequest multipartHttpServletRequest) {
+  public void insertFaq(FaqDTO faqDto, MultipartHttpServletRequest multipartHttpServletRequest) {
     long faqSeq = faqService.insertFaq(faqDto.toEntity());
     if (multipartHttpServletRequest.getFile(TYPE) != null) {
       insertFile(faqSeq, multipartHttpServletRequest);
     }
   }
 
-  public void updateFaq(Long faqSeq, FaqDto faqDto,
+  public void updateFaq(Long faqSeq, FaqDTO faqDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     faqService.updateFaq(faqSeq, faqDto);
 
@@ -51,7 +51,7 @@ public class AdminFaqService {
     faqService.deleteFaq(id);
   }
 
-  public Page<FaqDto> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
     return faqService.selectFaqList(condition, pageable);
   }
 

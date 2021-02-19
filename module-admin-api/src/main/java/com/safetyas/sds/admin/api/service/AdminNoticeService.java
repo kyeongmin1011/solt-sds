@@ -4,7 +4,7 @@ import com.safetyas.sds.admin.api.util.FileUtil;
 import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.NoticeDto;
+import com.safetyas.sds.common.model.NoticeDTO;
 import com.safetyas.sds.common.service.admin.NoticeService;
 import com.safetyas.sds.common.service.client.FileService;
 import java.util.HashMap;
@@ -27,11 +27,11 @@ public class AdminNoticeService {
   private static final String RELATE_TABLE = "sds_notice";
   private static final String TYPE = "attach";
 
-  public NoticeDto selectNotice(Long id) {
+  public NoticeDTO selectNotice(Long id) {
     return noticeService.selectNotice(id);
   }
 
-  public void insertNotice(NoticeDto noticeDto,
+  public void insertNotice(NoticeDTO noticeDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     long noticeSeq = noticeService.insertNotice(noticeDto.toEntity());
 
@@ -40,7 +40,7 @@ public class AdminNoticeService {
     }
   }
 
-  public void updateNotice(Long noticeSeq, NoticeDto noticeDto,
+  public void updateNotice(Long noticeSeq, NoticeDTO noticeDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     noticeService.updateNotice(noticeSeq, noticeDto);
 
@@ -53,7 +53,7 @@ public class AdminNoticeService {
     noticeService.deleteNotice(id);
   }
 
-  public Page<NoticeDto> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
     return noticeService.selectNoticeList(condition, pageable);
   }
 

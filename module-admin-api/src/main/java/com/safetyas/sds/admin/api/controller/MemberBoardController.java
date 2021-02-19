@@ -5,10 +5,9 @@ import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.response.SingleResult;
 import com.safetyas.sds.admin.api.service.AdminMemberBoardService;
 import com.safetyas.sds.common.model.BoardSearchCondition;
-import com.safetyas.sds.common.model.MemberBoardDto;
+import com.safetyas.sds.common.model.MemberBoardDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
-import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -19,10 +18,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Slf4j
@@ -37,7 +34,7 @@ public class MemberBoardController {
 
   @GetMapping("")
   @ApiOperation("고객 게시판 목록 조회")
-  public SingleResult<Page<MemberBoardDto>> selectMemberBoardList(
+  public SingleResult<Page<MemberBoardDTO>> selectMemberBoardList(
       BoardSearchCondition condition,
       @PageableDefault Pageable pageable) {
     return responseService.getSingleResult(
@@ -46,13 +43,13 @@ public class MemberBoardController {
 
   @GetMapping("/{id}")
   @ApiOperation("고객 게시판 조회")
-  public SingleResult<MemberBoardDto> selectMemberBoard(@PathVariable Long id) {
+  public SingleResult<MemberBoardDTO> selectMemberBoard(@PathVariable Long id) {
     return responseService.getSingleResult(memberBoardService.selectMemberBoard(id));
   }
 
   @PostMapping("")
   @ApiOperation("고객 게시판 저장")
-  public CommonResult insertMemberBoard(MemberBoardDto memberBoardDto,
+  public CommonResult insertMemberBoard(MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     memberBoardService.insertMemberBoard(memberBoardDto, multipartHttpServletRequest);
     return responseService.getSuccessResult();
@@ -61,7 +58,7 @@ public class MemberBoardController {
   @PutMapping("/{id}")
   @ApiOperation("고객 게시판 수정")
   public CommonResult updateMemberBoard(@PathVariable Long id,
-      MemberBoardDto memberBoardDto, MultipartHttpServletRequest multipartHttpServletRequest) {
+      MemberBoardDTO memberBoardDto, MultipartHttpServletRequest multipartHttpServletRequest) {
     memberBoardService.updateMemberBoard(id, memberBoardDto, multipartHttpServletRequest);
     return responseService.getSuccessResult();
   }

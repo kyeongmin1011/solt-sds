@@ -1,6 +1,6 @@
 package com.safetyas.sds.admin.api.service;
 
-import com.safetyas.sds.common.model.MemberBoardCommentDto;
+import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import com.safetyas.sds.common.service.MemberBoardCommentService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,11 +11,11 @@ public class AdminMemberBoardCommentService {
 
   private final MemberBoardCommentService commentService;
 
-  public void insertMemberBoardComment(Long id, MemberBoardCommentDto commentDto) {
+  public void insertMemberBoardComment(Long id, MemberBoardCommentDTO commentDto) {
     commentService.insertMemberBoardComment(id, commentDto.toEntity());
   }
 
-  public void updateMemberBoardComment(Long id, MemberBoardCommentDto commentDto) {
+  public void updateMemberBoardComment(Long id, MemberBoardCommentDTO commentDto) {
     commentService.updateMemberBoardComment(id, commentDto);
   }
 
