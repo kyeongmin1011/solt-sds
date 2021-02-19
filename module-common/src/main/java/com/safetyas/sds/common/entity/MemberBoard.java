@@ -70,7 +70,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
   @JoinColumn(name = "member_seq", foreignKey = @ForeignKey(name = "member_seq_member_board_fk"))
   private Member member;
 
-  @OneToMany(mappedBy = "memberBoard")
+  @OneToMany(mappedBy = "memberBoard",fetch = FetchType.LAZY)
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
 
   public void updateMember(Member member) {
@@ -81,8 +81,7 @@ public class MemberBoard extends CommonEntity implements Serializable {
     member.getMemberBoardList().add(this);
   }
 
-  public void updateMemberBoard(MemberBoardDto memberBoardDto, Member member){
-    updateMember(member);
+  public void updateMemberBoard(MemberBoardDto memberBoardDto){
     this.category = memberBoardDto.getCategory();
     this.title = memberBoardDto.getTitle();
     this.writerName = memberBoardDto.getWriterName();

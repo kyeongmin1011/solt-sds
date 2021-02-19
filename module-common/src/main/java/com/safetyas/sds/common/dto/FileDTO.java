@@ -1,13 +1,18 @@
 package com.safetyas.sds.common.dto;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.File;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Value;
+import lombok.NoArgsConstructor;
 
 @Data
 @Builder
+@NoArgsConstructor
+@AllArgsConstructor
 public class FileDTO {
+
   private Long fileSeq;
   private String relateTable;
   private Long recordSeq;
@@ -19,6 +24,13 @@ public class FileDTO {
   private String oriName;
   private Long regUserSeq;
   private Long modUserSeq;
+
+  @QueryProjection
+  public FileDTO(Long fileSeq, String relateTable, Long recordSeq) {
+    this.fileSeq = fileSeq;
+    this.relateTable = relateTable;
+    this.recordSeq = recordSeq;
+  }
 
   public File toEntity() {
     return File.builder()

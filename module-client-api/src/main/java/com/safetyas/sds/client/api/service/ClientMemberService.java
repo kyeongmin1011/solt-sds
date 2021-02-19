@@ -52,7 +52,7 @@ public class ClientMemberService {
       info.put("path", "companyCertificate");
       info.put("relateTable", "sds_member");
       info.put("recordSeq", memberSeq);
-      info.put("type", "companyCertificate"); //파일(문서 등) : ATTACH , 이미지 : IMAGE
+      info.put("type", "companyCertificate");
       info.put("regUserSeq", memberSeq);
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
@@ -115,7 +115,7 @@ public class ClientMemberService {
           .recordSeq(member.getMemberSeq())
           .type("companyCertificate")
           .build();
-      File preFile = fileService.selectCompanyCertificate(fileDTO);
+      File preFile = fileService.selectFileByFileDTO(fileDTO);
       fileUtil.deleteFile(preFile.getPath(), preFile.getName());
       fileService.deleteFileData(preFile);
 
@@ -123,8 +123,8 @@ public class ClientMemberService {
       info.put("path", "companyCertificate");
       info.put("relateTable", "sds_member");
       info.put("recordSeq", member.getMemberSeq());
-      info.put("type", "companyCertificate"); //파일(문서 등) : ATTACH , 이미지 : IMAGE
-      info.put("regUserSeq", member.getMemberSeq());
+      info.put("type", "companyCertificate");
+      info.put("regUserSeq", memberInfoRequest.getMemberSeq());
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
 

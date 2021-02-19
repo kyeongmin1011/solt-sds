@@ -1,11 +1,9 @@
 package com.safetyas.sds.common.repository;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
 
 import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
-import java.util.List;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -40,7 +38,7 @@ class FileQueryRepositoryTest {
         .name("name3")
         .oriName("originName3")
         .build();
-    File result = fileQueryRepository.selectCompanyCertificate(fileDTO);
+    File result = fileQueryRepository.selectFileByFileDTO(fileDTO);
     //then
     System.out.println(result.getOriName());
     assertThat(result.getOriName()).isEqualTo(file.getOriName());

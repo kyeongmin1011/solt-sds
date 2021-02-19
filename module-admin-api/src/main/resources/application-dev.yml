@@ -14,7 +14,7 @@ spring:
   jpa:
     hibernate:
       # Hibernate ddl auto (create, create-drop, validate, update)
-      ddl-auto: validate
+      ddl-auto: update
     showSql: true
     properties:
       hibernate:
@@ -37,6 +37,8 @@ spring:
     enabled: true
     suffix: .html
     mode: HTML
+  file:
+    path: C:\\PROJECT\\solt-sds\\upload\\
 
 logging.level:
   org.hibernate.SQL: info

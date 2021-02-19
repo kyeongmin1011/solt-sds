@@ -1,10 +1,9 @@
-package com.safetyas.sds.common.repository.admin;
+package com.safetyas.sds.common.repository;
 
 import com.safetyas.sds.common.entity.Notice;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface NoticeRepository extends JpaRepository<Notice,Long> {
-
+public interface NoticeRepository extends JpaRepository<Notice,Long>, NoticeRepositoryCustom {
 }

@@ -1,12 +1,11 @@
 package com.safetyas.sds.common.repository;
 
-import static com.safetyas.sds.common.entity.QMember.member;
-import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
-import static org.reflections.util.Utils.isEmpty;
-
 import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
+import com.safetyas.sds.common.entity.File;
+import com.safetyas.sds.common.entity.MemberBoard;
+import com.safetyas.sds.common.entity.QFile;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDto;
 import com.safetyas.sds.common.model.QMemberBoardDto;
@@ -15,6 +14,11 @@ import javax.persistence.EntityManager;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+
+import static com.safetyas.sds.common.entity.QFile.file;
+import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
+import static org.reflections.util.Utils.isEmpty;
 
 public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
 
@@ -25,7 +29,7 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
   }
 
   @Override
-  public Page<MemberBoardDto> searchMemberBoard(BoardSearchCondition boardSearchCondition,
+  public Page<MemberBoardDto> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
     QueryResults<MemberBoardDto> results = queryFactory
         .select(new QMemberBoardDto(
@@ -36,11 +40,13 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
             memberBoard.writerEmail))
         .from(memberBoard)
         .leftJoin(memberBoard.member, member)
-        .where(categoryEq(boardSearchCondition.getCategory()),
-            titleEq(boardSearchCondition.getTitle()),
-            contentEq(boardSearchCondition.getContent()),
-            writerNameEq(boardSearchCondition.getWriterName()))
+        .where(categoryEq(condition.getCategory()),
+            titleEq(condition.getTitle()),
+            contentEq(condition.getContent()),
+            writerNameEq(condition.getWriterName()),
+            memberBoard.delDate.isNull())
         .offset(pageable.getOffset())
+        .orderBy(memberBoard.memberBoardSeq.desc())
         .limit(pageable.getPageSize())
         .fetchResults();
 
@@ -48,6 +54,15 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
     long total = results.getTotal();
 
     return new PageImpl<>(content, pageable, total);
+  }
+
+  @Override
+  public MemberBoard selectMemberBoard(Long id) {
+    return queryFactory
+        .select(memberBoard)
+        .from(memberBoard)
+        .where(memberBoard.memberBoardSeq.eq(id),memberBoard.delDate.isNull())
+        .fetchOne();
   }
 
   private BooleanExpression categoryEq(String category) {
