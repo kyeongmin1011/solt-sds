@@ -13,6 +13,6 @@ public class AdminMemberService {
   private final MemberService memberService;
 
   public Optional<Member> findByMemberId(String memberId) {
-    return memberService.findByMemberId(memberId);
+    return memberService.findMemberByMemberId(memberId);
   }
 }

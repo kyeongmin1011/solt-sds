@@ -31,4 +31,11 @@ public class SignController {
     return responseService.getSuccessResult();
   }
 
+  @ApiOperation(value = "아이디 체크", notes = "아이디 중복체크 한다.")
+  @PostMapping(value = "/check-id")
+  public CommonResult checkDuplicateId() {
+    //TODO: 아이디 중복 체크
+    return null;
+  }
+
 }
