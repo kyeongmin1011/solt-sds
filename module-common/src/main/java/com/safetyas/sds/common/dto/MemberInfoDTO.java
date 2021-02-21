@@ -26,11 +26,7 @@ public class MemberInfoDTO {
   private String consultingYn;
   private String msdsTermsYn;
   private String privateTermsYn;
-
   private String companyCertificate;
-
-
-
   private LocalDateTime memberValidStart;
   private LocalDateTime memberValidFinish;
 }

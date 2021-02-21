@@ -1,7 +1,5 @@
 package com.safetyas.sds.client;
 
-import static org.assertj.core.api.Assertions.assertThat;
-
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.QMember;
@@ -10,6 +8,8 @@ import org.junit.jupiter.api.BeforeEach;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.transaction.annotation.Transactional;
+
+import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @Transactional

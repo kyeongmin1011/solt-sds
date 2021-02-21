@@ -3,7 +3,12 @@ package com.safetyas.sds.client.api.controller;
 import com.safetyas.sds.client.api.response.ResponseService;
 import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ClientMainService;
+import com.safetyas.sds.common.model.ClientMainMyPageDTO;
+import com.safetyas.sds.common.model.FaqDTO;
+import com.safetyas.sds.common.model.MemberBoardDTO;
+import com.safetyas.sds.common.model.NoticeDTO;
 import io.swagger.annotations.Api;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,11 +23,23 @@ public class MainController {
   private final ResponseService responseService;
   private final ClientMainService clientMainService;
 
-  @GetMapping("/main")
-  public SingleResult<?> selectClientMain() {
+  @GetMapping("/notices")
+  public SingleResult<List<NoticeDTO>> selectClientMainNoticeList() {
+    return responseService.getSingleResult(clientMainService.selectClientMainNoticeList());
+  }
 
-     clientMainService.selectClientMain();
+  @GetMapping("/faqs")
+  public SingleResult<List<FaqDTO>> selectClientMainFaqList() {
+    return responseService.getSingleResult(clientMainService.selectClientMainFaqList());
+  }
 
-    return null;
+  @GetMapping("/member-boards")
+  public SingleResult<List<MemberBoardDTO>> selectClientMemberBoardList() {
+    return responseService.getSingleResult(clientMainService.selectClientMainMemberBoardList());
+  }
+
+  @GetMapping("/member-info")
+  public SingleResult<ClientMainMyPageDTO> selectClientMemberInfo() {
+    return responseService.getSingleResult(clientMainService.selectClientMainMemberInfo());
   }
 }

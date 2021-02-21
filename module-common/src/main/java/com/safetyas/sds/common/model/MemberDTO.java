@@ -1,6 +1,7 @@
 package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.dto.MemberInfoDTO;
+import com.safetyas.sds.common.dto.MemberSupplierDTO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -26,6 +27,7 @@ public class MemberDTO {
   private LocalDateTime loginLast;
   private Integer loginCount;
   private MemberInfoDTO memberInfo; // 고객 정보
+  private List<MemberSupplierDTO> memberSupplierList = new ArrayList<>();
   private List<MemberBoardDTO> memberBoardList = new ArrayList<>();
   private List<MemberBoardCommentDTO> memberBoardCommentList = new ArrayList<>();
 }
