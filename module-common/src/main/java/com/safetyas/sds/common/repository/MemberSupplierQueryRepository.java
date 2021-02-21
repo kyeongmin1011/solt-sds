@@ -21,11 +21,10 @@ public class MemberSupplierQueryRepository {
   }
 
   public List<MemberSupplier> selectMemberSuppliers (Long memberSeq) {
-    QMember member = new QMember("member");
     return queryFactory.selectFrom(memberSupplier)
-        .join(memberSupplier.member, member)
+        .leftJoin(memberSupplier.member, QMember.member)
         .where(
-            member.memberSeq.eq(memberSeq))
+            QMember.member.memberSeq.eq(memberSeq))
         .orderBy(memberSupplier.inDate.desc())
         .fetch();
   }
