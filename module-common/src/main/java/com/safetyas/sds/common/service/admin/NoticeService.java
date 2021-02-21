@@ -58,7 +58,7 @@ public class NoticeService {
   }
 
   @Transactional
-  public List<Notice> findTop5ByOrderByNoticeSeqDesc() {
+  public List<Notice> selectClientMainNoticeList() {
     return noticeRepository.findTop5ByOrderByNoticeSeqDesc();
   }
 }

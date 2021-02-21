@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.dto;
 
+import java.time.LocalDateTime;
 import lombok.Builder;
 import lombok.Data;
 
@@ -25,5 +26,6 @@ public class MemberInfoDTO {
   private String consultingYn;
   private String msdsTermsYn;
   private String privateTermsYn;
-
+  private LocalDateTime memberValidStart;
+  private LocalDateTime memberValidFinish;
 }

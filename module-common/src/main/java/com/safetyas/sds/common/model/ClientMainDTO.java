@@ -14,8 +14,8 @@ import lombok.ToString;
 @AllArgsConstructor
 @ToString
 public class ClientMainDTO {
-
-  List<NoticeDTO> NoticeList1 = new ArrayList<>();
+  List<NoticeDTO> NoticeList = new ArrayList<>();
   List<MemberBoardDTO> memberBoardList = new ArrayList<>();
   List<FaqDTO> faqList = new ArrayList<>();
+  MemberDTO member;
 }

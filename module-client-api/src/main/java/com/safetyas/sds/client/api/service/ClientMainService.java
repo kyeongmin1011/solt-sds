@@ -1,8 +1,6 @@
 package com.safetyas.sds.client.api.service;
 
-import com.safetyas.sds.common.service.MemberBoardService;
-import com.safetyas.sds.common.service.admin.FaqService;
-import com.safetyas.sds.common.service.admin.NoticeService;
+import com.safetyas.sds.common.service.client.MainService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +8,9 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClientMainService {
 
-  private final NoticeService noticeService;
-  private final FaqService faqService;
-  private final MemberBoardService memberBoardService;
+  private final MainService mainService;
 
   public void selectClientMain() {
-
-    noticeService.findTop5ByOrderByNoticeSeqDesc();
+    mainService.selectClientMain();
   }
 }

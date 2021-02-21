@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.model;
 
+import com.safetyas.sds.common.dto.MemberInfoDTO;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +25,7 @@ public class MemberDTO {
   private String token;
   private LocalDateTime loginLast;
   private Integer loginCount;
-  //private MemberInfoDto memberInfo; // 고객 정보
-  //private AdminInfoDto adminInfo; // 관리자 정보
-  //private List<MemberSupplierDto> memberSupplierList = new ArrayList<>();
+  private MemberInfoDTO memberInfo; // 고객 정보
   private List<MemberBoardDTO> memberBoardList = new ArrayList<>();
   private List<MemberBoardCommentDTO> memberBoardCommentList = new ArrayList<>();
 }
