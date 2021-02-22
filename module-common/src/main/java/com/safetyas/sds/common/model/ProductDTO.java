@@ -2,6 +2,8 @@ package com.safetyas.sds.common.model;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -37,4 +39,6 @@ public class ProductDTO implements Serializable {
   private String finalSaveYn;
   private String agencyCbiType;
   private String agencyCbiDocYn;
+
+  private List<CbiAgencyDTO> cbiAgencyList = new ArrayList<>();
 }

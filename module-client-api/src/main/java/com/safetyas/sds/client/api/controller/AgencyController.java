@@ -2,7 +2,9 @@ package com.safetyas.sds.client.api.controller;
 
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
+import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ClientAgencyService;
+import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
@@ -58,10 +60,16 @@ public class AgencyController {
     return null;
   }
 
-  @ApiOperation(value = "영업비밀대행")
+  @ApiOperation(value = "영업비밀대행 요청정보")
+  @GetMapping(value = "/cbi/request-info/{productSeq}")
+  public SingleResult<?> selectCbiAgencyRequestInfo(@PathVariable Long productSeq) {
+    return responseService.getSingleResult(clientAgencyService.selectCbiRequestInfo(productSeq));
+  }
+
+  @ApiOperation(value = "영업비밀대행 진행상태")
   @GetMapping(value = "/cbi/progress/{productSeq}")
-  public CommonResult selectCbi(
-      @ApiParam(value = "영업비밀대행 번호", required = true) @PathVariable Integer productSeq) {
-    return clientAgencyService.selectCbiProgress(productSeq);
+  public SingleResult<CbiAgencyProgressDTO> selectCbiAgencyProgress(
+      @ApiParam(value = "영업비밀대행 번호", required = true) @PathVariable Long productSeq) {
+    return responseService.getSingleResult(clientAgencyService.selectCbiProgress(productSeq));
   }
 }

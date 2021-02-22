@@ -1,6 +1,6 @@
 package com.safetyas.sds.client.api.service;
 
-import com.safetyas.sds.client.api.response.CommonResult;
+import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.service.AgencyService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -11,8 +11,11 @@ public class ClientAgencyService {
 
   private final AgencyService agencyService;
 
-  public CommonResult selectCbiProgress(Integer productSeq) {
-    agencyService.selectCbiProgress(productSeq);
+  public CbiAgencyProgressDTO selectCbiProgress(Long productSeq) {
+    return agencyService.selectCbiProgress(productSeq);
+  }
+
+  public Object selectCbiRequestInfo(Long productSeq) {
     return null;
   }
 }
