@@ -17,11 +17,13 @@ public class ClientMainMyPageDTO {
 
   private LocalDateTime memberValidStart;
   private LocalDateTime memberValidFinish;
+  private Long productCount;
   private Long point;
 
   @QueryProjection
-  public ClientMainMyPageDTO(LocalDateTime memberValidStart, LocalDateTime memberValidFinish) {
+  public ClientMainMyPageDTO(LocalDateTime memberValidStart, LocalDateTime memberValidFinish, Long productCount) {
     this.memberValidStart = memberValidStart;
     this.memberValidFinish = memberValidFinish;
+    this.productCount = productCount;
   }
 }
