@@ -1,9 +1,9 @@
 package com.safetyas.sds.common.service;
 
-import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberBoard;
 import com.safetyas.sds.common.model.BoardSearchCondition;
+import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.MemberBoardDTO;
 import com.safetyas.sds.common.repository.MemberBoardRepository;
 import com.safetyas.sds.common.repository.MemberRepository;

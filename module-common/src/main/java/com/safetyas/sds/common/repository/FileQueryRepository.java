@@ -2,9 +2,9 @@ package com.safetyas.sds.common.repository;
 
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.safetyas.sds.common.dto.FileDTO;
-import com.safetyas.sds.common.dto.QFileDTO;
 import com.safetyas.sds.common.entity.File;
+import com.safetyas.sds.common.model.FileDTO;
+import com.safetyas.sds.common.model.QFileDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;

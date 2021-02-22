@@ -1,7 +1,7 @@
 package com.safetyas.sds.common.repository;
 
-import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
+import com.safetyas.sds.common.model.FileDTO;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;

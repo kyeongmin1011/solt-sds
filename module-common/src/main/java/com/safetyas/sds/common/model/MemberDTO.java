@@ -1,7 +1,6 @@
 package com.safetyas.sds.common.model;
 
-import com.safetyas.sds.common.dto.MemberInfoDTO;
-import com.safetyas.sds.common.dto.MemberSupplierDTO;
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -16,7 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberDTO {
+public class MemberDTO implements Serializable {
+
+  private static final long serialVersionUID = -9050711445853488362L;
 
   private Long memberSeq;
   private Integer level;

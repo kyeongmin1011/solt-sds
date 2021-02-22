@@ -1,24 +1,27 @@
 package com.safetyas.sds.client.api.controller;
 
 import com.safetyas.sds.client.api.response.CommonResult;
+import com.safetyas.sds.client.api.response.ResponseService;
+import com.safetyas.sds.client.api.service.ClientAgencyService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import lombok.RequiredArgsConstructor;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"대행 서비스"})
+@Slf4j
 @RestController
 @RequestMapping(value = "/agency")
 @RequiredArgsConstructor
 public class AgencyController {
 
-  Logger log = LoggerFactory.getLogger(this.getClass());
+  private final ClientAgencyService clientAgencyService;
+  private final ResponseService responseService;
 
   @ApiOperation(value = "제출대행")
   @GetMapping(value = "/submission/{submissionAgencySeq}")
@@ -56,9 +59,9 @@ public class AgencyController {
   }
 
   @ApiOperation(value = "영업비밀대행")
-  @GetMapping(value = "/cbi/{cbiAgencySeq}")
+  @GetMapping(value = "/cbi/progress/{productSeq}")
   public CommonResult selectCbi(
-      @ApiParam(value = "영업비밀대행 번호", required = true) @PathVariable Integer cbiAgencySeq) {
-    return null;
+      @ApiParam(value = "영업비밀대행 번호", required = true) @PathVariable Integer productSeq) {
+    return clientAgencyService.selectCbiProgress(productSeq);
   }
 }

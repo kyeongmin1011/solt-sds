@@ -1,6 +1,7 @@
 package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.MemberBoardComment;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,8 +13,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberBoardCommentDTO {
+public class MemberBoardCommentDTO implements Serializable {
 
+  private static final long serialVersionUID = -4890172477028801391L;
   private Long commentSeq;
   private String category;
   private String title;

@@ -1,6 +1,6 @@
 package com.safetyas.sds.client.api.request;
 
-import com.safetyas.sds.common.dto.MemberInfoDTO;
+import com.safetyas.sds.common.model.MemberInfoDTO;
 import io.swagger.annotations.ApiModelProperty;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;

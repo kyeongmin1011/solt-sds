@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.dto.MemberInfoDTO;
+import com.safetyas.sds.common.model.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.Column;

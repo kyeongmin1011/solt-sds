@@ -1,7 +1,6 @@
 package com.safetyas.sds.common.model;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.MemberBoard;
 import java.io.Serializable;
 import java.util.ArrayList;

@@ -1,17 +1,22 @@
-package com.safetyas.sds.common.dto;
+package com.safetyas.sds.common.model;
 
 import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.File;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
+@Getter
+@Setter
 @Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class FileDTO {
+public class FileDTO implements Serializable {
+
+  private static final long serialVersionUID = 1299881201921700000L;
 
   private Long fileSeq;
   private String relateTable;

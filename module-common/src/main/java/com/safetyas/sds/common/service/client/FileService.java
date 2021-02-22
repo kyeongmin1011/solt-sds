@@ -1,7 +1,7 @@
 package com.safetyas.sds.common.service.client;
 
-import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
+import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.repository.FileQueryRepository;
 import com.safetyas.sds.common.repository.FileRepository;
 import java.util.List;
