@@ -43,15 +43,15 @@ public class MatterStep04 extends CommonEntity implements Serializable {
   @Column(name = "step01_a001", columnDefinition = "varchar(255) comment '가. 눈에 들어갔을 때'")
   private String a001;
 
-  @Column(name = "step01_a001", columnDefinition = "varchar(255) comment '나. 피부에 접촉했을 때'")
+  @Column(name = "step01_a002", columnDefinition = "varchar(255) comment '나. 피부에 접촉했을 때'")
   private String a002;
 
-  @Column(name = "step01_a001", columnDefinition = "varchar(255) comment '다. 흡입했을때'")
+  @Column(name = "step01_a003", columnDefinition = "varchar(255) comment '다. 흡입했을때'")
   private String a003;
 
-  @Column(name = "step01_a001", columnDefinition = "varchar(255) comment '라. 먹었을때'")
+  @Column(name = "step01_a004", columnDefinition = "varchar(255) comment '라. 먹었을때'")
   private String a004;
 
-  @Column(name = "step01_a001", columnDefinition = "varchar(255) comment '마. 기타 의사의 주의사항'")
+  @Column(name = "step01_a005", columnDefinition = "varchar(255) comment '마. 기타 의사의 주의사항'")
   private String a005;
 }
