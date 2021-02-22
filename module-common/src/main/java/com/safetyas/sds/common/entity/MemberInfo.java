@@ -109,7 +109,7 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @Column(name = "member_valid_finish", columnDefinition = "datetime comment '계약종료일'")
   private LocalDateTime memberValidFinish; // 계약종료일
 
-  @OneToOne(mappedBy = "memberInfo")
+  @OneToOne(mappedBy = "memberInfo", fetch = FetchType.LAZY)
   private Member member;
 
   public void setMember(Member member) {
