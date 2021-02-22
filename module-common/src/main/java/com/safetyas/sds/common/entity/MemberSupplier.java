@@ -78,6 +78,9 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   @OneToMany(mappedBy = "memberSupplier")
   private List<Product> productList = new ArrayList<>();
 
+  @OneToMany(mappedBy = "memberSupplier")
+  private List<productMatter> productMatterList = new ArrayList<>();
+
   public void setMember(Member member) {
     if (this.member != null) {
       this.member.getMemberSupplierList().remove(this);
