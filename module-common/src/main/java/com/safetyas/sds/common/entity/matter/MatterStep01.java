@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,6 +22,7 @@ import lombok.NoArgsConstructor;
 @Table(name = "sds_matter_step01")
 public class MatterStep01 extends CommonEntity implements Serializable {
 
+  @Builder
   public MatterStep01(Long matterStep01Seq, String a001, String b011, String b012,
       String c011, String c012, String c013, String c014,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate){

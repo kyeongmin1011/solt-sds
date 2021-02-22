@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -21,12 +22,13 @@ import lombok.NoArgsConstructor;
 @Table(name = "sds_matter_step02")
 public class MatterStep02 extends CommonEntity implements Serializable {
 
-  public MatterStep02(Long matterstep02Seq, String a011, String a012, String a013, String a014,
+  @Builder
+  public MatterStep02(Long matterStep02Seq, String a011, String a012, String a013, String a014,
       String a015, String a016, String b011, String b012, String b013, String b111, String b112,
       String b113, String b114, String c001,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate){
     super(inDate, modDate, delDate);
-    this.matterstep02Seq = matterstep02Seq;
+    this.matterStep02Seq = matterStep02Seq;
     this.a011 = a011;
     this.a012 = a012;
     this.a012 = b012;
@@ -47,7 +49,7 @@ public class MatterStep02 extends CommonEntity implements Serializable {
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "matter_step02_seq", nullable = false, length = 20)
-  private Long matterstep02Seq;
+  private Long matterStep02Seq;
 
   @Column(name = "step02_a011", columnDefinition = "varchar(255) comment '가.급성독성'")
   private String a011;
