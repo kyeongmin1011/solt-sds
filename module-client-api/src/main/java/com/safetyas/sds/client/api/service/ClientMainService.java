@@ -1,8 +1,11 @@
 package com.safetyas.sds.client.api.service;
 
-import com.safetyas.sds.common.service.MemberBoardService;
-import com.safetyas.sds.common.service.admin.FaqService;
-import com.safetyas.sds.common.service.admin.NoticeService;
+import com.safetyas.sds.common.model.ClientMainMyPageDTO;
+import com.safetyas.sds.common.model.FaqDTO;
+import com.safetyas.sds.common.model.MemberBoardDTO;
+import com.safetyas.sds.common.model.NoticeDTO;
+import com.safetyas.sds.common.service.client.MainService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -10,12 +13,21 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ClientMainService {
 
-  private final NoticeService noticeService;
-  private final FaqService faqService;
-  private final MemberBoardService memberBoardService;
+  private final MainService mainService;
 
-  public void selectClientMain() {
+  public List<NoticeDTO> selectClientMainNoticeList() {
+    return mainService.selectClientMainNoticeList();
+  }
 
-    noticeService.findTop5ByOrderByNoticeSeqDesc();
+  public List<FaqDTO> selectClientMainFaqList() {
+    return mainService.selectClientMainFaqList();
+  }
+
+  public List<MemberBoardDTO> selectClientMainMemberBoardList(){
+    return mainService.selectClientMainMemberBoardList();
+  }
+
+  public ClientMainMyPageDTO selectClientMainMemberInfo(){
+    return mainService.selectClientMainMemberInfo();
   }
 }

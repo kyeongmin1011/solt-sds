@@ -1,9 +1,9 @@
 package com.safetyas.sds.admin.api.service;
 
 import com.safetyas.sds.admin.api.util.FileUtil;
-import com.safetyas.sds.common.dto.FileDTO;
 import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.model.BoardSearchCondition;
+import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.MemberBoardDTO;
 import com.safetyas.sds.common.service.MemberBoardService;
 import com.safetyas.sds.common.service.client.FileService;

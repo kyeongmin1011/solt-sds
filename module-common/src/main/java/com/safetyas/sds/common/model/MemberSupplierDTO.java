@@ -1,15 +1,23 @@
-package com.safetyas.sds.common.dto;
+package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.MemberSupplier;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-import lombok.Data;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
-@Data
-@Builder
+@Getter
+@Setter
+@NoArgsConstructor
 @AllArgsConstructor
-public class MemberSupplierDTO {
+@Builder
+public class MemberSupplierDTO implements Serializable {
+
+  private static final long serialVersionUID = -4980142705037288082L;
+
   private Long memberSupplierSeq;
   private String supplierGroup;
   private String dept;
@@ -18,8 +26,6 @@ public class MemberSupplierDTO {
   private String addr1;
   private String addr2;
   private String defaultYn;
-
-  public MemberSupplierDTO () {}
 
   public MemberSupplier toEntity(Member member) {
     return MemberSupplier.builder()

@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.dto.MemberSupplierDTO;
+import com.safetyas.sds.common.model.MemberSupplierDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -77,6 +77,9 @@ public class MemberSupplier extends CommonEntity implements Serializable {
 
   @OneToMany(mappedBy = "memberSupplier")
   private List<Product> productList = new ArrayList<>();
+
+  @OneToMany(mappedBy = "memberSupplier")
+  private List<productMatter> productMatterList = new ArrayList<>();
 
   public void setMember(Member member) {
     if (this.member != null) {

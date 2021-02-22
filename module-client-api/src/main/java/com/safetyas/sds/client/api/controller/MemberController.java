@@ -4,8 +4,8 @@ import com.safetyas.sds.client.api.request.MemberInfoRequest;
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
 import com.safetyas.sds.client.api.service.ClientMemberService;
-import com.safetyas.sds.common.dto.MemberInfoDTO;
-import com.safetyas.sds.common.dto.MemberSupplierDTO;
+import com.safetyas.sds.common.model.MemberInfoDTO;
+import com.safetyas.sds.common.model.MemberSupplierDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -13,11 +13,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Api(tags = {"멤버 정보, 제품 공급자"})
 @RestController

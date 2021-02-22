@@ -58,8 +58,23 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
     return queryFactory
         .select(memberBoard)
         .from(memberBoard)
-        .where(memberBoard.memberBoardSeq.eq(id),memberBoard.delDate.isNull())
+        .where(memberBoard.memberBoardSeq.eq(id), memberBoard.delDate.isNull())
         .fetchOne();
+  }
+
+  @Override
+  public List<MemberBoardDTO> selectClientMainMemberBoardList(Long id) {
+    return queryFactory
+        .select(new QMemberBoardDTO(memberBoard.category,
+            memberBoard.title,
+            memberBoard.content,
+            memberBoard.writerName,
+            memberBoard.writerEmail))
+            .from(memberBoard)
+            .where(memberBoard.member.memberSeq.eq(id))
+            .limit(10)
+            .orderBy(memberBoard.memberBoardSeq.desc())
+            .fetch();
   }
 
   private BooleanExpression categoryEq(String category) {

@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity;
 
-import com.safetyas.sds.common.dto.MemberInfoDTO;
+import com.safetyas.sds.common.model.MemberInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -31,7 +31,8 @@ import lombok.NoArgsConstructor;
 public class Member extends CommonEntity implements Serializable {
 
   @Builder
-  public Member(Long memberSeq, Integer level, String role, String memberId, String pwd, String token,
+  public Member(Long memberSeq, Integer level, String role, String memberId, String pwd,
+      String token,
       LocalDateTime loginLast, Integer loginCount, LocalDateTime inDate,
       LocalDateTime modDate, LocalDateTime delDate, MemberInfo memberInfo, AdminInfo adminInfo) {
     super(inDate, modDate, delDate);
@@ -89,6 +90,10 @@ public class Member extends CommonEntity implements Serializable {
 
   @OneToMany(mappedBy = "member", fetch = FetchType.LAZY)
   private List<MemberBoardComment> memberBoardCommentList = new ArrayList<>();
+
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "point_seq", foreignKey = @ForeignKey(name = "point_seq_member_fk"))
+  private Point point; // 포인트
 
   public void setMemberInfo(MemberInfo memberInfo) {
     this.memberInfo = memberInfo;

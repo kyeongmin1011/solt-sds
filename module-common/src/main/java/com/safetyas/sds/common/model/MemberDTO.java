@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.model;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,7 +15,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberDTO {
+public class MemberDTO implements Serializable {
+
+  private static final long serialVersionUID = -9050711445853488362L;
 
   private Long memberSeq;
   private Integer level;
@@ -24,9 +27,8 @@ public class MemberDTO {
   private String token;
   private LocalDateTime loginLast;
   private Integer loginCount;
-  //private MemberInfoDto memberInfo; // 고객 정보
-  //private AdminInfoDto adminInfo; // 관리자 정보
-  //private List<MemberSupplierDto> memberSupplierList = new ArrayList<>();
+  private MemberInfoDTO memberInfo; // 고객 정보
+  private List<MemberSupplierDTO> memberSupplierList = new ArrayList<>();
   private List<MemberBoardDTO> memberBoardList = new ArrayList<>();
   private List<MemberBoardCommentDTO> memberBoardCommentList = new ArrayList<>();
 }

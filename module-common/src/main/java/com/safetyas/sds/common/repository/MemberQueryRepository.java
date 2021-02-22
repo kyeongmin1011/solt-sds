@@ -1,12 +1,17 @@
 package com.safetyas.sds.common.repository;
 
-import static com.safetyas.sds.common.entity.QMember.member;
-
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Member;
+import com.safetyas.sds.common.model.ClientMainMyPageDTO;
+import com.safetyas.sds.common.model.QClientMainMyPageDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+
+import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QMemberInfo.memberInfo;
+import static com.safetyas.sds.common.entity.QMemberSupplier.memberSupplier;
+import static com.safetyas.sds.common.entity.QProduct.product;
 
 @Repository
 public class MemberQueryRepository {
@@ -21,5 +26,15 @@ public class MemberQueryRepository {
     return queryFactory.selectFrom(member)
         .where(member.memberId.eq(memberId))
         .fetch();
+  }
+
+  public ClientMainMyPageDTO selectClientMainMemberInfo(long id) {
+    return queryFactory.select(new QClientMainMyPageDTO(member.memberInfo.memberValidStart,member.memberInfo.memberValidFinish, product.count()))
+        .from(member)
+        .leftJoin(member.memberInfo, memberInfo)
+        .leftJoin(member.memberSupplierList, memberSupplier)
+        .leftJoin(memberSupplier.productList, product)
+        .where(member.memberSeq.eq(id))
+        .fetchOne();
   }
 }

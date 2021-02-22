@@ -32,10 +32,12 @@ public class Product extends CommonEntity implements Serializable {
 
   @Builder
   public Product(Long productSeq, String productUid, String msds, String language, String writer,
-      String writerEmail, String tonsYear, String submissionYn, String orYn, String agencySubmissionYn,
+      String writerEmail, String tonsYear, String submissionYn, String orYn,
+      String agencySubmissionYn,
       String agencyTranslateYn, String agencyRevisionYn, String agencyOrYn, String agencyCbiYn,
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
-      MemberSupplier memberSupplier ,LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
+      MemberSupplier memberSupplier, LocalDateTime inDate, LocalDateTime modDate,
+      LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.productSeq = productSeq;
     this.productUid = productUid;
@@ -114,6 +116,12 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
 
+  @Column(name = "agency_cbi_type", length = 1)
+  private String agencyCbiType;
+
+  @Column(name = "agency_cbi_doc_yn", length = 1)
+  private String agencyCbiDocYn;
+
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
   private MemberSupplier memberSupplier;
@@ -131,7 +139,7 @@ public class Product extends CommonEntity implements Serializable {
   private List<RevisionAgency> revisionAgencyList = new ArrayList<>();
 
   @OneToMany(mappedBy = "product")
-  private List<SubmissionAgency> submissionAgencyList  = new ArrayList<>();
+  private List<SubmissionAgency> submissionAgencyList = new ArrayList<>();
 
   @OneToMany(mappedBy = "product")
   private List<RenewAgency> renewAgencyList = new ArrayList<>();

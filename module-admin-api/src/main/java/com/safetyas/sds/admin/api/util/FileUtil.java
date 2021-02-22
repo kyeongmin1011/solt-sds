@@ -1,6 +1,6 @@
 package com.safetyas.sds.admin.api.util;
 
-import com.safetyas.sds.common.dto.FileDTO;
+import com.safetyas.sds.common.model.FileDTO;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Timestamp;

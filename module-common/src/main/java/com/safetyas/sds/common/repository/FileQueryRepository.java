@@ -1,17 +1,16 @@
 package com.safetyas.sds.common.repository;
 
-import static com.safetyas.sds.common.entity.QFile.file;
-import static org.springframework.util.StringUtils.isEmpty;
-
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
-import com.safetyas.sds.common.dto.FileDTO;
-import com.safetyas.sds.common.dto.QFileDTO;
 import com.safetyas.sds.common.entity.File;
-import com.safetyas.sds.common.entity.QFile;
+import com.safetyas.sds.common.model.FileDTO;
+import com.safetyas.sds.common.model.QFileDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+
+import static com.safetyas.sds.common.entity.QFile.file;
+import static org.springframework.util.StringUtils.isEmpty;
 
 @Repository
 public class FileQueryRepository {
