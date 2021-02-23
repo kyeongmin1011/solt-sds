@@ -17,11 +17,11 @@ import lombok.NoArgsConstructor;
 public class InfoMatterUsage {
 
   @Id
-  @Column(name = "serial_number", length = 50)
-  private String serialNumber;
+  @Column(name = "serial_number", length = 12)
+  private Float serialNumber;
 
-  @Column(name = "usage", columnDefinition = "varchar(255) comment '용도'")
-  private String usage;
+  @Column(name = "matter_usage", columnDefinition = "varchar(255) comment '용도'")
+  private String matterUsage;
 
   @Column(name = "note", columnDefinition = "varchar(500) comment '설명'")
   private String note;
