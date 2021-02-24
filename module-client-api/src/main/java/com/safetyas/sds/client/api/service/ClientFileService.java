@@ -31,7 +31,6 @@ public class ClientFileService {
         .stream()
         .map(FileDTO::toEntity)
         .collect(Collectors.toList());
-
     fileService.saveFiles(fileList);
   }
 }
