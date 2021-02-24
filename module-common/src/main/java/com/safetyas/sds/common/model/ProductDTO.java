@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.model;
 
+import com.safetyas.sds.common.entity.Product;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -39,6 +40,18 @@ public class ProductDTO implements Serializable {
   private String finalSaveYn;
   private String agencyCbiType;
   private String agencyCbiDocYn;
+  private String revisionLanguage;
+  private String translationLanguage;
 
   private List<CbiAgencyDTO> cbiAgencyList = new ArrayList<>();
+  private List<ProductMatterDTO> productMatterList = new ArrayList<>();
+  private List<FileDTO> fileList = new ArrayList<>();
+
+  public Product toEntity() {
+    return Product.builder()
+        .productSeq(this.productSeq)
+        .agencyCbiType(this.agencyCbiType)
+        .agencyCbiDocYn(this.agencyCbiDocYn)
+        .build();
+  }
 }

@@ -18,4 +18,8 @@ public abstract class CommonDTO implements Serializable {
   private LocalDateTime inDate;
   private LocalDateTime modDate;
   private LocalDateTime delDate;
+
+  public CommonDTO(LocalDateTime inDate) {
+    this.inDate = inDate;
+  }
 }

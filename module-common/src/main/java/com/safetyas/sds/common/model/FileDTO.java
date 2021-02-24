@@ -31,10 +31,11 @@ public class FileDTO implements Serializable {
   private Long modUserSeq;
 
   @QueryProjection
-  public FileDTO(Long fileSeq, String relateTable, Long recordSeq) {
+  public FileDTO(Long fileSeq, String relateTable, Long recordSeq, String oriName) {
     this.fileSeq = fileSeq;
     this.relateTable = relateTable;
     this.recordSeq = recordSeq;
+    this.oriName = oriName;
   }
 
   public File toEntity() {

@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.model.ProductDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -36,7 +37,8 @@ public class Product extends CommonEntity implements Serializable {
       String agencySubmissionYn,
       String agencyTranslateYn, String agencyRevisionYn, String agencyOrYn, String agencyCbiYn,
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
-      MemberSupplier memberSupplier, LocalDateTime inDate, LocalDateTime modDate,
+      String agencyCbiType, String agencyCbiDocYn,
+      LocalDateTime inDate, LocalDateTime modDate,
       LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.productSeq = productSeq;
@@ -57,7 +59,8 @@ public class Product extends CommonEntity implements Serializable {
     this.validStart = validStart;
     this.validFinish = validFinish;
     this.finalSaveYn = finalSaveYn;
-    setMemberSupplier(memberSupplier);
+    this.agencyCbiType = agencyCbiType;
+    this.agencyCbiDocYn = agencyCbiDocYn;
   }
 
   @Id
@@ -65,7 +68,7 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "product_seq", nullable = false, length = 20)
   private Long productSeq;
 
-  @Column(name = "product_uid", nullable = false, length = 100)
+  @Column(name = "product_uid", length = 100)
   private String productUid;
 
   @Column(name = "msds", length = 100)
@@ -116,11 +119,17 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
 
-  @Column(name = "agency_cbi_type", length = 1)
+  @Column(name = "agency_cbi_type", length = 50)
   private String agencyCbiType;
 
   @Column(name = "agency_cbi_doc_yn", length = 1)
   private String agencyCbiDocYn;
+
+  @Column(name = "revision_language", length = 50)
+  private String revisionLanguage;
+
+  @Column(name = "translation_language", length = 50)
+  private String translationLanguage;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
@@ -144,11 +153,19 @@ public class Product extends CommonEntity implements Serializable {
   @OneToMany(mappedBy = "product")
   private List<RenewAgency> renewAgencyList = new ArrayList<>();
 
-  public void setMemberSupplier(MemberSupplier memberSupplier) {
+  @OneToMany(mappedBy = "product")
+  private List<ProductMatter> productMatterList = new ArrayList<>();
+
+  public void updateMemberSupplier(MemberSupplier memberSupplier) {
     if (this.memberSupplier != null) {
       this.memberSupplier.getProductList().remove(this);
     }
     this.memberSupplier = memberSupplier;
     memberSupplier.getProductList().add(this);
+  }
+
+  public void updateProductCbi(ProductDTO productDTO) {
+    this.agencyCbiType = productDTO.getAgencyCbiType();
+    this.agencyCbiDocYn = productDTO.getAgencyCbiDocYn();
   }
 }

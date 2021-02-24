@@ -27,5 +27,4 @@ public class ProductMatterDTO implements Serializable {
   private String premiumDbYn;
   private String alterContentYn;
   private MemberSupplier memberSupplier;
-
 }

@@ -20,10 +20,9 @@ public class InfoMatterUsage {
   @Column(name = "serial_number", length = 50)
   private String serialNumber;
 
-  @Column(name = "usage", columnDefinition = "varchar(255) comment '용도'")
-  private String usage;
+  @Column(name = "matter_usage", columnDefinition = "varchar(255) comment '용도'")
+  private String MatterUsage;
 
   @Column(name = "note", columnDefinition = "varchar(500) comment '설명'")
   private String note;
-
 }

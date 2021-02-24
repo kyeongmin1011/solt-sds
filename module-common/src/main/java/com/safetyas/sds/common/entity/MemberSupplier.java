@@ -79,7 +79,7 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   private List<Product> productList = new ArrayList<>();
 
   @OneToMany(mappedBy = "memberSupplier")
-  private List<productMatter> productMatterList = new ArrayList<>();
+  private List<ProductMatter> productMatterList = new ArrayList<>();
 
   public void setMember(Member member) {
     if (this.member != null) {

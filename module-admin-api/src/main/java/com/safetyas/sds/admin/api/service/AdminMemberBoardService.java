@@ -28,9 +28,9 @@ public class AdminMemberBoardService {
   private final FileService fileService;
   private final FileUtil fileUtil;
 
-  private static final String TYPE = "attach";
-  private static final String TABLE = "sds_member_board";
-  private static final String PATH = "memberBoard";
+  private static final String TYPE_NAME = "attach";
+  private static final String TABLE_NAME = "sds_member_board";
+  private static final String PATH_NAME = "memberBoard";
 
   public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
       Pageable pageable) {
@@ -51,7 +51,7 @@ public class AdminMemberBoardService {
       MultipartHttpServletRequest multipartHttpServletRequest) {
     memberBoardService.updateMemberBoard(id, memberBoardDto);
 
-    if (!multipartHttpServletRequest.getFiles(TYPE).isEmpty()) {
+    if (!multipartHttpServletRequest.getFiles(TYPE_NAME).isEmpty()) {
       updateFile(id, memberBoardDto, multipartHttpServletRequest);
     }
   }
@@ -61,21 +61,21 @@ public class AdminMemberBoardService {
   }
 
   private void insertFile(long seq, MultipartHttpServletRequest multipartHttpServletRequest) {
-    List<MultipartFile> attachList = multipartHttpServletRequest.getFiles(TYPE);
+    List<MultipartFile> attachList = multipartHttpServletRequest.getFiles(TYPE_NAME);
     Map<String, MultipartFile> fileMap = new HashMap<>();
 
     int i = 1;
     for (MultipartFile multipartFile : attachList) {
-      fileMap.put(TYPE + i, multipartFile);
+      fileMap.put(TYPE_NAME + i, multipartFile);
       i++;
     }
 
     Map<String, Object> info = new HashMap<>();
 
-    info.put("path", PATH);
-    info.put("relateTable", TABLE);
+    info.put("path", PATH_NAME);
+    info.put("relateTable", TABLE_NAME);
     info.put("recordSeq", seq);
-    info.put("type", TYPE);
+    info.put("type", TYPE_NAME);
     info.put("regUserSeq", seq);
 
     List<File> fileList = fileUtil.parseFiles(fileMap, info)
@@ -88,7 +88,7 @@ public class AdminMemberBoardService {
   private void updateFile(long memberBoardSeq, MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
 
-    List<Long> originFileList = fileService.selectFileList(memberBoardSeq, TABLE)
+    List<Long> originFileList = fileService.selectFileList(memberBoardSeq, TABLE_NAME)
         .stream()
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());

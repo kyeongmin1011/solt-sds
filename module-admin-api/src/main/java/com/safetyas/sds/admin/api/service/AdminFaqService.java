@@ -23,9 +23,9 @@ public class AdminFaqService {
   private final FileService fileService;
   private final FileUtil fileUtil;
 
-  private static final String PATH = "faq";
-  private static final String RELATE_TABLE = "sds_faq";
-  private static final String TYPE = "attach";
+  private static final String PATH_NAME = "faq";
+  private static final String RELATE_TABLE_NAME = "sds_faq";
+  private static final String TYPE_NAME = "attach";
 
   public FaqDTO selectFaq(Long id) {
     return faqService.selectFaq(id);
@@ -33,7 +33,7 @@ public class AdminFaqService {
 
   public void insertFaq(FaqDTO faqDto, MultipartHttpServletRequest multipartHttpServletRequest) {
     long faqSeq = faqService.insertFaq(faqDto.toEntity());
-    if (multipartHttpServletRequest.getFile(TYPE) != null) {
+    if (multipartHttpServletRequest.getFile(TYPE_NAME) != null) {
       insertFile(faqSeq, multipartHttpServletRequest);
     }
   }
@@ -42,7 +42,7 @@ public class AdminFaqService {
       MultipartHttpServletRequest multipartHttpServletRequest) {
     faqService.updateFaq(faqSeq, faqDto);
 
-    if (multipartHttpServletRequest.getFile(PATH) != null) {
+    if (multipartHttpServletRequest.getFile(PATH_NAME) != null) {
       updateFile(faqSeq, multipartHttpServletRequest);
     }
   }
@@ -57,21 +57,21 @@ public class AdminFaqService {
 
   private void insertFile(long faqSeq, MultipartHttpServletRequest multipartHttpServletRequest) {
     Map<String, Object> info = new HashMap<>();
-    info.put("path", PATH);
-    info.put("relateTable", RELATE_TABLE);
+    info.put("path", PATH_NAME);
+    info.put("relateTable", RELATE_TABLE_NAME);
     info.put("recordSeq", faqSeq);
-    info.put("type", TYPE);
+    info.put("type", TYPE_NAME);
     info.put("regUserSeq", faqSeq);
 
-    FileDTO companyFile = fileUtil.parseFile(multipartHttpServletRequest.getFile(TYPE), info);
+    FileDTO companyFile = fileUtil.parseFile(multipartHttpServletRequest.getFile(TYPE_NAME), info);
     fileService.saveFile(companyFile);
   }
 
   private void updateFile(long faqSeq, MultipartHttpServletRequest multipartHttpServletRequest) {
     FileDTO fileDTO = FileDTO.builder()
-        .relateTable(RELATE_TABLE)
+        .relateTable(RELATE_TABLE_NAME)
         .recordSeq(faqSeq)
-        .type(TYPE)
+        .type(TYPE_NAME)
         .build();
 
     File preFile = fileService.selectFileByFileDTO(fileDTO);
