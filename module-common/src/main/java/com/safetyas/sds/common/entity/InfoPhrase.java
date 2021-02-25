@@ -20,16 +20,16 @@ public class InfoPhrase {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "info_phrase_seq", nullable = false, length = 20)
+  @Column(name = "info_phrase_seq", nullable = false, length = 11)
   private Integer infoPhraseSeq;
 
-  @Column(name = "matter_type", columnDefinition = "varchar(50) comment '성상'")
+  @Column(name = "matter_type", columnDefinition = "varchar(50) comment '물질 성상'")
   private String matterType;
 
-  @Column(name = "step_group", columnDefinition = "varchar(50) comment '성상'")
+  @Column(name = "step_group", columnDefinition = "varchar(50) comment '구분'")
   private String stepGroup;
 
-  @Column(name = "step_group_title", columnDefinition = "varchar(50) comment '구분'")
+  @Column(name = "step_group_title", columnDefinition = "varchar(50) comment '구분명'")
   private String stepGroupTitle;
 
   @Column(name = "sub_group", columnDefinition = "varchar(50) comment 'msds 항목그룹'")
