@@ -8,6 +8,7 @@ import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.MemberSupplierQueryRepository;
 import com.safetyas.sds.common.repository.MemberSupplierRepository;
 import java.util.List;
+import java.util.NoSuchElementException;
 import java.util.Optional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -30,6 +31,7 @@ public class MemberService {
 
   /**
    * 멤버 가져오기
+   *
    * @param memberSeq
    */
   public Optional<Member> findMemberById(Long memberSeq) {
@@ -38,6 +40,7 @@ public class MemberService {
 
   /**
    * 멤버 저장
+   *
    * @param member
    * @return
    */
@@ -48,6 +51,7 @@ public class MemberService {
 
   /**
    * 멤버 추가정보 저장
+   *
    * @param memberInfo
    * @return
    */
@@ -57,6 +61,7 @@ public class MemberService {
 
   /**
    * 멤버 정보 반환
+   *
    * @param memberId
    */
   public Optional<Member> selectMemberInfo(String memberId) {
@@ -65,6 +70,7 @@ public class MemberService {
 
   /**
    * 공급자 리스트
+   *
    * @return list
    */
   public List<MemberSupplier> selectMemberSuppliers(Long memberSeq) {
@@ -73,6 +79,7 @@ public class MemberService {
 
   /**
    * 공급자 저장
+   *
    * @param memberSupplier 공급자
    * @return 공급자
    */
@@ -82,16 +89,17 @@ public class MemberService {
 
   /**
    * 공급자에 상품 있는지 체크
+   *
    * @param memberSupplierSeq
    * @return
    */
   public boolean checkMemberSupplierProduct(Long memberSupplierSeq) {
-    return memberSupplierQueryRepository
-        .existsByProduct(memberSupplierSeq);
+    return memberSupplierQueryRepository.existsByProduct(memberSupplierSeq);
   }
 
   /**
    * 공급자 가져오기
+   *
    * @param memberSupplierSeq
    */
   public Optional<MemberSupplier> selectMemberSupplier(Long memberSupplierSeq) {
@@ -100,9 +108,13 @@ public class MemberService {
 
   /**
    * 공급자 삭제
+   *
    * @param memberSupplierSeq
    */
   public void deleteMemberSupplier(Long memberSupplierSeq) {
-    memberSupplierRepository.deleteById(memberSupplierSeq);
+    MemberSupplier memberSupplier = memberSupplierRepository.findById(memberSupplierSeq)
+        .orElseThrow(NoSuchElementException::new);
+    memberSupplier.updateDelDate();
+    memberSupplierRepository.save(memberSupplier);
   }
 }

@@ -9,10 +9,12 @@ import com.safetyas.sds.common.model.MemberSupplierDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -49,25 +51,25 @@ public class MemberController {
   }
 
   @ApiOperation(value = "멤버 공급자 입력", notes = "새로운 멤버 공급자 입력한다.")
-  @PostMapping(value = "/supplier-save")
-  public CommonResult insertMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+  @PostMapping(value = "/suppliers")
+  public CommonResult insertMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
     Long memberSeq = 1L;
     clientMemberService.saveMemberSupplier(memberSupplierDTO, memberSeq);
     return responseService.getSuccessResult();
   }
 
   @ApiOperation(value = "멤버 공급자 수정", notes = "새로운 멤버 공급자 수정 입력한다.")
-  @PostMapping(value = "/supplier-update")
-  public CommonResult updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+  @PutMapping(value = "/suppliers")
+  public CommonResult updateMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
     clientMemberService.updateMemberSupplier(memberSupplierDTO);
     return responseService.getSuccessResult();
   }
 
   @ApiOperation(value = "멤버 공급자 삭제",
       notes = "제품을 가진 멤버 공급자인지 확인 후 삭제한다. 제품을 가질경우 삭제 불가.")
-  @GetMapping(value = "/supplier-del/{seq}")
-  public CommonResult deleteMemberSupplier(@PathVariable Long seq) {
-    boolean deleted = clientMemberService.deleteMemberSupplier(seq);
+  @DeleteMapping(value = "/suppliers/{memberSupplierSeq}")
+  public CommonResult deleteMemberSupplier(@PathVariable Long memberSupplierSeq) {
+    boolean deleted = clientMemberService.deleteMemberSupplier(memberSupplierSeq);
     if (deleted) {
       return responseService.getSuccessResult();
     } else {
@@ -75,5 +77,4 @@ public class MemberController {
           "공급하는 제품이 존재하여 삭제 할 수 없습니다. 제품 삭제 후 가능합니다.");
     }
   }
-
 }

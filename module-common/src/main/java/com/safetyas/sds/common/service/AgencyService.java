@@ -64,9 +64,9 @@ public class AgencyService {
     return cbiAgencyRequestInfoDTO;
   }
 
-  //TODO:: 포인트 차감
   @Transactional
   public void insertCbiAgency(ProductDTO productDTO) {
+    //TODO 포인트 차감
     for (ProductMatterDTO productMatterDTO : productDTO.getProductMatterList()) {
       ProductMatter productMatter = productMatterRepository
           .findById(productMatterDTO.getProductMatterSeq())

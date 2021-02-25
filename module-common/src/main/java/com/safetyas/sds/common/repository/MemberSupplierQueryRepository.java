@@ -2,12 +2,13 @@ package com.safetyas.sds.common.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.MemberSupplier;
-import com.safetyas.sds.common.entity.QMember;
 import com.safetyas.sds.common.entity.QMemberSupplier;
-import com.safetyas.sds.common.entity.QProduct;
 import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
+
+import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QProduct.product;
 
 @Repository
 public class MemberSupplierQueryRepository {
@@ -22,17 +23,15 @@ public class MemberSupplierQueryRepository {
 
   public List<MemberSupplier> selectMemberSuppliers (Long memberSeq) {
     return queryFactory.selectFrom(memberSupplier)
-        .leftJoin(memberSupplier.member, QMember.member)
-        .where(
-            QMember.member.memberSeq.eq(memberSeq))
+        .leftJoin(memberSupplier.member, member)
+        .where(member.memberSeq.eq(memberSeq))
         .orderBy(memberSupplier.inDate.desc())
         .fetch();
   }
 
-  public boolean existsByProduct(Long memberSupplierSeq) {
-    QProduct product = new QProduct("product");
+     public boolean existsByProduct(Long memberSupplierSeq) {
     return queryFactory.selectFrom(memberSupplier)
-        .join(product.memberSupplier, memberSupplier).fetchJoin()
+        .leftJoin(memberSupplier.productList, product)
         .where(memberSupplier.memberSupplierSeq.eq(memberSupplierSeq))
         .fetchFirst() != null;
   }
