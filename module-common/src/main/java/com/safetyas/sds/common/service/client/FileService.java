@@ -42,7 +42,7 @@ public class FileService {
         .relateTable(relateTable)
         .build();
 
-    return fileQueryRepository.selectFileList(fileDTO);
+    return fileQueryRepository.selectFileListByFileDTO(fileDTO);
   }
 
   public File selectFile(Long fileSeq) {

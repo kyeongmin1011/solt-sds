@@ -2,7 +2,9 @@ package com.safetyas.sds.common.repository;
 
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
+import com.safetyas.sds.common.model.QCbiDocumentDTO;
 import com.safetyas.sds.common.model.QOrAgencyDTO;
 import com.safetyas.sds.common.model.QRenewAgencyDTO;
 import com.safetyas.sds.common.model.QRevisionAgencyProgressDTO;
@@ -20,6 +22,9 @@ import java.util.List;
 import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
+import static com.safetyas.sds.common.entity.QMember.member;
+import static com.safetyas.sds.common.entity.QMemberInfo.memberInfo;
+import static com.safetyas.sds.common.entity.QMemberSupplier.memberSupplier;
 import static com.safetyas.sds.common.entity.QOrAgency.orAgency;
 import static com.safetyas.sds.common.entity.QProduct.product;
 import static com.safetyas.sds.common.entity.QRenewAgency.renewAgency;
@@ -101,6 +106,17 @@ public class ProductQueryRepository {
         .select(new QTranslationAgencyRequestInfoDTO(product.translationLanguage))
         .from(product)
         .where(product.productSeq.eq(id), product.agencyTranslateYn.eq("Y"))
+        .fetchOne();
+  }
+
+  public CbiDocumentDTO selectCbiDocument(Long productSeq) {
+    return queryFactory
+        .select(new QCbiDocumentDTO(product.productUid,memberInfo.companyName,memberInfo.companyAddr1,memberInfo.companyAddr2))
+        .from(product)
+        .leftJoin(product.memberSupplier, memberSupplier)
+        .leftJoin(memberSupplier.member, member)
+        .leftJoin(member.memberInfo,memberInfo)
+        .where(product.productSeq.eq(productSeq))
         .fetchOne();
   }
 }

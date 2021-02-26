@@ -17,6 +17,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -156,6 +157,10 @@ public class Product extends CommonEntity implements Serializable {
   @OneToMany(mappedBy = "product")
   private List<ProductMatter> productMatterList = new ArrayList<>();
 
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "cbi_document_seq")
+  private CbiDocument cbiDocument;
+
   public void updateMemberSupplier(MemberSupplier memberSupplier) {
     if (this.memberSupplier != null) {
       this.memberSupplier.getProductList().remove(this);
@@ -164,8 +169,12 @@ public class Product extends CommonEntity implements Serializable {
     memberSupplier.getProductList().add(this);
   }
 
-  public void updateProductCbi(ProductDTO productDTO) {
+  public void updateProductCbiAgency(ProductDTO productDTO) {
     this.agencyCbiType = productDTO.getAgencyCbiType();
     this.agencyCbiDocYn = productDTO.getAgencyCbiDocYn();
+  }
+
+  public void updateCbiDocument(CbiDocument cbiDocument) {
+    this.cbiDocument = cbiDocument;
   }
 }

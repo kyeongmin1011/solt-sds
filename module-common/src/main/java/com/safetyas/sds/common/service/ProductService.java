@@ -1,12 +1,15 @@
 package com.safetyas.sds.common.service;
 
+import com.safetyas.sds.common.entity.CbiDocument;
 import com.safetyas.sds.common.entity.CbiSentence;
-import com.safetyas.sds.common.model.CbiSentenceDTO;
+import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.model.CbiDocumentDTO;
+import com.safetyas.sds.common.repository.CbiDocumentRepository;
 import com.safetyas.sds.common.repository.CbiSentenceRepository;
+import com.safetyas.sds.common.repository.ProductQueryRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
-import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -14,39 +17,27 @@ import org.springframework.stereotype.Service;
 @RequiredArgsConstructor
 public class ProductService {
 
-  private final CbiSentenceRepository cbiSentenceRepository;
   private final ProductRepository productRepository;
+  private final CbiSentenceRepository cbiSentenceRepository;
+  private final ProductQueryRepository productQueryRepository;
+  private final CbiDocumentRepository cbiDocumentRepository;
 
-  public CbiSentenceDTO selectCbiSentence(Long productSeq) {
-
+  public CbiDocumentDTO selectCbiDocument(Long productSeq) {
+    CbiDocumentDTO cbiDocumentDTO = productQueryRepository.selectCbiDocument(productSeq);
     List<CbiSentence> cbiSentenceList = cbiSentenceRepository.findAll();
-    String productUid = productRepository.findById(productSeq).orElseThrow(NoSuchElementException::new).getProductUid();
+    cbiDocumentDTO.updateSentenceList(cbiSentenceList);
+    return cbiDocumentDTO;
+  }
 
-    CbiSentenceDTO cbiSentenceDTO = new CbiSentenceDTO();
+  public long insertCbiDocument(CbiDocument cbiDocument) {
+    return cbiDocumentRepository.save(cbiDocument).getCbiDocumentSeq();
+  }
 
-    cbiSentenceDTO.setProductUid(productUid);
+  public Product selectProduct(Long productSeq) {
+    return productRepository.findById(productSeq).orElseThrow(NoSuchElementException::new);
+  }
 
-    cbiSentenceDTO.setNonKnowledgeList(
-        cbiSentenceList
-            .stream()
-            .filter(test -> test.getType().equals("비공지성"))
-            .map(CbiSentence::getSentence)
-            .collect(Collectors.toList()));
-
-    cbiSentenceDTO.setEconomicUsefulnessList(
-        cbiSentenceList
-            .stream()
-            .filter(test -> test.getType().equals("경제적유용성"))
-            .map(CbiSentence::getSentence)
-            .collect(Collectors.toList()));
-
-    cbiSentenceDTO.setConfidentialityList(
-        cbiSentenceList
-            .stream()
-            .filter(test -> test.getType().equals("비밀관리성"))
-            .map(CbiSentence::getSentence)
-            .collect(Collectors.toList()));
-
-    return cbiSentenceDTO;
+  public Long insertProductAndCbiDocument(Product product) {
+    return productRepository.save(product).getCbiDocument().getCbiDocumentSeq();
   }
 }

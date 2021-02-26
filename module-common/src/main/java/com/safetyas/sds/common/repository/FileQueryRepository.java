@@ -29,7 +29,7 @@ public class FileQueryRepository {
         .fetchOne();
   }
 
-  public List<FileDTO> selectFileList(FileDTO fileDTO) {
+  public List<FileDTO> selectFileListByFileDTO(FileDTO fileDTO) {
     return queryFactory.select(
         new QFileDTO(file.fileSeq, file.relateTable, file.recordSeq,file.oriName))
         .from(file)

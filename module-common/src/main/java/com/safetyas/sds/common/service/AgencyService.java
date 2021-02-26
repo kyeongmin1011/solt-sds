@@ -109,7 +109,7 @@ public class AgencyService {
         .relateTable("revisionAgency")
         .build();
 
-    List<FileDTO> fileList = fileQueryRepository.selectFileList(file);
+    List<FileDTO> fileList = fileQueryRepository.selectFileListByFileDTO(file);
 
     if (!fileList.isEmpty()) {
       revisionAgencyRequestInfoDTO.setFileList(fileList);
@@ -135,7 +135,7 @@ public class AgencyService {
         .relateTable("translationAgency")
         .build();
 
-    List<FileDTO> fileList = fileQueryRepository.selectFileList(file);
+    List<FileDTO> fileList = fileQueryRepository.selectFileListByFileDTO(file);
     if (!fileList.isEmpty()) {
       translationAgencyRequestInfoDTO.setFileList(fileList);
     }

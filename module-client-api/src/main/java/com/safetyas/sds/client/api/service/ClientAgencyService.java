@@ -25,6 +25,7 @@ public class ClientAgencyService {
 
   private final ClientFileService clientFileService;
   private final AgencyService agencyService;
+
   private static final String TYPE_NAME = "attach";
 
   public CbiAgencyProgressDTO selectCbiProgress(Long productSeq) {
