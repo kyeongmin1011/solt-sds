@@ -17,6 +17,7 @@ import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -34,7 +35,15 @@ public class ProductController {
   @ApiOperation("제품 리스트 조회")
   public SingleResult<Page<ProductDTO>> selectProductList(@PageableDefault Pageable pageable,
       ProductSearchCondition productSearchCondition) {
-    return responseService.getSingleResult(clientProductService.selectProductList(pageable,productSearchCondition));
+    return responseService
+        .getSingleResult(clientProductService.selectProductList(pageable, productSearchCondition));
+  }
+
+  @PostMapping("")
+  @ApiOperation("제품 등록")
+  public CommonResult insertProduct(@RequestBody ProductDTO productDTO) {
+    clientProductService.insertProduct(productDTO);
+    return responseService.getSuccessResult();
   }
 
   @GetMapping("/cbi-document/{productSeq}")

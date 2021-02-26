@@ -14,6 +14,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class TranslationAgencyRequestInfoDTO {
 
+  private Long productSeq;
   private String translationLanguage;
   private List<FileDTO> fileList = new ArrayList<>();
 

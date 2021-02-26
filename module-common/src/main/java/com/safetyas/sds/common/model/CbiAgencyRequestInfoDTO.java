@@ -22,6 +22,7 @@ public class CbiAgencyRequestInfoDTO extends CommonDTO implements Serializable {
   private Long productSeq;
   private String agencyCbiType;
   private String agencyCbiDocYn;
+  private String substituteDataAgencyYn;
   private List<ProductMatterDTO> productMatterList = new ArrayList<>();
 
   public void updateCbiAgencyInfo(Product product) {

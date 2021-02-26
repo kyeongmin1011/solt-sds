@@ -45,7 +45,12 @@ public class ProductService {
     return productRepository.save(product).getCbiDocument().getCbiDocumentSeq();
   }
 
-  public Page<ProductDTO> selectProductList(Pageable pageable, ProductSearchCondition productSearchCondition) {
-    return productQueryRepository.selectProductList(pageable,productSearchCondition);
+  public Page<ProductDTO> selectProductList(Pageable pageable,
+      ProductSearchCondition productSearchCondition) {
+    return productQueryRepository.selectProductList(pageable, productSearchCondition);
+  }
+
+  public void insertProduct(Product product) {
+    productRepository.save(product);
   }
 }

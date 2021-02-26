@@ -1,6 +1,7 @@
 package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.client.api.util.FileUtil;
+import com.safetyas.sds.common.entity.Product;
 import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.model.CbiAgencyRequestInfoDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
@@ -12,6 +13,7 @@ import com.safetyas.sds.common.model.SubmissionAgencyDTO;
 import com.safetyas.sds.common.model.TranslationAgencyProgressDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import com.safetyas.sds.common.service.AgencyService;
+import com.safetyas.sds.common.service.ProductService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +25,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 @RequiredArgsConstructor
 public class ClientAgencyService {
 
+  private final ProductService productService;
   private final ClientFileService clientFileService;
   private final AgencyService agencyService;
 
@@ -36,8 +39,8 @@ public class ClientAgencyService {
     return agencyService.selectCbiRequestInfo(productSeq);
   }
 
-  public void insertCbiAgency(ProductDTO productDTO) {
-    agencyService.insertCbiAgency(productDTO);
+  public void insertCbiAgency(CbiAgencyRequestInfoDTO cbiAgencyRequestInfoDTO) {
+    agencyService.insertCbiAgency(cbiAgencyRequestInfoDTO);
   }
 
   public List<SubmissionAgencyDTO> selectSubmission(Long productSeq) {
@@ -83,17 +86,21 @@ public class ClientAgencyService {
     return agencyService.selectTranslationRequestInfo(productSeq);
   }
 
-  public void insertTranslationRequestInfo(ProductDTO productDTO,
+  public void insertTranslationRequestInfo(
+      TranslationAgencyRequestInfoDTO translationAgencyRequestInfoDTO,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    long seq = agencyService.insertTranslationRequestInfo(productDTO);
+
+    Product product = productService.selectProduct(translationAgencyRequestInfoDTO.getProductSeq());
+    product.updateProductTranslation(translationAgencyRequestInfoDTO);
+    productService.insertProduct(product);
 
     if (!FileUtil.isEmpty(multipartHttpServletRequest.getFiles(TYPE_NAME))) {
       Map<String, Object> infoMap = new HashMap<>();
       infoMap.put("path", "revision");
       infoMap.put("relateTable", "revisionAgency");
-      infoMap.put("recordSeq", seq);
+      infoMap.put("recordSeq", product.getProductSeq());
       infoMap.put("type", TYPE_NAME);
-      infoMap.put("regUserSeq", seq);
+      infoMap.put("regUserSeq", product.getProductSeq());
       clientFileService.insertFile(multipartHttpServletRequest, infoMap);
     }
   }

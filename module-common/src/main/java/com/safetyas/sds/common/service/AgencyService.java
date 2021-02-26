@@ -65,15 +65,24 @@ public class AgencyService {
   }
 
   @Transactional
-  public void insertCbiAgency(ProductDTO productDTO) {
+  public void insertCbiAgency(CbiAgencyRequestInfoDTO cbiAgencyRequestInfoDTO) {
     //TODO 포인트 차감
-    for (ProductMatterDTO productMatterDTO : productDTO.getProductMatterList()) {
+
+    Product product = productRepository.findById(cbiAgencyRequestInfoDTO.getProductSeq())
+        .orElseThrow(NoSuchElementException::new);
+
+    product
+        .updateAgencyCbiDocYnAndSubstituteDataAgencyYn(cbiAgencyRequestInfoDTO.getAgencyCbiDocYn(),
+            cbiAgencyRequestInfoDTO.getSubstituteDataAgencyYn());
+
+    for (ProductMatterDTO productMatterDTO : cbiAgencyRequestInfoDTO.getProductMatterList()) {
       ProductMatter productMatter = productMatterRepository
           .findById(productMatterDTO.getProductMatterSeq())
           .orElseThrow(NoSuchElementException::new);
 
       productMatter.updateAlterContentYn(productMatterDTO.getAlterContentYn());
-      productMatter.updateProduct(productDTO.toEntity());
+
+      productMatter.updateProduct(product);
 
       productMatterRepository.save(productMatter);
     }
@@ -141,9 +150,5 @@ public class AgencyService {
     }
 
     return translationAgencyRequestInfoDTO;
-  }
-
-  public long insertTranslationRequestInfo(ProductDTO productDTO) {
-    return productRepository.save(productDTO.toEntity()).getProductSeq();
   }
 }

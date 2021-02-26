@@ -59,4 +59,8 @@ public class ClientProductService {
   public Page<ProductDTO> selectProductList(Pageable pageable, ProductSearchCondition productSearchCondition) {
     return productService.selectProductList(pageable,productSearchCondition);
   }
+
+  public void insertProduct(ProductDTO productDTO) {
+    productService.insertProduct(productDTO.toEntity());
+  }
 }

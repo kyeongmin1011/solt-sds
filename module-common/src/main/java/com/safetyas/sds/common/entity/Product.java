@@ -1,6 +1,7 @@
 package com.safetyas.sds.common.entity;
 
 import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -132,6 +133,9 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "translation_language", length = 50)
   private String translationLanguage;
 
+  @Column(name = "substitute_data_agency_yn")
+  private String substituteDataAgencyYn;
+
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
   private MemberSupplier memberSupplier;
@@ -176,5 +180,15 @@ public class Product extends CommonEntity implements Serializable {
 
   public void updateCbiDocument(CbiDocument cbiDocument) {
     this.cbiDocument = cbiDocument;
+  }
+
+  public void updateProductTranslation(
+      TranslationAgencyRequestInfoDTO translationAgencyRequestInfoDTO) {
+    this.translationLanguage = translationAgencyRequestInfoDTO.getTranslationLanguage();
+  }
+
+  public void updateAgencyCbiDocYnAndSubstituteDataAgencyYn(String agencyCbiDocYn, String SubstituteDataAgencyYn) {
+      this.agencyCbiDocYn = agencyCbiDocYn;
+      this.substituteDataAgencyYn = substituteDataAgencyYn;
   }
 }
