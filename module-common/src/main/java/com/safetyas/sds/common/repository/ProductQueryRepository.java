@@ -1,11 +1,16 @@
 package com.safetyas.sds.common.repository;
 
+import com.querydsl.core.QueryResults;
+import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
+import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.model.QCbiDocumentDTO;
 import com.safetyas.sds.common.model.QOrAgencyDTO;
+import com.safetyas.sds.common.model.QProductDTO;
 import com.safetyas.sds.common.model.QRenewAgencyDTO;
 import com.safetyas.sds.common.model.QRevisionAgencyProgressDTO;
 import com.safetyas.sds.common.model.QRevisionAgencyRequestInfoDTO;
@@ -20,6 +25,9 @@ import com.safetyas.sds.common.model.TranslationAgencyProgressDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Repository;
 
 import static com.safetyas.sds.common.entity.QMember.member;
@@ -31,6 +39,7 @@ import static com.safetyas.sds.common.entity.QRenewAgency.renewAgency;
 import static com.safetyas.sds.common.entity.QRevisionAgency.revisionAgency;
 import static com.safetyas.sds.common.entity.QSubmissionAgency.submissionAgency;
 import static com.safetyas.sds.common.entity.QTranslationAgency.translationAgency;
+import static org.reflections.util.Utils.isEmpty;
 
 @Repository
 public class ProductQueryRepository {
@@ -111,12 +120,46 @@ public class ProductQueryRepository {
 
   public CbiDocumentDTO selectCbiDocument(Long productSeq) {
     return queryFactory
-        .select(new QCbiDocumentDTO(product.productUid,memberInfo.companyName,memberInfo.companyAddr1,memberInfo.companyAddr2))
+        .select(
+            new QCbiDocumentDTO(product.productUid, memberInfo.companyName, memberInfo.companyAddr1,
+                memberInfo.companyAddr2))
         .from(product)
         .leftJoin(product.memberSupplier, memberSupplier)
         .leftJoin(memberSupplier.member, member)
-        .leftJoin(member.memberInfo,memberInfo)
+        .leftJoin(member.memberInfo, memberInfo)
         .where(product.productSeq.eq(productSeq))
         .fetchOne();
+  }
+
+  public Page<ProductDTO> selectProductList(Pageable pageable,
+      ProductSearchCondition condition) {
+    QueryResults<ProductDTO> results = queryFactory
+        .select(new QProductDTO(
+            product.inDate,
+            product.productSeq,
+            product.productUid,
+            product.finalSaveYn,
+            product.language,
+            product.agencyTranslateYn,
+            product.agencyRevisionYn,
+            product.tonsYear,
+            product.agencySubmissionYn,
+            product.agencyCbiDocYn,
+            product.orYn))
+        .from(product)
+        .where(productUidEq(condition.getProductUid()), product.delDate.isNull())
+        .offset(pageable.getOffset())
+        .orderBy(product.productSeq.desc())
+        .limit(pageable.getPageSize())
+        .fetchResults();
+
+    List<ProductDTO> content = results.getResults();
+    long total = results.getTotal();
+
+    return new PageImpl<>(content, pageable, total);
+  }
+
+  private BooleanExpression productUidEq(String productUid) {
+    return isEmpty(productUid) ? null : product.productUid.eq(productUid);
   }
 }

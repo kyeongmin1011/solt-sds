@@ -5,11 +5,15 @@ import com.safetyas.sds.client.api.util.FileUtil;
 import com.safetyas.sds.common.entity.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.FileDTO;
+import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.repository.FileQueryRepository;
 import com.safetyas.sds.common.service.ProductService;
 import java.util.HashMap;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -50,5 +54,9 @@ public class ClientProductService {
       infoMap.put("regUserSeq", seq);
       clientFileService.insertFile(multipartHttpServletRequest, infoMap);
     }
+  }
+
+  public Page<ProductDTO> selectProductList(Pageable pageable, ProductSearchCondition productSearchCondition) {
+    return productService.selectProductList(pageable,productSearchCondition);
   }
 }

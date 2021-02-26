@@ -4,6 +4,8 @@ import com.safetyas.sds.common.entity.CbiDocument;
 import com.safetyas.sds.common.entity.CbiSentence;
 import com.safetyas.sds.common.entity.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
+import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.repository.CbiDocumentRepository;
 import com.safetyas.sds.common.repository.CbiSentenceRepository;
 import com.safetyas.sds.common.repository.ProductQueryRepository;
@@ -11,6 +13,8 @@ import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -39,5 +43,9 @@ public class ProductService {
 
   public Long insertProductAndCbiDocument(Product product) {
     return productRepository.save(product).getCbiDocument().getCbiDocumentSeq();
+  }
+
+  public Page<ProductDTO> selectProductList(Pageable pageable, ProductSearchCondition productSearchCondition) {
+    return productQueryRepository.selectProductList(pageable,productSearchCondition);
   }
 }

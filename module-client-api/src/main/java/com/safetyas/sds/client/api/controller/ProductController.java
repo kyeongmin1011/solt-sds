@@ -6,9 +6,14 @@ import com.safetyas.sds.client.api.response.ResponseService;
 import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ClientProductService;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
+import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.ProductSearchCondition;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -25,14 +30,21 @@ public class ProductController {
   private final ResponseService responseService;
   private final ClientProductService clientProductService;
 
+  @GetMapping("")
+  @ApiOperation("제품 리스트 조회")
+  public SingleResult<Page<ProductDTO>> selectProductList(@PageableDefault Pageable pageable,
+      ProductSearchCondition productSearchCondition) {
+    return responseService.getSingleResult(clientProductService.selectProductList(pageable,productSearchCondition));
+  }
+
   @GetMapping("/cbi-document/{productSeq}")
-  @ApiOperation("영업비밀 입증 서류 조회")
+  @ApiOperation("영업 비밀 입증 서류 조회")
   public SingleResult<CbiDocumentDTO> selectCbiDocument(@PathVariable Long productSeq) {
     return responseService.getSingleResult(clientProductService.selectCbiDocument(productSeq));
   }
 
   @PostMapping("/cbi-document")
-  @ApiOperation("영업비밀 입증 서류 저장")
+  @ApiOperation("영업 비밀 입증 서류 저장")
   public CommonResult insertCbiDocument(CbiDocumentRequest cbiDocumentRequest,
       MultipartHttpServletRequest multipartHttpServletRequest) {
     clientProductService.insertCbiDocument(cbiDocumentRequest, multipartHttpServletRequest);

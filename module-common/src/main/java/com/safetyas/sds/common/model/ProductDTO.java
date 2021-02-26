@@ -1,8 +1,10 @@
 package com.safetyas.sds.common.model;
 
+import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.Product;
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 import lombok.AllArgsConstructor;
@@ -16,7 +18,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class ProductDTO implements Serializable {
+public class ProductDTO extends CommonDTO implements Serializable {
 
   private static final long serialVersionUID = 2684568000494080226L;
 
@@ -46,6 +48,24 @@ public class ProductDTO implements Serializable {
   private List<CbiAgencyDTO> cbiAgencyList = new ArrayList<>();
   private List<ProductMatterDTO> productMatterList = new ArrayList<>();
   private List<FileDTO> fileList = new ArrayList<>();
+
+  @QueryProjection
+  public ProductDTO(LocalDateTime inDate, Long productSeq, String productUid, String finalSaveYn,
+      String language,
+      String agencyTranslateYn, String agencyRevisionYn, String tonsYear, String agencySubmissionYn,
+      String agencyCbiDocYn, String orYn) {
+    super(inDate);
+    this.productSeq = productSeq;
+    this.productUid = productUid;
+    this.finalSaveYn = finalSaveYn;
+    this.language = language;
+    this.agencyTranslateYn = agencyTranslateYn;
+    this.agencyRevisionYn = agencyRevisionYn;
+    this.tonsYear = tonsYear;
+    this.agencySubmissionYn = agencySubmissionYn;
+    this.agencyCbiDocYn = agencyCbiDocYn;
+    this.orYn = orYn;
+  }
 
   public Product toEntity() {
     return Product.builder()
