@@ -1,7 +1,6 @@
 package com.safetyas.sds.common.model;
 
 import com.querydsl.core.annotations.QueryProjection;
-import com.safetyas.sds.common.entity.Product;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -44,6 +43,11 @@ public class ProductDTO extends CommonDTO implements Serializable {
   private String agencyCbiDocYn;
   private String revisionLanguage;
   private String translationLanguage;
+  private String remark;
+
+  private Long memberSupplierSeq;
+
+  private String casList;
 
   private List<CbiAgencyDTO> cbiAgencyList = new ArrayList<>();
   private List<ProductMatterDTO> productMatterList = new ArrayList<>();
@@ -53,7 +57,7 @@ public class ProductDTO extends CommonDTO implements Serializable {
   public ProductDTO(LocalDateTime inDate, Long productSeq, String productUid, String finalSaveYn,
       String language,
       String agencyTranslateYn, String agencyRevisionYn, String tonsYear, String agencySubmissionYn,
-      String agencyCbiDocYn, String orYn) {
+      String agencyCbiDocYn, String orYn,String casList) {
     super(inDate);
     this.productSeq = productSeq;
     this.productUid = productUid;
@@ -65,13 +69,6 @@ public class ProductDTO extends CommonDTO implements Serializable {
     this.agencySubmissionYn = agencySubmissionYn;
     this.agencyCbiDocYn = agencyCbiDocYn;
     this.orYn = orYn;
-  }
-
-  public Product toEntity() {
-    return Product.builder()
-        .productSeq(this.productSeq)
-        .agencyCbiType(this.agencyCbiType)
-        .agencyCbiDocYn(this.agencyCbiDocYn)
-        .build();
+    this.casList = casList;
   }
 }

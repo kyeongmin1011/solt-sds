@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.model.ProductMatterDTO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -22,14 +23,26 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "sds_product_matter")
-public class ProductMatter {
+public class ProductMatter extends CommonEntity{
 
   @Builder
+  public ProductMatter(String cas, String keNumber, String matterName, Long contentRate,
+      String alterContentYn, String alterMatterName, Long alterContentRate) {
+    this.cas = cas;
+    this.keNumber = keNumber;
+    this.matterName = matterName;
+    this.contentRate = contentRate;
+    this.alterContentYn = alterContentYn;
+    this.alterMatterName = alterMatterName;
+    this.alterContentRate = alterContentRate;
+  }
+
+/*  @Builder
   public ProductMatter(Long productMatterSeq, String premiumDbYn, String alterContentYn) {
     this.productMatterSeq = productMatterSeq;
     this.premiumDbYn = premiumDbYn;
     this.alterContentYn = alterContentYn;
-  }
+  }*/
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,5 +91,15 @@ public class ProductMatter {
 
   public void updateAlterContentYn(String alterContentYn) {
     this.alterContentYn = alterContentYn;
+  }
+
+  public void updateProductMatter(ProductMatterDTO productMatterDTO) {
+    this.cas = productMatterDTO.getCas();
+    this.keNumber = productMatterDTO.getKeNumber();
+    this.matterName = productMatterDTO.getMatterName();
+    this.contentRate = productMatterDTO.getContentRate();
+    this.alterContentYn = productMatterDTO.getAlterContentYn();
+    this.alterMatterName = productMatterDTO.getAlterMatterName();
+    this.alterContentRate = productMatterDTO.getAlterContentRate();
   }
 }

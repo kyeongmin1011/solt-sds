@@ -4,13 +4,13 @@ import com.querydsl.core.QueryResults;
 import com.querydsl.core.types.dsl.BooleanExpression;
 import com.querydsl.jpa.impl.JPAQueryFactory;
 import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.ProductMatter;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
 import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.model.QCbiDocumentDTO;
 import com.safetyas.sds.common.model.QOrAgencyDTO;
-import com.safetyas.sds.common.model.QProductDTO;
 import com.safetyas.sds.common.model.QRenewAgencyDTO;
 import com.safetyas.sds.common.model.QRevisionAgencyProgressDTO;
 import com.safetyas.sds.common.model.QRevisionAgencyRequestInfoDTO;
@@ -24,7 +24,9 @@ import com.safetyas.sds.common.model.SubmissionAgencyDTO;
 import com.safetyas.sds.common.model.TranslationAgencyProgressDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import java.util.List;
+import java.util.stream.Collectors;
 import javax.persistence.EntityManager;
+import org.modelmapper.ModelMapper;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -45,9 +47,11 @@ import static org.reflections.util.Utils.isEmpty;
 public class ProductQueryRepository {
 
   private final JPAQueryFactory queryFactory;
+  private final ModelMapper modelMapper;
 
-  public ProductQueryRepository(EntityManager em) {
+  public ProductQueryRepository(EntityManager em, ModelMapper modelMapper) {
     this.queryFactory = new JPAQueryFactory(em);
+    this.modelMapper = modelMapper;
   }
 
   public Product selectProductCbiAgencyById(Long id) {
@@ -133,7 +137,7 @@ public class ProductQueryRepository {
 
   public Page<ProductDTO> selectProductList(Pageable pageable,
       ProductSearchCondition condition) {
-    QueryResults<ProductDTO> results = queryFactory
+    /*QueryResults<ProductDTO> results = queryFactory
         .select(new QProductDTO(
             product.inDate,
             product.productSeq,
@@ -145,18 +149,30 @@ public class ProductQueryRepository {
             product.tonsYear,
             product.agencySubmissionYn,
             product.agencyCbiDocYn,
-            product.orYn))
-        .from(product)
+            product.orYn))*/
+    QueryResults<Product> results = queryFactory
+        .selectFrom(product)
         .where(productUidEq(condition.getProductUid()), product.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(product.productSeq.desc())
         .limit(pageable.getPageSize())
         .fetchResults();
 
-    List<ProductDTO> content = results.getResults();
+    List<ProductDTO> collect = results.getResults()
+        .stream()
+        .map(product -> new ProductDTO(product.getInDate(), product.getProductSeq(),
+            product.getProductUid(), product.getFinalSaveYn(), product.getLanguage(),
+            product.getAgencyTranslateYn(), product.getAgencyRevisionYn(), product.getTonsYear(),
+            product.getAgencySubmissionYn(), product.getAgencyCbiDocYn(), product.getOrYn(),
+            product.getProductMatterList()
+                .stream()
+                .map(ProductMatter::getCas)
+                .collect(Collectors.joining(","))))
+        .collect(Collectors.toList());
+
     long total = results.getTotal();
 
-    return new PageImpl<>(content, pageable, total);
+    return new PageImpl<>(collect, pageable, total);
   }
 
   private BooleanExpression productUidEq(String productUid) {

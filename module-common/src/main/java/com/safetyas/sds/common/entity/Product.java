@@ -39,7 +39,7 @@ public class Product extends CommonEntity implements Serializable {
       String agencySubmissionYn,
       String agencyTranslateYn, String agencyRevisionYn, String agencyOrYn, String agencyCbiYn,
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
-      String agencyCbiType, String agencyCbiDocYn,
+      String agencyCbiType, String agencyCbiDocYn, String remark,
       LocalDateTime inDate, LocalDateTime modDate,
       LocalDateTime delDate) {
     super(inDate, modDate, delDate);
@@ -136,6 +136,9 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "substitute_data_agency_yn")
   private String substituteDataAgencyYn;
 
+  @Column(name = "remark")
+  private String remark;
+
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
   private MemberSupplier memberSupplier;
@@ -173,6 +176,21 @@ public class Product extends CommonEntity implements Serializable {
     memberSupplier.getProductList().add(this);
   }
 
+
+  public void updateProductInfo(ProductDTO productDTO) {
+    this.productUid = productDTO.getProductUid();
+    this.writer = productDTO.getWriter();
+    this.writerEmail = productDTO.getWriterEmail();
+    this.tonsYear = productDTO.getTonsYear();
+    this.language = productDTO.getLanguage();
+    this.remark = productDTO.getRemark();
+    this.submissionYn = productDTO.getSubmissionYn();
+    this.orYn = productDTO.getOrYn();
+    this.msds = productDTO.getMsds();
+    this.validStart = productDTO.getValidStart();
+    this.validFinish = productDTO.getValidFinish();
+  }
+
   public void updateProductCbiAgency(ProductDTO productDTO) {
     this.agencyCbiType = productDTO.getAgencyCbiType();
     this.agencyCbiDocYn = productDTO.getAgencyCbiDocYn();
@@ -187,8 +205,13 @@ public class Product extends CommonEntity implements Serializable {
     this.translationLanguage = translationAgencyRequestInfoDTO.getTranslationLanguage();
   }
 
-  public void updateAgencyCbiDocYnAndSubstituteDataAgencyYn(String agencyCbiDocYn, String SubstituteDataAgencyYn) {
-      this.agencyCbiDocYn = agencyCbiDocYn;
-      this.substituteDataAgencyYn = substituteDataAgencyYn;
+  public void updateAgencyCbiDocYnAndSubstituteDataAgencyYn(String agencyCbiDocYn,
+      String substituteDataAgencyYn) {
+    this.agencyCbiDocYn = agencyCbiDocYn;
+    this.substituteDataAgencyYn = substituteDataAgencyYn;
+  }
+
+  public void updateRevisionLanguage(String revisionLanguage) {
+    this.revisionLanguage = revisionLanguage;
   }
 }

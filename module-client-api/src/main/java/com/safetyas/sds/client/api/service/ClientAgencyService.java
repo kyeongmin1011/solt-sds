@@ -65,7 +65,10 @@ public class ClientAgencyService {
 
   public void insertRevisionRequestInfo(ProductDTO productDTO,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    long seq = agencyService.insertRevisionRequestInfo(productDTO);
+
+    Product product = productService.selectProduct(productDTO.getProductSeq());
+    product.updateRevisionLanguage(productDTO.getRevisionLanguage());
+    long seq = productService.insertProduct(product);
 
     if (!FileUtil.isEmpty(multipartHttpServletRequest.getFiles(TYPE_NAME))) {
       Map<String, Object> infoMap = new HashMap<>();

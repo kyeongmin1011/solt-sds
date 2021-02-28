@@ -1,6 +1,7 @@
 package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.client.api.request.CbiDocumentRequest;
+import com.safetyas.sds.client.api.request.ProductRequest;
 import com.safetyas.sds.client.api.util.FileUtil;
 import com.safetyas.sds.common.entity.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
@@ -39,11 +40,13 @@ public class ClientProductService {
     return cbiDocumentDTO;
   }
 
-  public void insertCbiDocument(CbiDocumentRequest cbiDocumentRequest, MultipartHttpServletRequest multipartHttpServletRequest) {
+  public void insertCbiDocument(CbiDocumentRequest cbiDocumentRequest,
+      MultipartHttpServletRequest multipartHttpServletRequest) {
 
     Product product = productService.selectProduct(cbiDocumentRequest.getProductSeq());
     product.updateCbiDocument(cbiDocumentRequest.toEntity());
-    long seq = productService.insertProductAndCbiDocument(product);;
+    long seq = productService.insertProductAndCbiDocument(product);
+    ;
 
     if (!FileUtil.isEmpty(multipartHttpServletRequest.getFiles(TYPE_NAME))) {
       Map<String, Object> infoMap = new HashMap<>();
@@ -56,11 +59,25 @@ public class ClientProductService {
     }
   }
 
-  public Page<ProductDTO> selectProductList(Pageable pageable, ProductSearchCondition productSearchCondition) {
-    return productService.selectProductList(pageable,productSearchCondition);
+  public Page<ProductDTO> selectProductList(Pageable pageable,
+      ProductSearchCondition productSearchCondition) {
+    return productService.selectProductList(pageable, productSearchCondition);
   }
 
-  public void insertProduct(ProductDTO productDTO) {
-    productService.insertProduct(productDTO.toEntity());
+  public void insertProduct(ProductRequest productRequest) {
+    productService.insertProductAndMemberSupplier(productRequest.toEntity(),
+        productRequest.getMemberSupplierSeq());
+  }
+
+  public void updateProduct(Long productSeq, ProductDTO productDTO) {
+    productService.updateProduct(productSeq, productDTO);
+  }
+
+  public void deleteProduct(Long productSeq) {
+    productService.deleteProduct(productSeq);
+  }
+
+  public ProductDTO selectProduct(Long productSeq) {
+    return productService.selectProductAndProductMatter(productSeq);
   }
 }

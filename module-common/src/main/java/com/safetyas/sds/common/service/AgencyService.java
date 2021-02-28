@@ -8,7 +8,6 @@ import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.model.CbiAgencyRequestInfoDTO;
 import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
-import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.model.RenewAgencyDTO;
 import com.safetyas.sds.common.model.RevisionAgencyProgressDTO;
@@ -81,7 +80,6 @@ public class AgencyService {
           .orElseThrow(NoSuchElementException::new);
 
       productMatter.updateAlterContentYn(productMatterDTO.getAlterContentYn());
-
       productMatter.updateProduct(product);
 
       productMatterRepository.save(productMatter);
@@ -124,11 +122,6 @@ public class AgencyService {
       revisionAgencyRequestInfoDTO.setFileList(fileList);
     }
     return revisionAgencyRequestInfoDTO;
-  }
-
-  @Transactional
-  public long insertRevisionRequestInfo(ProductDTO productDTO) {
-    return productRepository.save(productDTO.toEntity()).getProductSeq();
   }
 
   public TranslationAgencyProgressDTO selectTranslationProgress(Long productSeq) {

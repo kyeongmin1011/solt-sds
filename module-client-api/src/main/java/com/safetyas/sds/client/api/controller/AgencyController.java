@@ -74,7 +74,7 @@ public class AgencyController {
   }
 
   @ApiOperation(value = "개정대행 요청정보 등록")
-  @PostMapping(value = "/revision/request-info") //TODO::
+  @PostMapping(value = "/revision/request-info")
   public CommonResult insertRevisionRequestInfo(
       @ApiParam(value = "제품 정보", required = true) ProductDTO productDTO,
       MultipartHttpServletRequest multipartHttpServletRequest) {
@@ -116,7 +116,7 @@ public class AgencyController {
   }
 
   @ApiOperation(value = "영업비밀대행 요청정보 저장")
-  @PostMapping(value = "/cbi/request-info") //TODO
+  @PostMapping(value = "/cbi/request-info")
   public CommonResult insertCbiAgency(
       @ApiParam(value = "제품 정보", required = true) CbiAgencyRequestInfoDTO cbiAgencyRequestInfoDTO) {
     clientAgencyService.insertCbiAgency(cbiAgencyRequestInfoDTO);

@@ -1,6 +1,7 @@
 package com.safetyas.sds.client.api.request;
 
 import com.safetyas.sds.common.entity.CbiDocument;
+import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -12,7 +13,9 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class CbiDocumentRequest {
+public class CbiDocumentRequest implements Serializable {
+
+  private static final long serialVersionUID = 1658600278234178830L;
 
   private Long productSeq;
   private String nonKnowledge;  // 비공지성

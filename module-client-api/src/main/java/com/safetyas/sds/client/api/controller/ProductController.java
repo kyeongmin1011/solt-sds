@@ -1,6 +1,7 @@
 package com.safetyas.sds.client.api.controller;
 
 import com.safetyas.sds.client.api.request.CbiDocumentRequest;
+import com.safetyas.sds.client.api.request.ProductRequest;
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
 import com.safetyas.sds.client.api.response.SingleResult;
@@ -14,9 +15,11 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.web.PageableDefault;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -39,10 +42,30 @@ public class ProductController {
         .getSingleResult(clientProductService.selectProductList(pageable, productSearchCondition));
   }
 
+  @GetMapping("/{productSeq}")
+  public SingleResult<ProductDTO> selectProduct(@PathVariable Long productSeq) {
+    return responseService.getSingleResult(clientProductService.selectProduct(productSeq));
+  }
+
   @PostMapping("")
   @ApiOperation("제품 등록")
-  public CommonResult insertProduct(@RequestBody ProductDTO productDTO) {
-    clientProductService.insertProduct(productDTO);
+  public CommonResult insertProduct(@RequestBody ProductRequest productRequest) {
+    clientProductService.insertProduct(productRequest);
+    return responseService.getSuccessResult();
+  }
+
+  @PutMapping("/{productSeq}")
+  @ApiOperation("제품 수정")
+  public CommonResult updateProduct(@PathVariable Long productSeq,
+      @RequestBody ProductDTO productDTO) {
+    clientProductService.updateProduct(productSeq, productDTO);
+    return responseService.getSuccessResult();
+  }
+
+  @DeleteMapping("/{productSeq}")
+  @ApiOperation("제품 삭제")
+  public CommonResult deleteProduct(@PathVariable Long productSeq) {
+    clientProductService.deleteProduct(productSeq);
     return responseService.getSuccessResult();
   }
 
