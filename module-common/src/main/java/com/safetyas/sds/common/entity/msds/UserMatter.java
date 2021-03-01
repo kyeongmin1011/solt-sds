@@ -128,20 +128,14 @@ public class UserMatter {
   private String aj1Value1;
   @Column(name = "aj2_value2", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-최소값1'")
   private String aj2Value2;
-  @Column(name = "aj3_value3", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-최소값2'")
-  private String aj3Value3;
-  @Column(name = "aj4_value4", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-최대값1'")
-  private String aj4Value4;
-  @Column(name = "aj5_value5", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-최대값2'")
-  private String aj5Value5;
-  @Column(name = "aj6_unit", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-단위'")
-  private String aj6Unit;
-  @Column(name = "aj7_tg", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-시험지침'")
-  private String aj7Tg;
-  @Column(name = "aj8_ref", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-출처'")
-  private String aj8Ref;
-  @Column(name = "aj9_other", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-비고'")
-  private String aj9Other;
+  @Column(name = "aj3_unit", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-단위'")
+  private String aj3Unit;
+  @Column(name = "aj4_tg", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-시험지침'")
+  private String aj4Tg;
+  @Column(name = "aj5_ref", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-출처'")
+  private String aj5Ref;
+  @Column(name = "aj6_other", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-비고'")
+  private String aj6Other;
 
   @Column(name = "ak1_data", columnDefinition = "varchar(100) comment '증기압-값'")
   private String ak1Data;
@@ -199,14 +193,12 @@ public class UserMatter {
   private String ao4Value4;
   @Column(name = "ao5_value5", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-최대값2'")
   private String ao5Value5;
-  @Column(name = "ao6_unit", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-단위'")
-  private String ao6Unit;
-  @Column(name = "ao7_tg", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-시험지침'")
-  private String ao7Tg;
-  @Column(name = "ao8_ref", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-출처'")
-  private String ao8Ref;
-  @Column(name = "ao9_other", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-비고'")
-  private String ao9Other;
+  @Column(name = "ao6_tg", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-시험지침'")
+  private String ao6Tg;
+  @Column(name = "ao7_ref", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-출처'")
+  private String ao7Ref;
+  @Column(name = "ao8_other", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-비고'")
+  private String ao8Other;
 
   @Column(name = "ap1_data", columnDefinition = "varchar(100) comment '자연발화 온도-값'")
   private String ap1Data;
@@ -242,10 +234,8 @@ public class UserMatter {
   private String ar5Unit2;
   @Column(name = "ar6_temper", columnDefinition = "varchar(100) comment '점도-동점도 온도'")
   private String ar6Temper;
-  @Column(name = "ar7_unit3", columnDefinition = "varchar(100) comment '점도-동점도 온도 단위3'")
-  private String ar7Unit3;
-  @Column(name = "ar8_ref2", columnDefinition = "varchar(100) comment '점도-동점도 출처2'")
-  private String ar8Ref2;
+  @Column(name = "ar7_ref2", columnDefinition = "varchar(100) comment '점도-동점도 출처2'")
+  private String ar7Ref2;
 
   @Column(name = "as1_data", columnDefinition = "varchar(100) comment '분자량-값'")
   private String as1Data;
@@ -775,18 +765,16 @@ public class UserMatter {
 
   @Column(name = "ea1_domestic", columnDefinition = "varchar(100) comment '노출기준-국내규정'")
   private String ea1Domestic;
-  @Column(name = "ea2_biologic", columnDefinition = "varchar(100) comment '노출기준-생물학적'")
-  private String ea2Biologic;
-  @Column(name = "ea3_acgih", columnDefinition = "varchar(100) comment '노출기준-ACGIH'")
-  private String ea3Acgih;
-  @Column(name = "ea4_osha", columnDefinition = "varchar(100) comment '노출기준-OSHA'")
-  private String ea4Osha;
-  @Column(name = "ea5_niosh", columnDefinition = "varchar(100) comment '노출기준-NIOSH'")
-  private String ea5Niosh;
-  @Column(name = "ea6_eu", columnDefinition = "varchar(100) comment '노출기준-EU'")
-  private String ea6EU;
-  @Column(name = "ea7_other", columnDefinition = "varchar(100) comment '노출기준-비고'")
-  private String ea7Other;
+  @Column(name = "ea2_acgih", columnDefinition = "varchar(100) comment '노출기준-ACGIH'")
+  private String ea2Acgih;
+  @Column(name = "ea3_osha", columnDefinition = "varchar(100) comment '노출기준-OSHA'")
+  private String ea3Osha;
+  @Column(name = "ea4_niosh", columnDefinition = "varchar(100) comment '노출기준-NIOSH'")
+  private String ea4Niosh;
+  @Column(name = "ea5_eu", columnDefinition = "varchar(100) comment '노출기준-EU'")
+  private String ea5EU;
+  @Column(name = "ea6_other", columnDefinition = "varchar(100) comment '노출기준-비고'")
+  private String ea6Other;
 
   //------------------------------------------------------------- F그룹 15 법적규제현황
 
@@ -878,7 +866,5 @@ public class UserMatter {
   private String divisionA18;
   @Column(name = "division_a19", columnDefinition = "varchar(100) comment '둔감폭발물 구분'")
   private String divisionA19;
-
-
 
 }
