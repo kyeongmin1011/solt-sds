@@ -32,9 +32,9 @@ public class AdminMemberBoardService {
   private static final String TABLE_NAME = "sds_member_board";
   private static final String PATH_NAME = "memberBoard";
 
-  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
-      Pageable pageable) {
-    return memberBoardService.selectMemberBoardList(condition, pageable);
+  public Page<MemberBoardDTO> selectMemberBoardList(Pageable pageable,
+      BoardSearchCondition condition) {
+    return memberBoardService.selectMemberBoardList(pageable, condition);
   }
 
   public MemberBoardDTO selectMemberBoard(Long id) {

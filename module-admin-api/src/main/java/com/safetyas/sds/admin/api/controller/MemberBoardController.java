@@ -35,10 +35,9 @@ public class MemberBoardController {
   @GetMapping("")
   @ApiOperation("고객 게시판 목록 조회")
   public SingleResult<Page<MemberBoardDTO>> selectMemberBoardList(
-      BoardSearchCondition condition,
-      @PageableDefault Pageable pageable) {
+      @PageableDefault Pageable pageable, BoardSearchCondition condition) {
     return responseService.getSingleResult(
-        memberBoardService.selectMemberBoardList(condition, pageable));
+        memberBoardService.selectMemberBoardList(pageable, condition));
   }
 
   @GetMapping("/{id}")

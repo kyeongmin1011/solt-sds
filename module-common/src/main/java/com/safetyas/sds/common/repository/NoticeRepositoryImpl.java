@@ -24,7 +24,7 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
   }
 
   @Override
-  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<NoticeDTO> selectNoticeList(Pageable pageable, BoardSearchCondition condition) {
     QueryResults<NoticeDTO> results = queryFactory
         .select(new QNoticeDTO(
             notice.category,

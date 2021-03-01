@@ -43,6 +43,7 @@ public class ProductController {
   }
 
   @GetMapping("/{productSeq}")
+  @ApiOperation("제품 조회")
   public SingleResult<ProductDTO> selectProduct(@PathVariable Long productSeq) {
     return responseService.getSingleResult(clientProductService.selectProduct(productSeq));
   }

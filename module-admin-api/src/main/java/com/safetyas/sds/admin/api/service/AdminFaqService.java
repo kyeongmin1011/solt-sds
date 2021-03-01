@@ -51,8 +51,8 @@ public class AdminFaqService {
     faqService.deleteFaq(id);
   }
 
-  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
-    return faqService.selectFaqList(condition, pageable);
+  public Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition) {
+    return faqService.selectFaqList(pageable,condition);
   }
 
   private void insertFile(long faqSeq, MultipartHttpServletRequest multipartHttpServletRequest) {

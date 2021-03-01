@@ -37,9 +37,9 @@ public class InformController {
 
   @GetMapping("/notice")
   @ApiOperation("공지 게시판 목록 조회")
-  public SingleResult<Page<NoticeDTO>> selectNoticeList(BoardSearchCondition condition,
-      @PageableDefault Pageable pageable) {
-    return responseService.getSingleResult(noticeService.selectNoticeList(condition, pageable));
+  public SingleResult<Page<NoticeDTO>> selectNoticeList(@PageableDefault Pageable pageable,
+      BoardSearchCondition condition) {
+    return responseService.getSingleResult(noticeService.selectNoticeList(pageable, condition));
   }
 
   @GetMapping("/notice/{id}")
@@ -74,9 +74,9 @@ public class InformController {
 
   @GetMapping("/faq")
   @ApiOperation("자주 묻는 질문 목록 조회")
-  public SingleResult<Page<FaqDTO>> selectFaqList(BoardSearchCondition condition,
-      @PageableDefault Pageable pageable) {
-    return responseService.getSingleResult(faqService.selectFaqList(condition, pageable));
+  public SingleResult<Page<FaqDTO>> selectFaqList(@PageableDefault Pageable pageable,
+      BoardSearchCondition condition) {
+    return responseService.getSingleResult(faqService.selectFaqList(pageable, condition));
   }
 
   @GetMapping("/faq/{id}")

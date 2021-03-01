@@ -53,8 +53,8 @@ public class AdminNoticeService {
     noticeService.deleteNotice(id);
   }
 
-  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
-    return noticeService.selectNoticeList(condition, pageable);
+  public Page<NoticeDTO> selectNoticeList(Pageable pageable, BoardSearchCondition condition) {
+    return noticeService.selectNoticeList(pageable, condition);
   }
 
   private void insertFile(long noticeSeq, MultipartHttpServletRequest multipartHttpServletRequest) {
@@ -80,7 +80,6 @@ public class AdminNoticeService {
     fileUtil.deleteFile(preFile.getPath(), preFile.getName());
     preFile.updateDelDate();
     fileService.saveFile(preFile);
-
 
     insertFile(noticeSeq, multipartHttpServletRequest);
   }

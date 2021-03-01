@@ -48,7 +48,7 @@ public class FaqService {
     faqRepository.save(faq);
   }
 
-  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
-    return faqRepository.selectFaqList(condition,pageable);
+  public Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition) {
+    return faqRepository.selectFaqList(pageable, condition);
   }
 }
