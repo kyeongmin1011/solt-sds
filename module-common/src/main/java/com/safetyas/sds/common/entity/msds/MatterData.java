@@ -127,10 +127,10 @@ public class MatterData {
   @Column(name = "ai4_other", columnDefinition = "varchar(100) comment '인화성(고체,기체)-비고'")
   private String ai4Other;
 
-  @Column(name = "aj1_value1", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-유일값'")
-  private String aj1Value1;
-  @Column(name = "aj2_value2", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-최소값1'")
-  private String aj2Value2;
+  @Column(name = "aj1_data1", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-상한'")
+  private String aj1Data1;
+  @Column(name = "aj2_data2", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-하한'")
+  private String aj2Data2;
   @Column(name = "aj3_unit", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-단위'")
   private String aj3Unit;
   @Column(name = "aj4_tg", columnDefinition = "varchar(100) comment '인화 또는 폭발 범위의 상한/하한-시험지침'")
@@ -474,43 +474,59 @@ public class MatterData {
   private String divisionB14;  // 구분값3
   @Column(name = "bk1_data1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-값1'")
   private String bk1Data1;
-  @Column(name = "bk2_glp1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP1'")
-  private String bk2Glp1;
-  @Column(name = "bk3_data2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-값2'")
-  private String bk3Data2;
-  @Column(name = "bk4_unit2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-단위2'")
-  private String bk4Unit2;
-  @Column(name = "bk5_tg2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침2'")
-  private String bk5Tg2;
-  @Column(name = "bk6_glp2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP2'")
-  private String bk6Glp2;
-  @Column(name = "bk6_ref2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-출처2'")
-  private String bk6Ref2;
-  @Column(name = "bk6_other2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고2'")
-  private String bk6Other2;
+  @Column(name = "bk2_tg1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침1'")
+  private String bk2Tg1;
+  @Column(name = "bk3_glp1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP1'")
+  private String bk3Glp1;
+  @Column(name = "bk4_ref1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-출처1'")
+  private String bk4Ref1;
+  @Column(name = "bk5_other1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고1'")
+  private String bk5Other1;
+  @Column(name = "bk6_data2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험종값2'")
+  private String bk6Data2;
+  @Column(name = "bk7_noael2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-NOAEL2'")
+  private String bk7Noael2;
+  @Column(name = "bk8_unit2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-단위2'")
+  private String bk8Unit2;
+  @Column(name = "bk9_time2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시간2'")
+  private String bk9Time2;
+  @Column(name = "bk10_tg2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침2'")
+  private String bk10Tg2;
+  @Column(name = "bk11_glp2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP2'")
+  private String bk11Glp2;
+  @Column(name = "bk12_ref2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-출처2'")
+  private String bk12Ref2;
+  @Column(name = "bk13_other2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고2'")
+  private String bk13Other2;
 
   @Column(name = "division_B15", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-구분1'")
   private String divisionB15;  // 구분값1
-  @Column(name = "bl1_data1", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-값1'")
+  @Column(name = "bl1_data1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-값1'")
   private String bl1Data1;
-  @Column(name = "bl1_tg1", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-시험지침1'")
+  @Column(name = "bl2_tg1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침1'")
   private String bl2Tg1;
-  @Column(name = "bl3_glp1", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-GLP1'")
+  @Column(name = "bl3_glp1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP1'")
   private String bl3Glp1;
-  @Column(name = "bl4_data2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-시험종값2'")
-  private String bl4Data2;
-  @Column(name = "bl5_noael2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-noael값2'")
-  private String bl5Noael2;
-  @Column(name = "bl6_unit2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-단위2'")
-  private String bl6Unit2;
-  @Column(name = "bl7_tg2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-시험지침2'")
-  private String bl7Tg2;
-  @Column(name = "bl8_glp2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-GLP2'")
-  private String bl8Glp2;
-  @Column(name = "bl9_ref2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-출처2'")
-  private String bl9Ref2;
-  @Column(name = "bl10_other2", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-비고2'")
-  private String bl10Other2;
+  @Column(name = "bl4_ref1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-출처1'")
+  private String bl4Ref1;
+  @Column(name = "bl5_other1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고1'")
+  private String bl5Other1;
+  @Column(name = "bl6_data2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험종값2'")
+  private String bl6Data2;
+  @Column(name = "bl7_noael2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-NOAEL2'")
+  private String bl7Noael2;
+  @Column(name = "bl8_unit2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-단위2'")
+  private String bl8Unit2;
+  @Column(name = "bl9_time2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시간2'")
+  private String bl9Time2;
+  @Column(name = "bl10_tg2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침2'")
+  private String bl10Tg2;
+  @Column(name = "bl11_glp2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-GLP2'")
+  private String bl11Glp2;
+  @Column(name = "bl12_ref2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-출처2'")
+  private String bl12Ref2;
+  @Column(name = "bl13_other2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고2'")
+  private String bl13Other2;
 
   @Column(name = "division_B16", columnDefinition = "varchar(100) comment '흡인유해성-구분'")
   private String divisionB16;  // 구분값
