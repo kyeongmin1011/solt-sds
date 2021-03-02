@@ -140,7 +140,7 @@ public class UserMatterMsds {
   @Column(name = "step13_01")
   private String step13_01;
 
-  @Column(name = "step13_01")
+  @Column(name = "step13_02")
   private String step13_02;
 
 

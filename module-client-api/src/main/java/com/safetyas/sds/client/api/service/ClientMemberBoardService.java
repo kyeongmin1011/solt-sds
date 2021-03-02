@@ -1,12 +1,10 @@
-package com.safetyas.sds.admin.api.service;
+package com.safetyas.sds.client.api.service;
 
-import com.safetyas.sds.admin.api.util.FileUtil;
+import com.safetyas.sds.client.api.util.FileUtil;
 import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.FileDTO;
-import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import com.safetyas.sds.common.model.MemberBoardDTO;
-import com.safetyas.sds.common.service.MemberBoardCommentService;
 import com.safetyas.sds.common.service.MemberBoardService;
 import com.safetyas.sds.common.service.client.FileService;
 import java.util.HashMap;
@@ -14,24 +12,25 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
-public class AdminMemberBoardService {
+public class ClientMemberBoardService {
 
-  private final MemberBoardCommentService commentService;
   private final MemberBoardService memberBoardService;
-  private final FileUtil fileUtil;
   private final FileService fileService;
+  private final FileUtil fileUtil;
 
-  private static final String PATH_NAME = "memberBoardComment";
-  private static final String TABLE_NAME = "sds_member_board_comment";
   private static final String TYPE_NAME = "attach";
+  private static final String TABLE_NAME = "sds_member_board";
+  private static final String PATH_NAME = "memberBoard";
 
   public Page<MemberBoardDTO> selectMemberBoardList(Pageable pageable,
       BoardSearchCondition condition) {
@@ -42,19 +41,23 @@ public class AdminMemberBoardService {
     return memberBoardService.selectMemberBoard(id);
   }
 
-  public void insertMemberBoardComment(Long id, MemberBoardCommentDTO commentDto,
+  public void insertMemberBoard(MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    long seq = commentService.insertMemberBoardComment(id, commentDto.toEntity());
+    long seq = memberBoardService.insertMemberBoard(memberBoardDto.toEntity());
     insertFile(seq, multipartHttpServletRequest);
   }
 
-  public void updateMemberBoardComment(Long id, MemberBoardCommentDTO commentDTO,
+  public void updateMemberBoard(Long id, MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    long seq = commentService.updateMemberBoardComment(id, commentDTO);
+    memberBoardService.updateMemberBoard(id, memberBoardDto);
+
+    if (!multipartHttpServletRequest.getFiles(TYPE_NAME).isEmpty()) {
+      updateFile(id, memberBoardDto, multipartHttpServletRequest);
+    }
   }
 
-  public void deleteMemberBoardComment(Long id) {
-    commentService.deleteMemberBoardComment(id);
+  public void deleteMemberBoard(Long id) {
+    memberBoardService.deleteMemberBoard(id);
   }
 
   private void insertFile(long seq, MultipartHttpServletRequest multipartHttpServletRequest) {
@@ -82,14 +85,15 @@ public class AdminMemberBoardService {
     fileService.saveFiles(fileList);
   }
 
-  private void updateFile(long commentSeq, MemberBoardCommentDTO commentDTO,
+  private void updateFile(long memberBoardSeq, MemberBoardDTO memberBoardDto,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    List<Long> originFileList = fileService.selectFileList(commentSeq, TABLE_NAME)
+
+    List<Long> originFileList = fileService.selectFileList(memberBoardSeq, TABLE_NAME)
         .stream()
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());
 
-    List<Long> responseFileList = commentDTO.getFileList()
+    List<Long> responseFileList = memberBoardDto.getFileList()
         .stream()
         .map(FileDTO::getFileSeq)
         .collect(Collectors.toList());
@@ -104,6 +108,6 @@ public class AdminMemberBoardService {
         fileUtil.deleteFile(file.getPath(), file.getName());
       }
     }
-    insertFile(commentSeq, multipartHttpServletRequest);
+    insertFile(memberBoardSeq, multipartHttpServletRequest);
   }
 }

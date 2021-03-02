@@ -163,4 +163,16 @@ public class FileUtil {
 
     return flag;
   }
+
+  public static boolean isEmpty(List<MultipartFile> multipartFileList) {
+    boolean b = false;
+    for (MultipartFile multipartFile : multipartFileList) {
+      if (multipartFile.isEmpty()) {
+        b = true;
+      } else {
+        b = false;
+      }
+    }
+    return b;
+  }
 }
