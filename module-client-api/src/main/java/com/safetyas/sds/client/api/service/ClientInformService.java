@@ -5,15 +5,17 @@ import com.safetyas.sds.common.model.FaqDTO;
 import com.safetyas.sds.common.model.NoticeDTO;
 import com.safetyas.sds.common.service.admin.FaqService;
 import com.safetyas.sds.common.service.admin.NoticeService;
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 @Service
+@RequiredArgsConstructor
 public class ClientInformService {
 
-  FaqService faqService;
-  NoticeService noticeService;
+  private final FaqService faqService;
+  private final NoticeService noticeService;
 
   public Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition) {
     return faqService.selectFaqList(pageable, condition);
