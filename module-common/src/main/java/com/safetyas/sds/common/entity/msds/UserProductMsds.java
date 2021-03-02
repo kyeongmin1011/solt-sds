@@ -33,9 +33,9 @@ public class UserProductMsds {
     private String step02_03;
     private String step02_04;
     private String step02_05;
-    private String step01_06;
-    private String step01_07;
-    private String step01_08;
+    private String step02_06;
+    private String step02_07;
+    private String step02_08;
 
     private String step04_01;
     private String step04_02;
