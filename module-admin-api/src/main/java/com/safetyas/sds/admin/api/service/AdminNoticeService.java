@@ -23,9 +23,9 @@ public class AdminNoticeService {
   private final FileService fileService;
   private final FileUtil fileUtil;
 
-  private static final String PATH = "notice";
-  private static final String RELATE_TABLE = "sds_notice";
-  private static final String TYPE = "attach";
+  private static final String PATH_NAME = "notice";
+  private static final String RELATE_TABLE_NAME = "sds_notice";
+  private static final String TYPE_NAME = "attach";
 
   public NoticeDTO selectNotice(Long id) {
     return noticeService.selectNotice(id);
@@ -35,7 +35,7 @@ public class AdminNoticeService {
       MultipartHttpServletRequest multipartHttpServletRequest) {
     long noticeSeq = noticeService.insertNotice(noticeDto.toEntity());
 
-    if (multipartHttpServletRequest.getFile(TYPE) != null) {
+    if (multipartHttpServletRequest.getFile(TYPE_NAME) != null) {
       insertFile(noticeSeq, multipartHttpServletRequest);
     }
   }
@@ -44,7 +44,7 @@ public class AdminNoticeService {
       MultipartHttpServletRequest multipartHttpServletRequest) {
     noticeService.updateNotice(noticeSeq, noticeDto);
 
-    if (multipartHttpServletRequest.getFile(TYPE) != null) {
+    if (multipartHttpServletRequest.getFile(TYPE_NAME) != null) {
       updateFile(noticeSeq, multipartHttpServletRequest);
     }
   }
@@ -53,34 +53,33 @@ public class AdminNoticeService {
     noticeService.deleteNotice(id);
   }
 
-  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
-    return noticeService.selectNoticeList(condition, pageable);
+  public Page<NoticeDTO> selectNoticeList(Pageable pageable, BoardSearchCondition condition) {
+    return noticeService.selectNoticeList(pageable, condition);
   }
 
   private void insertFile(long noticeSeq, MultipartHttpServletRequest multipartHttpServletRequest) {
     Map<String, Object> info = new HashMap<>();
-    info.put("path", PATH);
-    info.put("relateTable", RELATE_TABLE);
+    info.put("path", PATH_NAME);
+    info.put("relateTable", RELATE_TABLE_NAME);
     info.put("recordSeq", noticeSeq);
-    info.put("type", TYPE);
+    info.put("type", TYPE_NAME);
     info.put("regUserSeq", noticeSeq);
 
-    FileDTO companyFile = fileUtil.parseFile(multipartHttpServletRequest.getFile(TYPE), info);
+    FileDTO companyFile = fileUtil.parseFile(multipartHttpServletRequest.getFile(TYPE_NAME), info);
     fileService.saveFile(companyFile);
   }
 
   private void updateFile(long noticeSeq, MultipartHttpServletRequest multipartHttpServletRequest) {
     FileDTO fileDTO = FileDTO.builder()
-        .relateTable(RELATE_TABLE)
+        .relateTable(RELATE_TABLE_NAME)
         .recordSeq(noticeSeq)
-        .type(TYPE)
+        .type(TYPE_NAME)
         .build();
 
     File preFile = fileService.selectFileByFileDTO(fileDTO);
     fileUtil.deleteFile(preFile.getPath(), preFile.getName());
     preFile.updateDelDate();
     fileService.saveFile(preFile);
-
 
     insertFile(noticeSeq, multipartHttpServletRequest);
   }

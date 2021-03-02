@@ -26,8 +26,8 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
   }
 
   @Override
-  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
-      Pageable pageable) {
+  public Page<MemberBoardDTO> selectMemberBoardList(Pageable pageable,
+      BoardSearchCondition condition) {
     QueryResults<MemberBoardDTO> results = queryFactory
         .select(new QMemberBoardDTO(
             memberBoard.category,
@@ -70,11 +70,11 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
             memberBoard.content,
             memberBoard.writerName,
             memberBoard.writerEmail))
-            .from(memberBoard)
-            .where(memberBoard.member.memberSeq.eq(id))
-            .limit(10)
-            .orderBy(memberBoard.memberBoardSeq.desc())
-            .fetch();
+        .from(memberBoard)
+        .where(memberBoard.member.memberSeq.eq(id))
+        .limit(10)
+        .orderBy(memberBoard.memberBoardSeq.desc())
+        .fetch();
   }
 
   private BooleanExpression categoryEq(String category) {

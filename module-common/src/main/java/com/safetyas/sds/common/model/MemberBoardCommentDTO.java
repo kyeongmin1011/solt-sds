@@ -2,6 +2,7 @@ package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.MemberBoardComment;
 import java.io.Serializable;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -23,6 +24,8 @@ public class MemberBoardCommentDTO implements Serializable {
   private String writerEmail;
   private String content;
   private Integer viewCount;
+
+  private List<FileDTO> fileList;
 
   public MemberBoardComment toEntity() {
     return MemberBoardComment.builder()

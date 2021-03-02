@@ -24,7 +24,7 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
   }
 
   @Override
-  public Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition) {
     QueryResults<FaqDTO> results = queryFactory
         .select(new QFaqDTO(
             faq.category,

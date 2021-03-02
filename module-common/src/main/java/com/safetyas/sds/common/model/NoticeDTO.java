@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class NoticeDTO implements Serializable {
+public class NoticeDTO extends CommonDTO implements Serializable {
 
   private static final long serialVersionUID = 1886349326519647570L;
 
@@ -43,12 +43,24 @@ public class NoticeDTO implements Serializable {
   private LocalDateTime delDate;
 
   @QueryProjection
-  public NoticeDTO(String category, String title, String content, String writerName){
+  public NoticeDTO(String category, String title, String content, String writerName) {
     this.category = category;
     this.title = title;
     this.content = content;
     this.writerName = writerName;
   }
+
+  @QueryProjection
+  public NoticeDTO(LocalDateTime inDate, Long noticeSeq, String category, String title,
+      String writerName, Integer viewCount) {
+    super(inDate);
+    this.noticeSeq = noticeSeq;
+    this.category = category;
+    this.title = title;
+    this.writerName = writerName;
+    this.viewCount = viewCount;
+  }
+
 
   public Notice toEntity() {
     return Notice.builder()

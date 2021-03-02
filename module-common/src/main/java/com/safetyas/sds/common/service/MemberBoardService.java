@@ -27,9 +27,9 @@ public class MemberBoardService {
   private final ModelMapper modelMapper;
 
   @Transactional
-  public Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition,
-      Pageable pageable) {
-    return memberBoardRepository.selectMemberBoardList(condition, pageable);
+  public Page<MemberBoardDTO> selectMemberBoardList(Pageable pageable,
+      BoardSearchCondition condition) {
+    return memberBoardRepository.selectMemberBoardList(pageable,condition);
   }
 
   @Transactional
@@ -42,7 +42,7 @@ public class MemberBoardService {
     List<FileDTO> fileList = fileService.selectFileList(id, relateTable);
 
     if (!fileList.isEmpty()) {
-          fileList
+      fileList
           .forEach(file -> memberBoardDto.getFileList().add(file));
     }
     return memberBoardDto;
@@ -57,7 +57,8 @@ public class MemberBoardService {
 
   @Transactional
   public void updateMemberBoard(Long id, MemberBoardDTO memberBoardDto) {
-    MemberBoard memberBoard = memberBoardRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    MemberBoard memberBoard = memberBoardRepository.findById(id)
+        .orElseThrow(NoSuchElementException::new);
     memberBoard.updateMemberBoard(memberBoardDto);
 
     memberBoardRepository.save(memberBoard);

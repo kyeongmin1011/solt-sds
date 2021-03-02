@@ -25,5 +25,4 @@ public class InfoMatterUsage {
 
   @Column(name = "note", columnDefinition = "varchar(500) comment '설명'")
   private String note;
-
 }

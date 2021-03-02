@@ -36,7 +36,13 @@ public class FileService {
     fileRepository.delete(file);
   }
   public List<FileDTO> selectFileList(Long id, String relateTable) {
-    return fileQueryRepository.selectFileList(id, relateTable);
+
+    FileDTO fileDTO = FileDTO.builder()
+        .recordSeq(id)
+        .relateTable(relateTable)
+        .build();
+
+    return fileQueryRepository.selectFileListByFileDTO(fileDTO);
   }
 
   public File selectFile(Long fileSeq) {

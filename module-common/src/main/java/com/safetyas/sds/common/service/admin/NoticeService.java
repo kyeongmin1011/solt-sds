@@ -53,8 +53,8 @@ public class NoticeService {
   }
 
   @Transactional
-  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
-    return noticeRepository.selectNoticeList(condition, pageable);
+  public Page<NoticeDTO> selectNoticeList(Pageable pageable, BoardSearchCondition condition) {
+    return noticeRepository.selectNoticeList(pageable, condition);
   }
 
   @Transactional

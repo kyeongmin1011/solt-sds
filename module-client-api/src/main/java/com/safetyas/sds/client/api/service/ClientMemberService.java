@@ -35,6 +35,10 @@ public class ClientMemberService {
   private final FileService fileService;
   private final FileUtil fileUtil;
   private final ModelMapper modelMapper;
+  
+  private static final String TYPE_NAME = "companyCertificate";
+  private static final String PATH_NAME = "companyCertificate";
+  private static final String RELATE_TABLE_NAME = "sds_member";
 
   public Optional<Member> findByMemberId(String memberId) {
     return memberService.findMemberByMemberId(memberId);
@@ -49,10 +53,10 @@ public class ClientMemberService {
     long memberSeq = saveMember(memberInfoRequest);
     if (file != null) {
       Map<String, Object> info = new HashMap<>();
-      info.put("path", "companyCertificate");
-      info.put("relateTable", "sds_member");
+      info.put("path", PATH_NAME);
+      info.put("relateTable", RELATE_TABLE_NAME);
       info.put("recordSeq", memberSeq);
-      info.put("type", "companyCertificate");
+      info.put("type", TYPE_NAME);
       info.put("regUserSeq", memberSeq);
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
@@ -111,19 +115,19 @@ public class ClientMemberService {
     MultipartFile file = memberInfoRequest.getCompanyCertificate();
     if (file != null) {
       FileDTO fileDTO = FileDTO.builder()
-          .relateTable("sds_member")
+          .relateTable(RELATE_TABLE_NAME)
           .recordSeq(member.getMemberSeq())
-          .type("companyCertificate")
+          .type(TYPE_NAME)
           .build();
       File preFile = fileService.selectFileByFileDTO(fileDTO);
       fileUtil.deleteFile(preFile.getPath(), preFile.getName());
       fileService.deleteFileData(preFile);
 
       Map<String, Object> info = new HashMap<>();
-      info.put("path", "companyCertificate");
-      info.put("relateTable", "sds_member");
+      info.put("path", PATH_NAME);
+      info.put("relateTable", RELATE_TABLE_NAME);
       info.put("recordSeq", member.getMemberSeq());
-      info.put("type", "companyCertificate");
+      info.put("type", TYPE_NAME);
       info.put("regUserSeq", memberInfoRequest.getMemberSeq());
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
@@ -144,9 +148,9 @@ public class ClientMemberService {
         .orElseThrow(CustomUserNotFoundException::new);
 
     FileDTO fileDTO = FileDTO.builder()
-        .relateTable("sds_member")
+        .relateTable(RELATE_TABLE_NAME)
         .recordSeq(member.getMemberSeq())
-        .type("companyCertificate")
+        .type(TYPE_NAME)
         .build();
     File companyFile = fileService.selectFileByFileDTO(fileDTO);
 
@@ -178,7 +182,7 @@ public class ClientMemberService {
    */
   public List<MemberSupplierDTO> selectMemberSuppliers(Long memberSeq) {
     List<MemberSupplier> memberSuppliers = memberService.selectMemberSuppliers(memberSeq);
-    return modelMapper.map(memberSuppliers, new TypeToken<List<MemberSupplier>>() {}.getType());
+    return modelMapper.map(memberSuppliers, new TypeToken<List<MemberSupplierDTO>>() {}.getType());
 
   }
 
@@ -188,9 +192,7 @@ public class ClientMemberService {
    * @return dto
    */
   public void saveMemberSupplier(MemberSupplierDTO memberSupplierDTO, Long memberSeq) {
-    System.out.println("멤버시퀀스"+ memberSeq);
-    Member member = memberService.findMemberById(memberSeq)
-        .orElseThrow(CustomUserNotFoundException::new);
+    Member member = memberService.findMemberById(memberSeq).orElseThrow(CustomUserNotFoundException::new);
     memberService.saveMemberSupplier(memberSupplierDTO.toEntity(member));
   }
 

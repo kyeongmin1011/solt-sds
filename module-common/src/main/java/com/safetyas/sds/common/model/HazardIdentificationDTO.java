@@ -14,8 +14,9 @@ import lombok.ToString;
 public class HazardIdentificationDTO implements Serializable {
 
   private static final long serialVersionUID = 8360311214209675475L;
-  String cas;
-  List<HazardInfoDTO> hazardInfoList;
+
+  private String cas;
+  private List<HazardInfoDTO> hazardInfoList;
 
   public void updateHazardInfoDTO(String cas, List<HazardInfoDTO> hazardInfoList) {
     this.cas = cas;

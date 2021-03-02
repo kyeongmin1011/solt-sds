@@ -29,11 +29,13 @@ public class FileQueryRepository {
         .fetchOne();
   }
 
-  public List<FileDTO> selectFileList(Long id, String relateTable) {
+  public List<FileDTO> selectFileListByFileDTO(FileDTO fileDTO) {
     return queryFactory.select(
-        new QFileDTO(file.fileSeq, file.relateTable, file.recordSeq))
+        new QFileDTO(file.fileSeq, file.relateTable, file.recordSeq,file.oriName))
         .from(file)
-        .where(file.recordSeq.eq(id), file.relateTable.eq(relateTable), file.delDate.isNull())
+        .where(typeEq(fileDTO.getType()),
+            relateTableEq(fileDTO.getRelateTable()),
+            recordSeqEq(fileDTO.getRecordSeq()), file.delDate.isNull())
         .fetch();
   }
 

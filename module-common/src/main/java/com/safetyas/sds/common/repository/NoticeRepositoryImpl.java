@@ -24,13 +24,15 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
   }
 
   @Override
-  public Page<NoticeDTO> selectNoticeList(BoardSearchCondition condition, Pageable pageable) {
+  public Page<NoticeDTO> selectNoticeList(Pageable pageable, BoardSearchCondition condition) {
     QueryResults<NoticeDTO> results = queryFactory
         .select(new QNoticeDTO(
+            notice.inDate,
+            notice.noticeSeq,
             notice.category,
             notice.title,
-            notice.content,
-            notice.writerName))
+            notice.writerName,
+            notice.viewCount))
         .from(notice)
         .where(categoryEq(condition.getCategory()),
             titleEq(condition.getTitle()),
@@ -38,8 +40,8 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
             writerNameEq(condition.getWriterName()),
             notice.delDate.isNull())
         .offset(pageable.getOffset())
-        .orderBy(notice.noticeSeq.desc())
         .limit(pageable.getPageSize())
+        .orderBy(notice.noticeSeq.desc())
         .fetchResults();
 
     List<NoticeDTO> content = results.getResults();

@@ -2,13 +2,16 @@ package com.safetyas.sds.client.api.request;
 
 import com.safetyas.sds.common.model.MemberInfoDTO;
 import io.swagger.annotations.ApiModelProperty;
+import java.io.Serializable;
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
-public class MemberInfoRequest {
+public class MemberInfoRequest implements Serializable {
+
+  private static final long serialVersionUID = -7248261417811317900L;
 
   @ApiModelProperty(value = "멤버 시퀀스")
   private Long memberSeq;

@@ -5,8 +5,8 @@ import com.safetyas.sds.admin.api.response.ResponseService;
 import com.safetyas.sds.admin.api.response.SingleResult;
 import com.safetyas.sds.admin.api.service.AdminMemberBoardService;
 import com.safetyas.sds.common.model.BoardSearchCondition;
+import com.safetyas.sds.common.model.MemberBoardCommentDTO;
 import com.safetyas.sds.common.model.MemberBoardDTO;
-import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,50 +23,48 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Slf4j
-@Api("고객 게시판")
 @RestController
+@RequestMapping("/member-board-comment")
 @RequiredArgsConstructor
-@RequestMapping("/member-board")
 public class MemberBoardController {
 
-  private final AdminMemberBoardService memberBoardService;
   private final ResponseService responseService;
+  private final AdminMemberBoardService adminMemberBoardService;
 
   @GetMapping("")
   @ApiOperation("고객 게시판 목록 조회")
   public SingleResult<Page<MemberBoardDTO>> selectMemberBoardList(
-      BoardSearchCondition condition,
-      @PageableDefault Pageable pageable) {
+      @PageableDefault Pageable pageable, BoardSearchCondition condition) {
     return responseService.getSingleResult(
-        memberBoardService.selectMemberBoardList(condition, pageable));
+        adminMemberBoardService.selectMemberBoardList(pageable, condition));
   }
 
   @GetMapping("/{id}")
   @ApiOperation("고객 게시판 조회")
   public SingleResult<MemberBoardDTO> selectMemberBoard(@PathVariable Long id) {
-    return responseService.getSingleResult(memberBoardService.selectMemberBoard(id));
+    return responseService.getSingleResult(adminMemberBoardService.selectMemberBoard(id));
   }
 
-  @PostMapping("")
-  @ApiOperation("고객 게시판 저장")
-  public CommonResult insertMemberBoard(MemberBoardDTO memberBoardDto,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
-    memberBoardService.insertMemberBoard(memberBoardDto, multipartHttpServletRequest);
+  @PostMapping("/{id}")
+  @ApiOperation("1:1 게시판 댓글 저장")
+  public CommonResult insertMemberBoardComment(@PathVariable Long id,
+      MemberBoardCommentDTO commentDto, MultipartHttpServletRequest multipartHttpServletRequest) {
+    adminMemberBoardService.insertMemberBoardComment(id, commentDto, multipartHttpServletRequest);
     return responseService.getSuccessResult();
   }
 
   @PutMapping("/{id}")
-  @ApiOperation("고객 게시판 수정")
-  public CommonResult updateMemberBoard(@PathVariable Long id,
-      MemberBoardDTO memberBoardDto, MultipartHttpServletRequest multipartHttpServletRequest) {
-    memberBoardService.updateMemberBoard(id, memberBoardDto, multipartHttpServletRequest);
+  @ApiOperation("1:1 게시판 댓글 수정")
+  public CommonResult updateMemberBoardComment(@PathVariable Long id,
+      MemberBoardCommentDTO commentDto, MultipartHttpServletRequest multipartHttpServletRequest) {
+    adminMemberBoardService.updateMemberBoardComment(id, commentDto, multipartHttpServletRequest);
     return responseService.getSuccessResult();
   }
 
   @DeleteMapping("/{id}")
-  @ApiOperation("고객 게시판 삭제")
-  public CommonResult deleteMemberBoard(@PathVariable Long id) {
-    memberBoardService.deleteMemberBoard(id);
+  @ApiOperation("1:1 게시판 댓글 삭제")
+  public CommonResult deleteMemberBoardComment(@PathVariable Long id) {
+    adminMemberBoardService.deleteMemberBoardComment(id);
     return responseService.getSuccessResult();
   }
 }

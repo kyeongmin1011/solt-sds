@@ -11,7 +11,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 
 @SpringBootTest
-
 class MemberBoardRepositoryImplTest {
 
   @Autowired
@@ -27,7 +26,7 @@ class MemberBoardRepositoryImplTest {
     PageRequest pageRequest = PageRequest.of(1, 3);
 
     Page<MemberBoardDTO> result = memberBoardRepository
-        .selectMemberBoardList(condition, pageRequest);
+        .selectMemberBoardList(pageRequest, condition);
 
   }
 }

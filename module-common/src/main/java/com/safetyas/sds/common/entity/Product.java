@@ -1,5 +1,7 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.model.ProductDTO;
+import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import java.io.Serializable;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -16,6 +18,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -36,7 +39,8 @@ public class Product extends CommonEntity implements Serializable {
       String agencySubmissionYn,
       String agencyTranslateYn, String agencyRevisionYn, String agencyOrYn, String agencyCbiYn,
       String agencyRenewYn, LocalDate validStart, LocalDate validFinish, String finalSaveYn,
-      MemberSupplier memberSupplier, LocalDateTime inDate, LocalDateTime modDate,
+      String agencyCbiType, String agencyCbiDocYn, String remark,
+      LocalDateTime inDate, LocalDateTime modDate,
       LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     this.productSeq = productSeq;
@@ -57,7 +61,8 @@ public class Product extends CommonEntity implements Serializable {
     this.validStart = validStart;
     this.validFinish = validFinish;
     this.finalSaveYn = finalSaveYn;
-    setMemberSupplier(memberSupplier);
+    this.agencyCbiType = agencyCbiType;
+    this.agencyCbiDocYn = agencyCbiDocYn;
   }
 
   @Id
@@ -65,7 +70,7 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "product_seq", nullable = false, length = 20)
   private Long productSeq;
 
-  @Column(name = "product_uid", nullable = false, length = 100)
+  @Column(name = "product_uid", length = 100)
   private String productUid;
 
   @Column(name = "msds", length = 100)
@@ -116,11 +121,23 @@ public class Product extends CommonEntity implements Serializable {
   @Column(name = "final_save_yn", length = 1)
   private String finalSaveYn;
 
-  @Column(name = "agency_cbi_type", length = 1)
+  @Column(name = "agency_cbi_type", length = 50)
   private String agencyCbiType;
 
   @Column(name = "agency_cbi_doc_yn", length = 1)
   private String agencyCbiDocYn;
+
+  @Column(name = "revision_language", length = 50)
+  private String revisionLanguage;
+
+  @Column(name = "translation_language", length = 50)
+  private String translationLanguage;
+
+  @Column(name = "substitute_data_agency_yn")
+  private String substituteDataAgencyYn;
+
+  @Column(name = "remark")
+  private String remark;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_fk"))
@@ -144,11 +161,57 @@ public class Product extends CommonEntity implements Serializable {
   @OneToMany(mappedBy = "product")
   private List<RenewAgency> renewAgencyList = new ArrayList<>();
 
-  public void setMemberSupplier(MemberSupplier memberSupplier) {
+  @OneToMany(mappedBy = "product")
+  private List<ProductMatter> productMatterList = new ArrayList<>();
+
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "cbi_document_seq")
+  private CbiDocument cbiDocument;
+
+  public void updateMemberSupplier(MemberSupplier memberSupplier) {
     if (this.memberSupplier != null) {
       this.memberSupplier.getProductList().remove(this);
     }
     this.memberSupplier = memberSupplier;
     memberSupplier.getProductList().add(this);
+  }
+
+
+  public void updateProductInfo(ProductDTO productDTO) {
+    this.productUid = productDTO.getProductUid();
+    this.writer = productDTO.getWriter();
+    this.writerEmail = productDTO.getWriterEmail();
+    this.tonsYear = productDTO.getTonsYear();
+    this.language = productDTO.getLanguage();
+    this.remark = productDTO.getRemark();
+    this.submissionYn = productDTO.getSubmissionYn();
+    this.orYn = productDTO.getOrYn();
+    this.msds = productDTO.getMsds();
+    this.validStart = productDTO.getValidStart();
+    this.validFinish = productDTO.getValidFinish();
+  }
+
+  public void updateProductCbiAgency(ProductDTO productDTO) {
+    this.agencyCbiType = productDTO.getAgencyCbiType();
+    this.agencyCbiDocYn = productDTO.getAgencyCbiDocYn();
+  }
+
+  public void updateCbiDocument(CbiDocument cbiDocument) {
+    this.cbiDocument = cbiDocument;
+  }
+
+  public void updateProductTranslation(
+      TranslationAgencyRequestInfoDTO translationAgencyRequestInfoDTO) {
+    this.translationLanguage = translationAgencyRequestInfoDTO.getTranslationLanguage();
+  }
+
+  public void updateAgencyCbiDocYnAndSubstituteDataAgencyYn(String agencyCbiDocYn,
+      String substituteDataAgencyYn) {
+    this.agencyCbiDocYn = agencyCbiDocYn;
+    this.substituteDataAgencyYn = substituteDataAgencyYn;
+  }
+
+  public void updateRevisionLanguage(String revisionLanguage) {
+    this.revisionLanguage = revisionLanguage;
   }
 }

@@ -21,24 +21,25 @@ public class MemberBoardCommentService {
   private final MemberBoardRepository memberBoardRepository;
   private final MemberRepository memberRepository;
 
-  public void insertMemberBoardComment(Long id, MemberBoardComment memberBoardComment) {
+  public long insertMemberBoardComment(Long id, MemberBoardComment memberBoardComment) {
     Member member = memberRepository.findById(1L).orElseThrow(NoSuchElementException::new);
     MemberBoard memberBoard = memberBoardRepository.findById(id)
         .orElseThrow(NoSuchElementException::new);
     memberBoardComment.updateMemberBoard(memberBoard);
     memberBoardComment.updateMember(member);
-    commentRepository.save(memberBoardComment);
+    return commentRepository.save(memberBoardComment).getCommentSeq();
   }
 
-  public void updateMemberBoardComment(Long id, MemberBoardCommentDTO commentDto) {
+  public long updateMemberBoardComment(Long id, MemberBoardCommentDTO commentDto) {
     MemberBoardComment memberBoardComment = commentRepository.findById(id)
         .orElseThrow(NoSuchElementException::new);
     memberBoardComment.updateMemberBoardComment(commentDto);
-    commentRepository.save(memberBoardComment);
+    return commentRepository.save(memberBoardComment).getCommentSeq();
   }
 
   public void deleteMemberBoardComment(Long id) {
-    MemberBoardComment memberBoardComment = commentRepository.findById(id).orElseThrow(NoSuchElementException::new);
+    MemberBoardComment memberBoardComment = commentRepository.findById(id)
+        .orElseThrow(NoSuchElementException::new);
     memberBoardComment.updateDelDate();
     commentRepository.save(memberBoardComment);
   }

@@ -9,7 +9,7 @@ import org.springframework.data.domain.Pageable;
 
 public interface MemberBoardRepositoryCustom {
 
-  Page<MemberBoardDTO> selectMemberBoardList(BoardSearchCondition condition, Pageable pageable);
+  Page<MemberBoardDTO> selectMemberBoardList(Pageable pageable, BoardSearchCondition condition);
 
   MemberBoard selectMemberBoard(Long id);
 

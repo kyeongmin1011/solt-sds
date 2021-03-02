@@ -7,5 +7,5 @@ import org.springframework.data.domain.Pageable;
 
 public interface FaqRepositoryCustom {
 
-  Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable);
+  Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition);
 }

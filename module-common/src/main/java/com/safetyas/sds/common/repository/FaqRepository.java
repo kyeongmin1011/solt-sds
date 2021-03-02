@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface FaqRepository extends JpaRepository<Faq, Long>, FaqRepositoryCustom {
 
-  Page<FaqDTO> selectFaqList(BoardSearchCondition condition, Pageable pageable);
+  Page<FaqDTO> selectFaqList(Pageable pageable, BoardSearchCondition condition);
 
   List<Faq> findTop5ByOrderByFaqSeqDesc();
 }
