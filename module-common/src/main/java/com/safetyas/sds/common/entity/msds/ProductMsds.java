@@ -14,12 +14,12 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "sds_user_matter_msds")   // 물질 msds 문서 정보
-public class UserProductMsds {
+@Table(name = "sds_product_matter_msds")   // 물질 msds 문서 정보
+public class ProductMsds {
 
     @Id
-    @Column(name = "user_product_msds_seq", length = 20)
-    private Long userProductMsdsSeq;
+    @Column(name = "product_msds_seq", length = 20)
+    private Long productMsdsSeq;
 
     private String step01_01;
     private String step01_02;

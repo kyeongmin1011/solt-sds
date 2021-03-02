@@ -1,5 +1,7 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.agency;
 
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -23,23 +25,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "sds_translation_agency")
-public class TranslationAgency extends CommonEntity implements Serializable {
+@Table(name = "sds_renew_agency")
+public class RenewAgency extends CommonEntity implements Serializable {
 
   @Builder
-  public TranslationAgency(Product product, Long translationAgencySeq, String state, String note,
+  public RenewAgency(Product product, Long renewAgencySeq, String state, String note,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
-    this.translationAgencySeq = translationAgencySeq;
+    setProduct(product);
+    this.renewAgencySeq = renewAgencySeq;
     this.state = state;
     this.note = note;
-    setProduct(product);
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "translation_agency_seq")
-  private Long translationAgencySeq;
+  @Column(name = "renew_agency_seq")
+  private Long renewAgencySeq;
 
   @Column(name = "state")
   private String state;
@@ -48,14 +50,14 @@ public class TranslationAgency extends CommonEntity implements Serializable {
   private String note;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_translation_agency_fk"))
+  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_renew_agency_fk"))
   private Product product;
 
   public void setProduct(Product product) {
     if (this.product != null) {
-      this.product.getTranslationAgencyList().remove(this);
+      this.product.getRenewAgencyList().remove(this);
     }
     this.product = product;
-    product.getTranslationAgencyList().add(this);
+    product.getRenewAgencyList().add(this);
   }
 }

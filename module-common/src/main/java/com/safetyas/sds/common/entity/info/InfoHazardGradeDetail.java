@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.info;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;

@@ -1,7 +1,7 @@
 package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.client.api.util.FileUtil;
-import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.model.CbiAgencyRequestInfoDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;

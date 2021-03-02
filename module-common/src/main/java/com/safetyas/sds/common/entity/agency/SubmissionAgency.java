@@ -1,5 +1,7 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.agency;
 
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -23,23 +25,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "sds_or_agency")
-public class OrAgency extends CommonEntity implements Serializable {
+@Table(name = "sds_submission_agency")
+public class SubmissionAgency extends CommonEntity implements Serializable {
 
   @Builder
-  public OrAgency(Product product, Long orAgencySeq, String state, String note,
+  public SubmissionAgency(Long submissionAgencySeq, String state, String note,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     setProduct(product);
-    this.orAgencySeq = orAgencySeq;
+    this.submissionAgencySeq = submissionAgencySeq;
     this.state = state;
     this.note = note;
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "or_agency_seq")
-  private Long orAgencySeq;
+  @Column(name = "submission_agency_seq")
+  private Long submissionAgencySeq;
 
   @Column(name = "state")
   private String state;
@@ -48,14 +50,14 @@ public class OrAgency extends CommonEntity implements Serializable {
   private String note;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_or_agency_fk"))
+  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_submission_agency_fk"))
   private Product product;
 
   public void setProduct(Product product) {
     if (this.product != null) {
-      this.product.getOrAgencyList().remove(this);
+      this.product.getSubmissionAgencyList().remove(this);
     }
     this.product = product;
-    product.getOrAgencyList().add(this);
+    product.getSubmissionAgencyList().add(this);
   }
 }

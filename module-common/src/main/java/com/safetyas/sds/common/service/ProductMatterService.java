@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.service;
 
-import com.safetyas.sds.common.entity.ProductMatter;
+import com.safetyas.sds.common.entity.msds.ProductMatter;
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.repository.ProductMatterRepository;
 import java.util.NoSuchElementException;

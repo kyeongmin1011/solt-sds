@@ -1,8 +1,8 @@
 package com.safetyas.sds.common.service;
 
-import com.safetyas.sds.common.entity.CbiAgency;
-import com.safetyas.sds.common.entity.Product;
-import com.safetyas.sds.common.entity.ProductMatter;
+import com.safetyas.sds.common.entity.agency.CbiAgency;
+import com.safetyas.sds.common.entity.msds.Product;
+import com.safetyas.sds.common.entity.msds.ProductMatter;
 import com.safetyas.sds.common.model.CbiAgencyDTO;
 import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.model.CbiAgencyRequestInfoDTO;

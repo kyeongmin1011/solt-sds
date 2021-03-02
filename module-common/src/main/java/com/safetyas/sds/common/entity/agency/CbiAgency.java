@@ -1,5 +1,7 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.agency;
 
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;

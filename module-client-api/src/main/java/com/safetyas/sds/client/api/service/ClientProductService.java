@@ -3,7 +3,7 @@ package com.safetyas.sds.client.api.service;
 import com.safetyas.sds.client.api.request.CbiDocumentRequest;
 import com.safetyas.sds.client.api.request.ProductRequest;
 import com.safetyas.sds.client.api.util.FileUtil;
-import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.ProductDTO;

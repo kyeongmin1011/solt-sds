@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.model;
 
-import com.safetyas.sds.common.entity.ProductMatter;
+import com.safetyas.sds.common.entity.msds.ProductMatter;
 import java.io.Serializable;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -19,11 +19,11 @@ public class ProductMatterDTO implements Serializable {
 
   private Long productMatterSeq;
   private String cas;
-  private String matterName;
-  private String keNumber;
-  private Long contentRate;
+  private String chemName;
+  private String otherNumber;
+  private Float contentRate;
   private String alterMatterName;
-  private Long alterContentRate;
+  private Float alterContentRate;
   private String premiumDbYn;
   private String alterContentYn;
   private MemberSupplierDTO memberSupplier;
@@ -31,8 +31,8 @@ public class ProductMatterDTO implements Serializable {
   public ProductMatter toEntity() {
     return ProductMatter.builder()
         .cas(this.cas)
-        .keNumber(this.keNumber)
-        .matterName(this.matterName)
+        .otherNumber(this.otherNumber)
+        .chemName(this.chemName)
         .contentRate(this.contentRate)
         .alterContentYn(this.alterContentYn)
         .alterMatterName(this.alterMatterName)
