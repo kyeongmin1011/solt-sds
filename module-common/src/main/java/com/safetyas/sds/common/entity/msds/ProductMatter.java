@@ -1,5 +1,7 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.MemberSupplier;
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -11,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,14 +26,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
 @Table(name = "sds_product_matter")
-public class ProductMatter extends CommonEntity{
+public class ProductMatter extends CommonEntity {
 
   @Builder
-  public ProductMatter(String cas, String keNumber, String matterName, Long contentRate,
-      String alterContentYn, String alterMatterName, Long alterContentRate) {
+  public ProductMatter(String cas, String otherNumber, String chemName, Float contentRate,
+      String alterContentYn, String alterMatterName, Float alterContentRate) {
     this.cas = cas;
-    this.keNumber = keNumber;
-    this.matterName = matterName;
+    this.otherNumber = otherNumber;
+    this.chemName = chemName;
     this.contentRate = contentRate;
     this.alterContentYn = alterContentYn;
     this.alterMatterName = alterMatterName;
@@ -49,29 +52,32 @@ public class ProductMatter extends CommonEntity{
   @Column(name = "product_matter_seq")
   private Long productMatterSeq;
 
-  @Column(name = "cas")
+  @Column(name = "cas", columnDefinition = "varchar(50) comment '카스번호'")
   private String cas;
 
-  @Column(name = "matter_name")
-  private String matterName;
+  @Column(name = "chem_name", columnDefinition = "varchar(500) comment '물질명'")
+  private String chemName;
 
-  @Column(name = "ke_number")
-  private String keNumber;
+  @Column(name = "other_number", columnDefinition = "varchar(50) comment '다른고유번호'")
+  private String otherNumber;
 
-  @Column(name = "content_rate")
-  private Long contentRate;
+  @Column(name = "content_rate", columnDefinition = "float(12) comment '함유율'")
+  private Float contentRate;
 
-  @Column(name = "alter_matter_name")
+  @Column(name = "alter_matter_name", columnDefinition = "varchar(500) comment '대체물질명'")
   private String alterMatterName;
 
-  @Column(name = "alter_content_rate")
-  private Long alterContentRate;
+  @Column(name = "alter_content_rate", columnDefinition = "float(12) comment '대체함유율'")
+  private Float alterContentRate;
 
-  @Column(name = "premium_db_yn")
+  @Column(name = "alter_content_yn", columnDefinition = "varchar(1) comment '대체명칭 신청여부'")
+  private String alterContentYn;
+
+  @Column(name = "premium_db_yn", columnDefinition = "varchar(1) comment '프리미엄디비여부'")
   private String premiumDbYn;
 
-  @Column(name = "alter_content_yn")
-  private String alterContentYn;
+  @Column(name = "matter_database_seq", length = 20)
+  private Long matterDatabaseSeq;  // 참조 물질디비시퀀스
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_matter_fk"))
@@ -80,6 +86,10 @@ public class ProductMatter extends CommonEntity{
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_product_matter_fk"))
   private Product product;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "matter_data_key", foreignKey = @ForeignKey(name = "matter_data_key_product_matter_fk"))
+  private MatterData matterData;
 
   public void updateProduct(Product product) {
     if (this.product != null) {
@@ -95,8 +105,8 @@ public class ProductMatter extends CommonEntity{
 
   public void updateProductMatter(ProductMatterDTO productMatterDTO) {
     this.cas = productMatterDTO.getCas();
-    this.keNumber = productMatterDTO.getKeNumber();
-    this.matterName = productMatterDTO.getMatterName();
+    this.otherNumber = productMatterDTO.getOtherNumber();
+    this.chemName = productMatterDTO.getChemName();
     this.contentRate = productMatterDTO.getContentRate();
     this.alterContentYn = productMatterDTO.getAlterContentYn();
     this.alterMatterName = productMatterDTO.getAlterMatterName();

@@ -1,6 +1,6 @@
 package com.safetyas.sds.client.api.request;
 
-import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;

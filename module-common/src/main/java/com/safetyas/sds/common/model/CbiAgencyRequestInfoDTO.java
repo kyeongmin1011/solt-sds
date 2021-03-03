@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.model;
 
-import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;

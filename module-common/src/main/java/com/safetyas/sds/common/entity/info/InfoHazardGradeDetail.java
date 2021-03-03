@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.info;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -20,16 +20,13 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "sds_info_grade_detail")
+@Table(name = "sds_info_grade_detail")  // 유해성등급 디테일 정보
 public class InfoHazardGradeDetail {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
   @Column(name = "grade_detail_seq", nullable = false, length = 11)
   private Integer infoGradeDetailSeq;
-
-/*  @Column(name = "hazard_grade_key", columnDefinition = "varchar(255) comment '유해등급고유값'")
-  private String hazardGradeKey;*/
 
   @Column(name = "ghs_image", columnDefinition = "varchar(255) comment 'ghs 그림문자'")
   private String ghsImage;

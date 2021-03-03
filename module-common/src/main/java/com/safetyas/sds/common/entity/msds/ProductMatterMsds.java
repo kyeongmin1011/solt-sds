@@ -1,9 +1,17 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.entity.info.InfoMatterUsage;
 import java.time.LocalDate;
+import java.util.ArrayList;
+import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -14,15 +22,22 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "sds_user_matter_msds")   // 물질 msds 문서 정보
-public class UserMatterMsds {
+@Table(name = "sds_product_matter_msds")   // 물질 msds 문서 정보
+public class ProductMatterMsds {
 
   @Id
-  @Column(name = "user_matter_msds_seq", length = 20)
-  private Long userMatterMsdsSeq;
+  @Column(name = "product_matter_msds_seq", length = 20)
+  private Long productMatterMsdsSeq;
 
-  @Column(name = "step01_01", columnDefinition = "varchar(255) comment '제품의 권고 용도'")
-  private String step01_01;
+  /*@Column(name = "step01_01", columnDefinition = "varchar(255) comment '제품의 권고 용도'")
+  private String step01_01;*/
+
+  @ManyToMany
+  @JoinTable(name = "sds_matter_usage",
+      joinColumns = @JoinColumn(name = "product_matter_msds_seq"),
+      inverseJoinColumns = @JoinColumn(name = "serial_number"))
+  private List<InfoMatterUsage> infoMatterUsageList = new ArrayList<>();
+
 
   @Column(name = "step01_02", columnDefinition = "varchar(255) comment '제품의 사용상의 제한'")
   private String step01_02;
@@ -165,13 +180,13 @@ public class UserMatterMsds {
   @Column(name = "step14_07", columnDefinition = "varchar(100) comment '유출 시 비상조치'")
   private String step14_07;
 
-  @Column(name = "step15_01", columnDefinition = "varchar(100) comment '최초 작성일자'")
-  private String step15_01;
+  @Column(name = "step15_01", columnDefinition = "date comment '최초 작성일자'")
+  private LocalDate step15_01;
 
-  @Column(name = "step15_02", columnDefinition = "varchar(100) comment '개정 회수'")
-  private String step15_02;
+  @Column(name = "step15_02", columnDefinition = "int(11) comment '개정 회수'")
+  private Integer step15_02;
 
-  @Column(name = "step15_03", columnDefinition = "varchar(100) comment '최초 개정일자'")
+  @Column(name = "step15_03", columnDefinition = "date comment '최초 개정일자'")
   private LocalDate step15_03;
 
   @Column(name = "step15_04", columnDefinition = "LONGTEXT comment '기타'")

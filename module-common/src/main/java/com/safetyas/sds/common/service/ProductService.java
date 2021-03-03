@@ -3,7 +3,7 @@ package com.safetyas.sds.common.service;
 import com.safetyas.sds.common.entity.CbiDocument;
 import com.safetyas.sds.common.entity.CbiSentence;
 import com.safetyas.sds.common.entity.MemberSupplier;
-import com.safetyas.sds.common.entity.Product;
+import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
 import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.ProductSearchCondition;

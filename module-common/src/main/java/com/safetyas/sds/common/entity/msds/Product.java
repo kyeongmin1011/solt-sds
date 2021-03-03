@@ -1,5 +1,14 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.entity.CbiDocument;
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.MemberSupplier;
+import com.safetyas.sds.common.entity.agency.CbiAgency;
+import com.safetyas.sds.common.entity.agency.OrAgency;
+import com.safetyas.sds.common.entity.agency.RenewAgency;
+import com.safetyas.sds.common.entity.agency.RevisionAgency;
+import com.safetyas.sds.common.entity.agency.SubmissionAgency;
+import com.safetyas.sds.common.entity.agency.TranslationAgency;
 import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import java.io.Serializable;

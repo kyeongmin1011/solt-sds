@@ -1,5 +1,7 @@
-package com.safetyas.sds.common.entity;
+package com.safetyas.sds.common.entity.agency;
 
+import com.safetyas.sds.common.entity.CommonEntity;
+import com.safetyas.sds.common.entity.msds.Product;
 import java.io.Serializable;
 import java.time.LocalDateTime;
 import javax.persistence.CascadeType;
@@ -23,23 +25,23 @@ import lombok.NoArgsConstructor;
 @Entity
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @AllArgsConstructor
-@Table(name = "sds_revision_agency")
-public class RevisionAgency extends CommonEntity implements Serializable {
+@Table(name = "sds_or_agency")
+public class OrAgency extends CommonEntity implements Serializable {
 
   @Builder
-  public RevisionAgency(Product product, Long revisionAgencySeq, String state, String note,
+  public OrAgency(Product product, Long orAgencySeq, String state, String note,
       LocalDateTime inDate, LocalDateTime modDate, LocalDateTime delDate) {
     super(inDate, modDate, delDate);
     setProduct(product);
-    this.revisionAgencySeq = revisionAgencySeq;
+    this.orAgencySeq = orAgencySeq;
     this.state = state;
     this.note = note;
   }
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
-  @Column(name = "revision_agency_seq")
-  private Long revisionAgencySeq;
+  @Column(name = "or_agency_seq")
+  private Long orAgencySeq;
 
   @Column(name = "state")
   private String state;
@@ -48,15 +50,14 @@ public class RevisionAgency extends CommonEntity implements Serializable {
   private String note;
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_revision_agency_fk"))
+  @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_or_agency_fk"))
   private Product product;
 
   public void setProduct(Product product) {
     if (this.product != null) {
-      this.product.getRevisionAgencyList().remove(this);
+      this.product.getOrAgencyList().remove(this);
     }
     this.product = product;
-    product.getRevisionAgencyList().add(this);
+    product.getOrAgencyList().add(this);
   }
-
 }

@@ -11,7 +11,7 @@ import org.springframework.stereotype.Repository;
 import static com.safetyas.sds.common.entity.QMember.member;
 import static com.safetyas.sds.common.entity.QMemberInfo.memberInfo;
 import static com.safetyas.sds.common.entity.QMemberSupplier.memberSupplier;
-import static com.safetyas.sds.common.entity.QProduct.product;
+import static com.safetyas.sds.common.entity.msds.QProduct.product;
 
 @Repository
 public class MemberQueryRepository {

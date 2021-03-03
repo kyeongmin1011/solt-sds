@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.entity.msds.Product;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;

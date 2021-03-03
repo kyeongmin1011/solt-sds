@@ -8,7 +8,7 @@ import javax.persistence.EntityManager;
 import org.springframework.stereotype.Repository;
 
 import static com.safetyas.sds.common.entity.QMember.member;
-import static com.safetyas.sds.common.entity.QProduct.product;
+import static com.safetyas.sds.common.entity.msds.QProduct.product;
 
 @Repository
 public class MemberSupplierQueryRepository {

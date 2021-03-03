@@ -1,5 +1,7 @@
 package com.safetyas.sds.common.entity;
 
+import com.safetyas.sds.common.entity.msds.Product;
+import com.safetyas.sds.common.entity.msds.ProductMatter;
 import com.safetyas.sds.common.model.MemberSupplierDTO;
 import java.io.Serializable;
 import java.time.LocalDateTime;
