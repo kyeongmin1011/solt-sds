@@ -3,7 +3,9 @@ package com.safetyas.sds.common.service.admin;
 import com.safetyas.sds.common.entity.Member;
 import com.safetyas.sds.common.entity.Notice;
 import com.safetyas.sds.common.model.BoardSearchCondition;
+import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.NoticeDTO;
+import com.safetyas.sds.common.repository.FileQueryRepository;
 import com.safetyas.sds.common.repository.MemberRepository;
 import com.safetyas.sds.common.repository.NoticeRepository;
 import java.util.List;
@@ -23,12 +25,23 @@ public class NoticeService {
 
   private final MemberRepository memberRepository;
   private final NoticeRepository noticeRepository;
+  private final FileQueryRepository fileQueryRepository;
   private final ModelMapper modelMapper;
 
   @Transactional
   public NoticeDTO selectNotice(Long id) {
-    return modelMapper.map(noticeRepository.findById(id).orElseThrow(NoSuchElementException::new),
-        NoticeDTO.class);
+    NoticeDTO noticeDTO = modelMapper
+        .map(noticeRepository.findById(id).orElseThrow(NoSuchElementException::new),
+            NoticeDTO.class);
+
+    FileDTO fileDTO = FileDTO.builder()
+        .recordSeq(noticeDTO.getNoticeSeq())
+        .relateTable("sds_notice")
+        .build();
+
+    noticeDTO.setFileList(fileQueryRepository.selectFileListByFileDTO(fileDTO));
+
+    return noticeDTO;
   }
 
   @Transactional
