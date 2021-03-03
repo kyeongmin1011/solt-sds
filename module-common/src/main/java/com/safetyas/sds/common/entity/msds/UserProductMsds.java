@@ -14,7 +14,7 @@ import lombok.NoArgsConstructor;
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
-@Table(name = "sds_user_matter_msds")   // 물질 msds 문서 정보
+@Table(name = "sds_user_product_msds")   // 물질 msds 문서 정보
 public class UserProductMsds {
 
     @Id

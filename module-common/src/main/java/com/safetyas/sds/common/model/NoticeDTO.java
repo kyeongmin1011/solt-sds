@@ -4,6 +4,7 @@ import com.querydsl.core.annotations.QueryProjection;
 import com.safetyas.sds.common.entity.Notice;
 import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -41,6 +42,8 @@ public class NoticeDTO extends CommonDTO implements Serializable {
   private String writerName; // 입력자 이름
   private Long memberSeq; // 입력자 멤버 시퀀스
   private LocalDateTime delDate;
+
+  private List<FileDTO> fileList;
 
   @QueryProjection
   public NoticeDTO(String category, String title, String content, String writerName) {
