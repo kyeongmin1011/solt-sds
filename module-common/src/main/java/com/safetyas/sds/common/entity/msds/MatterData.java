@@ -46,4 +46,7 @@ public class MatterData extends CommonEntity implements Serializable {
 
   @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
   private MatterLaw matterLaw;
+
+  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  private ProductMatter productMatter;
 }

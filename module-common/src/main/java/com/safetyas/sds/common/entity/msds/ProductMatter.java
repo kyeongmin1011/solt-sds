@@ -13,6 +13,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -85,6 +86,10 @@ public class ProductMatter extends CommonEntity {
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_product_matter_fk"))
   private Product product;
+
+  @OneToOne(fetch = FetchType.LAZY)
+  @JoinColumn(name = "matter_data_key", foreignKey = @ForeignKey(name = "matter_data_key_product_matter_fk"))
+  private MatterData matterData;
 
   public void updateProduct(Product product) {
     if (this.product != null) {
