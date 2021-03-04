@@ -13,7 +13,6 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
 import static com.safetyas.sds.common.entity.QFaq.faq;
-import static org.reflections.util.Utils.isEmpty;
 
 public class FaqRepositoryImpl implements FaqRepositoryCustom {
 
@@ -33,10 +32,9 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
             faq.writerName
         ))
         .from(faq)
-        .where(categoryEq(condition.getCategory()),
-            titleEq(condition.getTitle()),
-            contentEq(condition.getContent()),
-            writerNameEq(condition.getWriterName()),
+        .where(titleEq(condition),
+            contentEq(condition),
+            writerNameEq(condition),
             faq.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(faq.faqSeq.desc())
@@ -49,19 +47,15 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
     return new PageImpl<>(content, pageable, total);
   }
 
-  private BooleanExpression categoryEq(String category) {
-    return isEmpty(category) ? null : faq.category.eq(category);
+  private BooleanExpression titleEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("title") ? faq.title.like(condition.getKeyword()) : null;
   }
 
-  private BooleanExpression titleEq(String title) {
-    return isEmpty(title) ? null : faq.title.eq(title);
+  private BooleanExpression contentEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("content") ? faq.title.like(condition.getKeyword()) : null;
   }
 
-  private BooleanExpression contentEq(String content) {
-    return content == null ? null : faq.content.eq(content);
-  }
-
-  private BooleanExpression writerNameEq(String writerName) {
-    return writerName == null ? null : faq.writerName.eq(writerName);
+  private BooleanExpression writerNameEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("writerName") ? faq.title.like(condition.getKeyword()) : null;
   }
 }

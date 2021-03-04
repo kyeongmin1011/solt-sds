@@ -15,7 +15,6 @@ import org.springframework.data.domain.Pageable;
 
 import static com.safetyas.sds.common.entity.QMember.member;
 import static com.safetyas.sds.common.entity.QMemberBoard.memberBoard;
-import static org.reflections.util.Utils.isEmpty;
 
 public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
 
@@ -37,10 +36,9 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
             memberBoard.writerEmail))
         .from(memberBoard)
         .leftJoin(memberBoard.member, member)
-        .where(categoryEq(condition.getCategory()),
-            titleEq(condition.getTitle()),
-            contentEq(condition.getContent()),
-            writerNameEq(condition.getWriterName()),
+        .where(titleEq(condition),
+            contentEq(condition),
+            writerNameEq(condition),
             memberBoard.delDate.isNull())
         .offset(pageable.getOffset())
         .orderBy(memberBoard.memberBoardSeq.desc())
@@ -76,20 +74,15 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
         .orderBy(memberBoard.memberBoardSeq.desc())
         .fetch();
   }
-
-  private BooleanExpression categoryEq(String category) {
-    return isEmpty(category) ? null : memberBoard.category.eq(category);
+  private BooleanExpression titleEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("title") ? memberBoard.title.like(condition.getKeyword()) : null;
   }
 
-  private BooleanExpression titleEq(String title) {
-    return isEmpty(title) ? null : memberBoard.title.eq(title);
+  private BooleanExpression contentEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("content") ? memberBoard.title.like(condition.getKeyword()) : null;
   }
 
-  private BooleanExpression contentEq(String content) {
-    return content == null ? null : memberBoard.content.eq(content);
-  }
-
-  private BooleanExpression writerNameEq(String writerName) {
-    return writerName == null ? null : memberBoard.writerName.eq(writerName);
+  private BooleanExpression writerNameEq(BoardSearchCondition condition) {
+    return condition.getCategory().equals("writerName") ? memberBoard.title.like(condition.getKeyword()) : null;
   }
 }

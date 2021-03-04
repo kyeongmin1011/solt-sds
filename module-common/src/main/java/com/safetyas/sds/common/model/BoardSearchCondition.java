@@ -15,7 +15,5 @@ public class BoardSearchCondition implements Serializable {
   private static final long serialVersionUID = 6993194994953251317L;
 
   private String category;
-  private String title;
-  private String content;
-  private String writerName;
+  private String keyword;
 }
