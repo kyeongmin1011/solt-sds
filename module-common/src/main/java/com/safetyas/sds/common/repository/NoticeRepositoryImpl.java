@@ -50,20 +50,26 @@ public class NoticeRepositoryImpl implements NoticeRepositoryCustom {
   }
 
   private BooleanExpression titleEq(BoardSearchCondition condition) {
-    return Strings.isEmpty(condition.getCategory()) ? null
-        : condition.getCategory().equals("title") ? notice.title.like(condition.getKeyword())
-            : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("title") && !Strings.isBlank(condition.getKeyword())
+        ? notice.title.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression contentEq(BoardSearchCondition condition) {
-    return Strings.isEmpty(condition.getCategory()) ? null
-        : condition.getCategory().equals("content") ? notice.title.like(condition.getKeyword())
-            : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("content") && !Strings.isBlank(condition.getKeyword())
+        ? notice.content.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression writerNameEq(BoardSearchCondition condition) {
-    return Strings.isEmpty(condition.getCategory()) ? null
-        : condition.getCategory().equals("writerName") ? notice.title.like(condition.getKeyword())
-            : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("writerName") && !Strings.isBlank(condition.getKeyword())
+        ? notice.writerName.like(condition.getKeyword()) : null;
   }
 }

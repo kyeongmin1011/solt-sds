@@ -45,6 +45,7 @@ public class InformController {
   @ApiOperation("공지사항 목록 조회")
   public SingleResult<Page<NoticeDTO>> selectNoticeList(@PageableDefault Pageable pageable,
       BoardSearchCondition condition) {
+    log.info(condition.toString());
     return responseService
         .getSingleResult(clientInformService.selectNoticeList(pageable, condition));
   }

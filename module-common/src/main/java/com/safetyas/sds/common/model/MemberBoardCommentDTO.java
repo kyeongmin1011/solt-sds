@@ -14,7 +14,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberBoardCommentDTO implements Serializable {
+public class MemberBoardCommentDTO extends CommonDTO implements Serializable {
 
   private static final long serialVersionUID = -4890172477028801391L;
   private Long commentSeq;

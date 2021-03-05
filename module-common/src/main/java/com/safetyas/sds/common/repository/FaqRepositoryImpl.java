@@ -8,6 +8,7 @@ import com.safetyas.sds.common.model.FaqDTO;
 import com.safetyas.sds.common.model.QFaqDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -48,14 +49,26 @@ public class FaqRepositoryImpl implements FaqRepositoryCustom {
   }
 
   private BooleanExpression titleEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("title") ? faq.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("title") && !Strings.isBlank(condition.getKeyword())
+        ? faq.title.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression contentEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("content") ? faq.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("content") && !Strings.isBlank(condition.getKeyword())
+        ? faq.content.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression writerNameEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("writerName") ? faq.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("writerName") && !Strings.isBlank(condition.getKeyword())
+        ? faq.writerName.like(condition.getKeyword()) : null;
   }
 }

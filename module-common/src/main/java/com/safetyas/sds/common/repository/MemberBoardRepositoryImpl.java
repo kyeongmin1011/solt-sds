@@ -9,6 +9,7 @@ import com.safetyas.sds.common.model.MemberBoardDTO;
 import com.safetyas.sds.common.model.QMemberBoardDTO;
 import java.util.List;
 import javax.persistence.EntityManager;
+import org.apache.logging.log4j.util.Strings;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
@@ -29,6 +30,7 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
       BoardSearchCondition condition) {
     QueryResults<MemberBoardDTO> results = queryFactory
         .select(new QMemberBoardDTO(
+            memberBoard.memberBoardSeq,
             memberBoard.category,
             memberBoard.title,
             memberBoard.content,
@@ -63,7 +65,9 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
   @Override
   public List<MemberBoardDTO> selectClientMainMemberBoardList(Long id) {
     return queryFactory
-        .select(new QMemberBoardDTO(memberBoard.category,
+        .select(new QMemberBoardDTO(
+            memberBoard.memberBoardSeq,
+            memberBoard.category,
             memberBoard.title,
             memberBoard.content,
             memberBoard.writerName,
@@ -74,15 +78,28 @@ public class MemberBoardRepositoryImpl implements MemberBoardRepositoryCustom {
         .orderBy(memberBoard.memberBoardSeq.desc())
         .fetch();
   }
+
   private BooleanExpression titleEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("title") ? memberBoard.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("title") && !Strings.isBlank(condition.getKeyword())
+        ? memberBoard.title.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression contentEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("content") ? memberBoard.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("content") && !Strings.isBlank(condition.getKeyword())
+        ? memberBoard.content.like(condition.getKeyword()) : null;
   }
 
   private BooleanExpression writerNameEq(BoardSearchCondition condition) {
-    return condition.getCategory().equals("writerName") ? memberBoard.title.like(condition.getKeyword()) : null;
+    if (Strings.isBlank(condition.getCategory())) {
+      return null;
+    }
+    return condition.getCategory().equals("writerName") && !Strings.isBlank(condition.getKeyword())
+        ? memberBoard.writerName.like(condition.getKeyword()) : null;
   }
 }

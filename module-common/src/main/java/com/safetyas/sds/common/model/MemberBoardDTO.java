@@ -16,7 +16,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @AllArgsConstructor
 @ToString
-public class MemberBoardDTO implements Serializable {
+public class MemberBoardDTO extends CommonDTO implements Serializable {
 
   private static final long serialVersionUID = 6204700889781721914L;
 
@@ -31,8 +31,10 @@ public class MemberBoardDTO implements Serializable {
   private List<FileDTO> fileList = new ArrayList<>();
 
   @QueryProjection
-  public MemberBoardDTO(String category, String title, String content, String writerName,
+  public MemberBoardDTO(Long memberBoardSeq, String category, String title, String content,
+      String writerName,
       String writerEmail) {
+    this.memberBoardSeq = memberBoardSeq;
     this.category = category;
     this.title = title;
     this.content = content;
