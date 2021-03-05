@@ -34,7 +34,7 @@ public class ProductController {
   private final ResponseService responseService;
   private final ClientProductService clientProductService;
 
-  @GetMapping("")
+  @GetMapping("/")
   @ApiOperation("제품 리스트 조회")
   public SingleResult<Page<ProductDTO>> selectProductList(@PageableDefault Pageable pageable,
       ProductSearchCondition productSearchCondition) {
@@ -48,9 +48,10 @@ public class ProductController {
     return responseService.getSingleResult(clientProductService.selectProduct(productSeq));
   }
 
-  @PostMapping("")
+  @PostMapping("/")
   @ApiOperation("제품 등록")
   public CommonResult insertProduct(@RequestBody ProductRequest productRequest) {
+    System.out.println(productRequest.toString());
     clientProductService.insertProduct(productRequest);
     return responseService.getSuccessResult();
   }
