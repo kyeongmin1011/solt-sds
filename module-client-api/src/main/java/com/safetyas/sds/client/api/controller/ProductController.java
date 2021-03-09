@@ -50,10 +50,8 @@ public class ProductController {
 
   @PostMapping("/")
   @ApiOperation("제품 등록")
-  public CommonResult insertProduct(@RequestBody ProductRequest productRequest) {
-    System.out.println(productRequest.toString());
-    clientProductService.insertProduct(productRequest);
-    return responseService.getSuccessResult();
+  public SingleResult<Long> insertProduct(@RequestBody ProductRequest productRequest) {
+    return responseService.getSingleResult(clientProductService.insertProduct(productRequest));
   }
 
   @PutMapping("/{productSeq}")

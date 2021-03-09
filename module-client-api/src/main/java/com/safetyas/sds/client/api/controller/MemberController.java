@@ -3,11 +3,13 @@ package com.safetyas.sds.client.api.controller;
 import com.safetyas.sds.client.api.request.MemberInfoRequest;
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
+import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ClientMemberService;
 import com.safetyas.sds.common.model.MemberInfoDTO;
 import com.safetyas.sds.common.model.MemberSupplierDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -45,9 +47,9 @@ public class MemberController {
 
   @ApiOperation(value = "멤버 공급자 리스트", notes = "멤버 공급자 리스트를 가져온다.")
   @GetMapping(value = "/suppliers")
-  public CommonResult selectMemberSuppliers() {
+  public SingleResult<List<MemberSupplierDTO>> selectMemberSuppliers() {
     Long memberSeq = 1L;
-    return responseService.getListResult(clientMemberService.selectMemberSuppliers(memberSeq));
+    return responseService.getSingleResult(clientMemberService.selectMemberSuppliers(memberSeq));
   }
 
   @ApiOperation(value = "멤버 공급자 입력", notes = "새로운 멤버 공급자 입력한다.")
