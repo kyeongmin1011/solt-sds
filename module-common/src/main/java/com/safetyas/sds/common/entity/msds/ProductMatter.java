@@ -31,6 +31,7 @@ public class ProductMatter extends CommonEntity {
 
   @Builder
   public ProductMatter(String cas, String otherNumber, String chemName, Float contentRate,
+      String alterNo, LocalDate validStart, LocalDate validFinish,
       String alterContentYn, String alterMatterName, Float alterContentRate) {
     this.cas = cas;
     this.otherNumber = otherNumber;
@@ -39,6 +40,9 @@ public class ProductMatter extends CommonEntity {
     this.alterContentYn = alterContentYn;
     this.alterMatterName = alterMatterName;
     this.alterContentRate = alterContentRate;
+    this.alterNo = alterNo;
+    this.validStart = validStart;
+    this.validFinish = validFinish;
   }
 
 /*  @Builder
@@ -72,13 +76,13 @@ public class ProductMatter extends CommonEntity {
   private Float alterContentRate;
 
   @Column(name = "alter_no", columnDefinition = "varchar(50) comment '대체자료 승인번호'")
-  private String msdsNo;
+  private String alterNo;
 
   @Column(name = "valid_start", columnDefinition = "varchar(50) comment '대체자료 유효기간 시작'")
-  private LocalDate vaildStart;
+  private LocalDate validStart;
 
   @Column(name = "valid_finish", columnDefinition = "varchar(50) comment '대체자료 유효기간 끝'")
-  private LocalDate vaildFinish;
+  private LocalDate validFinish;
 
   @Column(name = "alter_content_yn", columnDefinition = "varchar(1) comment '대체명칭 신청여부'")
   private String alterContentYn;
@@ -121,5 +125,8 @@ public class ProductMatter extends CommonEntity {
     this.alterContentYn = productMatterDTO.getAlterContentYn();
     this.alterMatterName = productMatterDTO.getAlterMatterName();
     this.alterContentRate = productMatterDTO.getAlterContentRate();
+    this.alterNo = productMatterDTO.getAlterNo();
+    this.validStart = productMatterDTO.getValidStart();
+    this.validFinish = productMatterDTO.getValidFinish();
   }
 }

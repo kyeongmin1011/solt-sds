@@ -6,6 +6,7 @@ import com.safetyas.sds.client.api.response.SingleResult;
 import com.safetyas.sds.client.api.service.ClientProductMatterService;
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,27 +26,32 @@ public class ProductMatterController {
   private final ResponseService responseService;
   private final ClientProductMatterService clientProductMatterService;
 
-  @GetMapping
-  public SingleResult<?> selectProductMatterList() {
+  @GetMapping("/{productSeq}")
+  @ApiOperation("한 제품의 물질리스트")
+  public SingleResult<?> selectProductMatterList(@PathVariable Long productSeq) {
 
     return responseService.getSingleResult(null);
   }
 
-  @PostMapping
+  @PostMapping("/add")
+  @ApiOperation("사용자 물질 입력")
   public CommonResult insertProductMatter(@RequestBody ProductMatterDTO productMatterDTO) {
     clientProductMatterService.insertProductMatter(productMatterDTO);
     return responseService.getSuccessResult();
   }
 
   @PutMapping("/{productMatterSeq}")
+  @ApiOperation("한 제품의 물질리스트")
   public CommonResult updateProductMatter(@PathVariable Long productMatterSeq, @RequestBody ProductMatterDTO productMatterDTO) {
     clientProductMatterService.updateProductMatter(productMatterSeq,productMatterDTO);
     return responseService.getSuccessResult();
   }
 
   @DeleteMapping("/{productMatterSeq}")
+  @ApiOperation("제품 내 물질 삭제")
   public CommonResult deleteProductMatter(@PathVariable Long productMatterSeq) {
     clientProductMatterService.deleteProductMatter(productMatterSeq);
     return responseService.getSuccessResult();
   }
+
 }
