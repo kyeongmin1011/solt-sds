@@ -64,8 +64,8 @@ public class ClientProductService {
     return productService.selectProductList(pageable, productSearchCondition);
   }
 
-  public void insertProduct(ProductRequest productRequest) {
-    productService.insertProductAndMemberSupplier(productRequest.toEntity(),
+  public long insertProduct(ProductRequest productRequest) {
+  return  productService.insertProductAndMemberSupplier(productRequest.toEntity(),
         productRequest.getMemberSupplierSeq());
   }
 

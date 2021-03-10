@@ -33,238 +33,279 @@ public class MatterEnv {
   private MatterData matterData;
 
   //------------------------------------------------------------- C그룹 12 환경유해성
-  @Column(name = "division_C1", columnDefinition = "varchar(100) comment '급성-구분'")
-  private String divisionC1;
-  @Column(name = "division_C2", columnDefinition = "varchar(100) comment '만성-구분'")
-  private String divisionC2;
+  @Column(name = "division_C01", columnDefinition = "varchar(100) comment '급성-구분'")
+  private String divisionC01;
+  @Column(name = "division_C02", columnDefinition = "varchar(100) comment '만성-구분'")
+  private String divisionC02;
 
-  @Column(name = "ca1_time", columnDefinition = "varchar(100) comment '급성어류-시간'")
-  private String ca1Time;
-  @Column(name = "ca2_endpoint", columnDefinition = "varchar(100) comment '급성어류-종말점'")
-  private String ca2Endpoint;
-  @Column(name = "ca3_species", columnDefinition = "varchar(100) comment '급성어류-실험종'")
-  private String ca3Species;
-  @Column(name = "ca4_value1", columnDefinition = "varchar(100) comment '급성어류-유일값'")
-  private String ca4Value1;
-  @Column(name = "ca5_value2", columnDefinition = "varchar(100) comment '급성어류-최소값1'")
-  private String ca5Value2;
-  @Column(name = "ca6_value3", columnDefinition = "varchar(100) comment '급성어류-최소값2'")
-  private String ca6Value3;
-  @Column(name = "ca7_value4", columnDefinition = "varchar(100) comment '급성어류-최대값1'")
-  private String ca7Value4;
-  @Column(name = "ca8_value5", columnDefinition = "varchar(100) comment '급성어류-최대값2'")
-  private String ca8Value5;
-  @Column(name = "ca9_tg", columnDefinition = "varchar(100) comment '급성어류-시험지침'")
-  private String ca9Tg;
-  @Column(name = "ca10_glp", columnDefinition = "varchar(100) comment '급성어류-GLP'")
-  private String ca10Glp;
-  @Column(name = "ca11_ref", columnDefinition = "varchar(100) comment '급성어류-출처'")
-  private String ca11Ref;
-  @Column(name = "ca12_other", columnDefinition = "varchar(100) comment '급성어류-비고'")
-  private String ca12Other;
+  @Column(name = "ca01_time", columnDefinition = "varchar(100) comment '급성어류-시간'")
+  private String ca01Time;
+  @Column(name = "ca02_endpoint", columnDefinition = "varchar(100) comment '급성어류-종말점'")
+  private String ca02Endpoint;
+  @Column(name = "ca03_species", columnDefinition = "varchar(100) comment '급성어류-실험종'")
+  private String ca03Species;
+  @Column(name = "ca04_value1", columnDefinition = "varchar(100) comment '급성어류-유일값'")
+  private String ca04Value1;
+  @Column(name = "ca05_value2", columnDefinition = "varchar(100) comment '급성어류-최소값1'")
+  private String ca05Value2;
+  @Column(name = "ca06_value3", columnDefinition = "varchar(100) comment '급성어류-최소값2'")
+  private String ca06Value3;
+  @Column(name = "ca07_value4", columnDefinition = "varchar(100) comment '급성어류-최대값1'")
+  private String ca07Value4;
+  @Column(name = "ca08_value5", columnDefinition = "varchar(100) comment '급성어류-최대값2'")
+  private String ca08Value5;
+  @Column(name = "ca09_unit", columnDefinition = "varchar(100) comment '급성어류-단위'")
+  private String ca09Unit;
+  @Column(name = "ca10_tg", columnDefinition = "varchar(100) comment '급성어류-시험지침'")
+  private String ca10Tg;
+  @Column(name = "ca11_glp", columnDefinition = "varchar(100) comment '급성어류-GLP'")
+  private String ca11Glp;
+  @Column(name = "ca12_ref", columnDefinition = "varchar(255) comment '급성어류-출처'")
+  private String ca12Ref;
+  @Column(name = "ca13_other", columnDefinition = "varchar(100) comment '급성어류-비고'")
+  private String ca13Other;
 
-  @Column(name = "cb1_time", columnDefinition = "varchar(100) comment '급성갑각류-시간'")
-  private String cb1Time;
-  @Column(name = "cb2_endpoint", columnDefinition = "varchar(100) comment '급성갑각류-종말점'")
-  private String cb2Endpoint;
-  @Column(name = "cb3_species", columnDefinition = "varchar(100) comment '급성갑각류-실험종'")
-  private String cb3Species;
-  @Column(name = "cb4_value1", columnDefinition = "varchar(100) comment '급성갑각류-유일값'")
-  private String cb4Value1;
-  @Column(name = "cb5_value2", columnDefinition = "varchar(100) comment '급성갑각류-최소값1'")
-  private String cb5Value2;
-  @Column(name = "cb6_value3", columnDefinition = "varchar(100) comment '급성갑각류-최소값2'")
-  private String cb6Value3;
-  @Column(name = "cb7_value4", columnDefinition = "varchar(100) comment '급성갑각류-최대값1'")
-  private String cb7Value4;
-  @Column(name = "cb8_value5", columnDefinition = "varchar(100) comment '급성갑각류-최대값2'")
-  private String cb8Value5;
-  @Column(name = "cb9_tg", columnDefinition = "varchar(100) comment '급성갑각류-시험지침'")
-  private String cb9Tg;
-  @Column(name = "cb10_glp", columnDefinition = "varchar(100) comment '급성갑각류-GLP'")
-  private String cb10Glp;
-  @Column(name = "cb11_ref", columnDefinition = "varchar(100) comment '급성갑각류-출처'")
-  private String cb11Ref;
-  @Column(name = "cb12_other", columnDefinition = "varchar(100) comment '급성갑각류-비고'")
-  private String cb12Other;
+  @Column(name = "cb01_time", columnDefinition = "varchar(100) comment '급성갑각류-시간'")
+  private String cb01Time;
+  @Column(name = "cb02_endpoint", columnDefinition = "varchar(100) comment '급성갑각류-종말점'")
+  private String cb02Endpoint;
+  @Column(name = "cb03_species", columnDefinition = "varchar(100) comment '급성갑각류-실험종'")
+  private String cb03Species;
+  @Column(name = "cb04_value1", columnDefinition = "varchar(100) comment '급성갑각류-유일값'")
+  private String cb04Value1;
+  @Column(name = "cb05_value2", columnDefinition = "varchar(100) comment '급성갑각류-최소값1'")
+  private String cb05Value2;
+  @Column(name = "cb06_value3", columnDefinition = "varchar(100) comment '급성갑각류-최소값2'")
+  private String cb06Value3;
+  @Column(name = "cb07_value4", columnDefinition = "varchar(100) comment '급성갑각류-최대값1'")
+  private String cb07Value4;
+  @Column(name = "cb08_value5", columnDefinition = "varchar(100) comment '급성갑각류-최대값2'")
+  private String cb08Value5;
+  @Column(name = "cb09_unit", columnDefinition = "varchar(100) comment '급성갑각류-단위'")
+  private String cb09Unit;
+  @Column(name = "cb10_tg", columnDefinition = "varchar(100) comment '급성갑각류-시험지침'")
+  private String cb10Tg;
+  @Column(name = "cb11_glp", columnDefinition = "varchar(100) comment '급성갑각류-GLP'")
+  private String cb11Glp;
+  @Column(name = "cb12_ref", columnDefinition = "varchar(255) comment '급성갑각류-출처'")
+  private String cb12Ref;
+  @Column(name = "cb13_other", columnDefinition = "varchar(100) comment '급성갑각류-비고'")
+  private String cb13Other;
 
-  @Column(name = "cc1_time", columnDefinition = "varchar(100) comment '급성조류-시간'")
-  private String cc1Time;
-  @Column(name = "cc2_endpoint", columnDefinition = "varchar(100) comment '급성조류-종말점'")
-  private String cc2Endpoint;
-  @Column(name = "cc3_species", columnDefinition = "varchar(100) comment '급성조류-실험종'")
-  private String cc3Species;
-  @Column(name = "cc4_value1", columnDefinition = "varchar(100) comment '급성조류-유일값'")
-  private String cc4Value1;
-  @Column(name = "cc5_value2", columnDefinition = "varchar(100) comment '급성조류-최소값1'")
-  private String cc5Value2;
-  @Column(name = "cc6_value3", columnDefinition = "varchar(100) comment '급성조류-최소값2'")
-  private String cc6Value3;
-  @Column(name = "cc7_value4", columnDefinition = "varchar(100) comment '급성조류-최대값1'")
-  private String cc7Value4;
-  @Column(name = "cc8_value5", columnDefinition = "varchar(100) comment '급성조류-최대값2'")
-  private String cc8Value5;
-  @Column(name = "cc9_tg", columnDefinition = "varchar(100) comment '급성조류-시험지침'")
-  private String cc9Tg;
-  @Column(name = "cc10_glp", columnDefinition = "varchar(100) comment '급성조류-GLP'")
-  private String cc10Glp;
-  @Column(name = "cc11_ref", columnDefinition = "varchar(100) comment '급성조류-출처'")
-  private String cc11Ref;
-  @Column(name = "cc12_other", columnDefinition = "varchar(100) comment '급성조류-비고'")
-  private String cc12Other;
+  @Column(name = "cc01_time", columnDefinition = "varchar(100) comment '급성조류-시간'")
+  private String cc01Time;
+  @Column(name = "cc02_endpoint", columnDefinition = "varchar(100) comment '급성조류-종말점'")
+  private String cc02Endpoint;
+  @Column(name = "cc03_species", columnDefinition = "varchar(100) comment '급성조류-실험종'")
+  private String cc03Species;
+  @Column(name = "cc04_value1", columnDefinition = "varchar(100) comment '급성조류-유일값'")
+  private String cc04Value1;
+  @Column(name = "cc05_value2", columnDefinition = "varchar(100) comment '급성조류-최소값1'")
+  private String cc05Value2;
+  @Column(name = "cc06_value3", columnDefinition = "varchar(100) comment '급성조류-최소값2'")
+  private String cc06Value3;
+  @Column(name = "cc07_value4", columnDefinition = "varchar(100) comment '급성조류-최대값1'")
+  private String cc07Value4;
+  @Column(name = "cc08_value5", columnDefinition = "varchar(100) comment '급성조류-최대값2'")
+  private String cc08Value5;
+  @Column(name = "cc09_unit", columnDefinition = "varchar(100) comment '급성조류-단위'")
+  private String cc09Unit;
+  @Column(name = "cc10_tg", columnDefinition = "varchar(100) comment '급성조류-시험지침'")
+  private String cc10Tg;
+  @Column(name = "cc11_glp", columnDefinition = "varchar(100) comment '급성조류-GLP'")
+  private String cc11Glp;
+  @Column(name = "cc12_ref", columnDefinition = "varchar(255) comment '급성조류-출처'")
+  private String cc12Ref;
+  @Column(name = "cc13_other", columnDefinition = "varchar(100) comment '급성조류-비고'")
+  private String cc13Other;
 
-  @Column(name = "cd1_time", columnDefinition = "varchar(100) comment '급성기타-시간'")
-  private String cd1Time;
-  @Column(name = "cd2_endpoint", columnDefinition = "varchar(100) comment '급성기타-종말점'")
-  private String cd2Endpoint;
-  @Column(name = "cd3_species", columnDefinition = "varchar(100) comment '급성기타-실험종'")
-  private String cd3Species;
-  @Column(name = "cd4_value1", columnDefinition = "varchar(100) comment '급성기타-유일값'")
-  private String cd4Value1;
-  @Column(name = "cd5_value2", columnDefinition = "varchar(100) comment '급성기타-최소값1'")
-  private String cd5Value2;
-  @Column(name = "cd6_value3", columnDefinition = "varchar(100) comment '급성기타-최소값2'")
-  private String cd6Value3;
-  @Column(name = "cd7_value4", columnDefinition = "varchar(100) comment '급성기타-최대값1'")
-  private String cd7Value4;
-  @Column(name = "cd8_value5", columnDefinition = "varchar(100) comment '급성기타-최대값2'")
-  private String cd8Value5;
-  @Column(name = "cd9_tg", columnDefinition = "varchar(100) comment '급성기타-시험지침'")
-  private String cd9Tg;
-  @Column(name = "cd10_glp", columnDefinition = "varchar(100) comment '급성기타-GLP'")
-  private String cd10Glp;
-  @Column(name = "cd11_ref", columnDefinition = "varchar(100) comment '급성기타-출처'")
-  private String cd11Ref;
-  @Column(name = "cd12_other", columnDefinition = "varchar(100) comment '급성기타-비고'")
-  private String cd12Other;
+  @Column(name = "cd01_time", columnDefinition = "varchar(100) comment '급성기타-시간'")
+  private String cd01Time;
+  @Column(name = "cd02_endpoint", columnDefinition = "varchar(100) comment '급성기타-종말점'")
+  private String cd02Endpoint;
+  @Column(name = "cd03_species", columnDefinition = "varchar(100) comment '급성기타-실험종'")
+  private String cd03Species;
+  @Column(name = "cd04_value1", columnDefinition = "varchar(100) comment '급성기타-유일값'")
+  private String cd04Value1;
+  @Column(name = "cd05_value2", columnDefinition = "varchar(100) comment '급성기타-최소값1'")
+  private String cd05Value2;
+  @Column(name = "cd06_value3", columnDefinition = "varchar(100) comment '급성기타-최소값2'")
+  private String cd06Value3;
+  @Column(name = "cd07_value4", columnDefinition = "varchar(100) comment '급성기타-최대값1'")
+  private String cd07Value4;
+  @Column(name = "cd08_value5", columnDefinition = "varchar(100) comment '급성기타-최대값2'")
+  private String cd08Value5;
+  @Column(name = "cd09_unit", columnDefinition = "varchar(100) comment '급성기타-단위'")
+  private String cd09Unit;
+  @Column(name = "cd10_tg", columnDefinition = "varchar(100) comment '급성기타-시험지침'")
+  private String cd10Tg;
+  @Column(name = "cd11_glp", columnDefinition = "varchar(100) comment '급성기타-GLP'")
+  private String cd11Glp;
+  @Column(name = "cd12_ref", columnDefinition = "varchar(255) comment '급성기타-출처'")
+  private String cd12Ref;
+  @Column(name = "cd13_other", columnDefinition = "varchar(100) comment '급성기타-비고'")
+  private String cd13Other;
 
-  @Column(name = "ce1_time", columnDefinition = "varchar(100) comment '만성어류-시간'")
-  private String ce1Time;
-  @Column(name = "ce2_endpoint", columnDefinition = "varchar(100) comment '만성어류-종말점'")
-  private String ce2Endpoint;
-  @Column(name = "ce3_species", columnDefinition = "varchar(100) comment '만성어류-실험종'")
-  private String ce3Species;
-  @Column(name = "ce4_value1", columnDefinition = "varchar(100) comment '만성어류-유일값'")
-  private String ce4Value1;
-  @Column(name = "ce5_value2", columnDefinition = "varchar(100) comment '만성어류-최소값1'")
-  private String ce5Value2;
-  @Column(name = "ce6_value3", columnDefinition = "varchar(100) comment '만성어류-최소값2'")
-  private String ce6Value3;
-  @Column(name = "ce7_value4", columnDefinition = "varchar(100) comment '만성어류-최대값1'")
-  private String ce7Value4;
-  @Column(name = "ce8_value5", columnDefinition = "varchar(100) comment '만성어류-최대값2'")
-  private String ce8Value5;
-  @Column(name = "ce9_tg", columnDefinition = "varchar(100) comment '만성어류-시험지침'")
-  private String ce9Tg;
-  @Column(name = "ce10_glp", columnDefinition = "varchar(100) comment '만성어류-GLP'")
-  private String ce10Glp;
-  @Column(name = "ce11_ref", columnDefinition = "varchar(100) comment '만성어류-출처'")
-  private String ce11Ref;
-  @Column(name = "ce12_other", columnDefinition = "varchar(100) comment '만성어류-비고'")
-  private String ce12Other;
+  @Column(name = "ce01_time", columnDefinition = "varchar(100) comment '만성어류-시간'")
+  private String ce01Time;
+  @Column(name = "ce02_endpoint", columnDefinition = "varchar(100) comment '만성어류-종말점'")
+  private String ce02Endpoint;
+  @Column(name = "ce03_species", columnDefinition = "varchar(100) comment '만성어류-실험종'")
+  private String ce03Species;
+  @Column(name = "ce04_value1", columnDefinition = "varchar(100) comment '만성어류-유일값'")
+  private String ce04Value1;
+  @Column(name = "ce05_value2", columnDefinition = "varchar(100) comment '만성어류-최소값1'")
+  private String ce05Value2;
+  @Column(name = "ce06_value3", columnDefinition = "varchar(100) comment '만성어류-최소값2'")
+  private String ce06Value3;
+  @Column(name = "ce07_value4", columnDefinition = "varchar(100) comment '만성어류-최대값1'")
+  private String ce07Value4;
+  @Column(name = "ce08_value5", columnDefinition = "varchar(100) comment '만성어류-최대값2'")
+  private String ce08Value5;
+  @Column(name = "ce09_unit", columnDefinition = "varchar(100) comment '만성어류-단위'")
+  private String ce09Unit;
+  @Column(name = "ce10_tg", columnDefinition = "varchar(100) comment '만성어류-시험지침'")
+  private String ce10Tg;
+  @Column(name = "ce11_glp", columnDefinition = "varchar(100) comment '만성어류-GLP'")
+  private String ce11Glp;
+  @Column(name = "ce12_ref", columnDefinition = "varchar(255) comment '만성어류-출처'")
+  private String ce12Ref;
+  @Column(name = "ce13_other", columnDefinition = "varchar(100) comment '만성어류-비고'")
+  private String ce13Other;
 
-  @Column(name = "cf1_time", columnDefinition = "varchar(100) comment '만성조류-시간'")
-  private String cf1Time;
-  @Column(name = "cf2_endpoint", columnDefinition = "varchar(100) comment '만성조류-종말점'")
-  private String cf2Endpoint;
-  @Column(name = "cf3_species", columnDefinition = "varchar(100) comment '만성조류-실험종'")
-  private String cf3Species;
-  @Column(name = "cf4_value1", columnDefinition = "varchar(100) comment '만성조류-유일값'")
-  private String cf4Value1;
-  @Column(name = "cf5_value2", columnDefinition = "varchar(100) comment '만성조류-최소값1'")
-  private String cf5Value2;
-  @Column(name = "cf6_value3", columnDefinition = "varchar(100) comment '만성조류-최소값2'")
-  private String cf6Value3;
-  @Column(name = "cf7_value4", columnDefinition = "varchar(100) comment '만성조류-최대값1'")
-  private String cf7Value4;
-  @Column(name = "cf8_value5", columnDefinition = "varchar(100) comment '만성조류-최대값2'")
-  private String cf8Value5;
-  @Column(name = "cf9_tg", columnDefinition = "varchar(100) comment '만성조류-시험지침'")
-  private String cf9Tg;
-  @Column(name = "cf10_glp", columnDefinition = "varchar(100) comment '만성조류-GLP'")
-  private String cf10Glp;
-  @Column(name = "cf11_ref", columnDefinition = "varchar(100) comment '만성조류-출처'")
-  private String cf11Ref;
-  @Column(name = "cf12_other", columnDefinition = "varchar(100) comment '만성조류-비고'")
-  private String cf12Other;
-
-  @Column(name = "cg1_time", columnDefinition = "varchar(100) comment '만성기타-시간'")
-  private String cg1Time;
-  @Column(name = "cg2_endpoint", columnDefinition = "varchar(100) comment '만성기타-종말점'")
-  private String cg2Endpoint;
-  @Column(name = "cg3_species", columnDefinition = "varchar(100) comment '만성기타-실험종'")
-  private String cg3Species;
-  @Column(name = "cg4_value1", columnDefinition = "varchar(100) comment '만성기타-유일값'")
-  private String cg4Value1;
-  @Column(name = "cg5_value2", columnDefinition = "varchar(100) comment '만성기타-최소값1'")
-  private String cg5Value2;
-  @Column(name = "cg6_value3", columnDefinition = "varchar(100) comment '만성기타-최소값2'")
-  private String cg6Value3;
-  @Column(name = "cg7_value4", columnDefinition = "varchar(100) comment '만성기타-최대값1'")
-  private String cg7Value4;
-  @Column(name = "cg8_value5", columnDefinition = "varchar(100) comment '만성기타-최대값2'")
-  private String cg8Value5;
-  @Column(name = "cg9_tg", columnDefinition = "varchar(100) comment '만성기타-시험지침'")
-  private String cg9Tg;
-  @Column(name = "cg10_glp", columnDefinition = "varchar(100) comment '만성기타-GLP'")
-  private String cg10Glp;
-  @Column(name = "cg11_ref", columnDefinition = "varchar(100) comment '만성기타-출처'")
-  private String cg11Ref;
-  @Column(name = "cg12_other", columnDefinition = "varchar(100) comment '만성기타-비고'")
-  private String cg12Other;
-
-  @Column(name = "ch1_persistence", columnDefinition = "varchar(100) comment '잔류성'")
-  private String ch1Persistence;
-
-  @Column(name = "ci1_data", columnDefinition = "varchar(100) comment '생분해성-값'")
-  private String ci1Data;
-  @Column(name = "ci2_time", columnDefinition = "varchar(100) comment '생분해성-시간'")
-  private String ci2Time;
-  @Column(name = "ci3_degrade", columnDefinition = "varchar(100) comment '생분해성-분해도'")
-  private String ci3Degrade;
-  @Column(name = "ci4_ref", columnDefinition = "varchar(100) comment '생분해성-출처'")
-  private String ci4Ref;
-  @Column(name = "ci5_other", columnDefinition = "varchar(100) comment '생분해성-비고'")
-  private String ci5Other;
-
-  @Column(name = "cj1_value1", columnDefinition = "varchar(100) comment '농축성-유일값'")
-  private String cj1Value1;
-  @Column(name = "cj2_value2", columnDefinition = "varchar(100) comment '농축성-최소값1'")
-  private String cj2Value2;
-  @Column(name = "cj3_value3", columnDefinition = "varchar(100) comment '농축성-최소값2'")
-  private String cj3Value3;
-  @Column(name = "cj4_value4", columnDefinition = "varchar(100) comment '농축성-최대값1'")
-  private String cj4Value4;
-  @Column(name = "cj5_value5", columnDefinition = "varchar(100) comment '농축성-최대값2'")
-  private String cj5Value5;
-  @Column(name = "cj6_ref", columnDefinition = "varchar(100) comment '농축성-출처'")
-  private String cj6Ref;
-  @Column(name = "cj6_other", columnDefinition = "varchar(100) comment '농축성-비고'")
-  private String cj6Other;
-
-  @Column(name = "ck1_value1", columnDefinition = "varchar(100) comment '토양이동성-유일값'")
-  private String ck1Value1;
-  @Column(name = "ck2_value2", columnDefinition = "varchar(100) comment '토양이동성-최소값1'")
-  private String ck2Value2;
-  @Column(name = "ck3_value3", columnDefinition = "varchar(100) comment '토양이동성-최소값2'")
-  private String ck3Value3;
-  @Column(name = "ck4_value4", columnDefinition = "varchar(100) comment '토양이동성-최대값1'")
-  private String ck4Value4;
-  @Column(name = "ck5_value5", columnDefinition = "varchar(100) comment '토양이동성-최대값2'")
-  private String ck5Value5;
-  @Column(name = "ck6_ref", columnDefinition = "varchar(100) comment '토양이동성-출처'")
-  private String ck6Ref;
-  @Column(name = "ck6_other", columnDefinition = "varchar(100) comment '토양이동성-비고'")
-  private String ck6Other;
-
-  @Column(name = "division_C3", columnDefinition = "varchar(100) comment '기타유해영향-구분'")
-  private String divisionC3;
-  @Column(name = "cl1_data", columnDefinition = "varchar(100) comment '기타유해영향-오존층유해성값'")
-  private String cl1Data;
-  @Column(name = "cl2_ref", columnDefinition = "varchar(100) comment '기타유해영향-출처'")
-  private String cl2Ref;
-  @Column(name = "cl3_other", columnDefinition = "varchar(100) comment '기타유해영향-비고'")
-  private String cl3Other;
+  // 만성 갑각류
+  @Column(name = "cf01_time", columnDefinition = "varchar(100) comment '만성갑각류-시간'")
+  private String cf01Time;
+  @Column(name = "cf02_endpoint", columnDefinition = "varchar(100) comment '만성갑각류-종말점'")
+  private String cf02Endpoint;
+  @Column(name = "cf03_species", columnDefinition = "varchar(100) comment '만성갑각류-실험종'")
+  private String cf03Species;
+  @Column(name = "cf04_value1", columnDefinition = "varchar(100) comment '만성갑각류-유일값'")
+  private String cf04Value1;
+  @Column(name = "cf05_value2", columnDefinition = "varchar(100) comment '만성갑각류-최소값1'")
+  private String cf05Value2;
+  @Column(name = "cf06_value3", columnDefinition = "varchar(100) comment '만성갑각류-최소값2'")
+  private String cf06Value3;
+  @Column(name = "cf07_value4", columnDefinition = "varchar(100) comment '만성갑각류-최대값1'")
+  private String cf07Value4;
+  @Column(name = "cf08_value5", columnDefinition = "varchar(100) comment '만성갑각류-최대값2'")
+  private String cf08Value5;
+  @Column(name = "cf09_unit", columnDefinition = "varchar(100) comment '만성갑각류-단위'")
+  private String cf09Unit;
+  @Column(name = "cf10_tg", columnDefinition = "varchar(100) comment '만성갑각류-시험지침'")
+  private String cf10Tg;
+  @Column(name = "cf11_glp", columnDefinition = "varchar(100) comment '만성갑각류-GLP'")
+  private String cf11Glp;
+  @Column(name = "cf12_ref", columnDefinition = "varchar(255) comment '만성갑각류-출처'")
+  private String cf12Ref;
+  @Column(name = "cf13_other", columnDefinition = "varchar(100) comment '만성갑각류-비고'")
+  private String cf13Other;
 
 
+  @Column(name = "cg01_time", columnDefinition = "varchar(100) comment '만성조류-시간'")
+  private String cg01Time;
+  @Column(name = "cg02_endpoint", columnDefinition = "varchar(100) comment '만성조류-종말점'")
+  private String cg02Endpoint;
+  @Column(name = "cg03_species", columnDefinition = "varchar(100) comment '만성조류-실험종'")
+  private String cg03Species;
+  @Column(name = "cg04_value1", columnDefinition = "varchar(100) comment '만성조류-유일값'")
+  private String cg04Value1;
+  @Column(name = "cg05_value2", columnDefinition = "varchar(100) comment '만성조류-최소값1'")
+  private String cg05Value2;
+  @Column(name = "cg06_value3", columnDefinition = "varchar(100) comment '만성조류-최소값2'")
+  private String cg06Value3;
+  @Column(name = "cg07_value4", columnDefinition = "varchar(100) comment '만성조류-최대값1'")
+  private String cg07Value4;
+  @Column(name = "cg08_value5", columnDefinition = "varchar(100) comment '만성조류-최대값2'")
+  private String cg08Value5;
+  @Column(name = "cg09_unit", columnDefinition = "varchar(100) comment '만성조류-단위'")
+  private String cg09Unit;
+  @Column(name = "cg10_tg", columnDefinition = "varchar(100) comment '만성조류-시험지침'")
+  private String cg10Tg;
+  @Column(name = "cg11_glp", columnDefinition = "varchar(100) comment '만성조류-GLP'")
+  private String cg11Glp;
+  @Column(name = "cg12_ref", columnDefinition = "varchar(255) comment '만성조류-출처'")
+  private String cg12Ref;
+  @Column(name = "cg13_other", columnDefinition = "varchar(100) comment '만성조류-비고'")
+  private String cg13Other;
+
+  @Column(name = "ch01_time", columnDefinition = "varchar(100) comment '만성기타-시간'")
+  private String ch01Time;
+  @Column(name = "ch02_endpoint", columnDefinition = "varchar(100) comment '만성기타-종말점'")
+  private String ch02Endpoint;
+  @Column(name = "ch03_species", columnDefinition = "varchar(100) comment '만성기타-실험종'")
+  private String ch03Species;
+  @Column(name = "ch04_value1", columnDefinition = "varchar(100) comment '만성기타-유일값'")
+  private String ch04Value1;
+  @Column(name = "ch05_value2", columnDefinition = "varchar(100) comment '만성기타-최소값1'")
+  private String ch05Value2;
+  @Column(name = "ch06_value3", columnDefinition = "varchar(100) comment '만성기타-최소값2'")
+  private String ch06Value3;
+  @Column(name = "ch07_value4", columnDefinition = "varchar(100) comment '만성기타-최대값1'")
+  private String ch07Value4;
+  @Column(name = "ch08_value5", columnDefinition = "varchar(100) comment '만성기타-최대값2'")
+  private String ch08Value5;
+  @Column(name = "ch09_unit", columnDefinition = "varchar(100) comment '만성기타-단위'")
+  private String ch09Unit;
+  @Column(name = "ch10_tg", columnDefinition = "varchar(100) comment '만성기타-시험지침'")
+  private String ch10Tg;
+  @Column(name = "ch11_glp", columnDefinition = "varchar(100) comment '만성기타-GLP'")
+  private String ch11Glp;
+  @Column(name = "ch12_ref", columnDefinition = "varchar(255) comment '만성기타-출처'")
+  private String ch12Ref;
+  @Column(name = "ch13_other", columnDefinition = "varchar(100) comment '만성기타-비고'")
+  private String ch13Other;
+
+  @Column(name = "ch01_persistence", columnDefinition = "varchar(100) comment '잔류성'")
+  private String ci01Persistence;
+
+  @Column(name = "cj01_data", columnDefinition = "varchar(100) comment '생분해성-값'")
+  private String cj01Data;
+  @Column(name = "cj02_time", columnDefinition = "varchar(100) comment '생분해성-시간'")
+  private String cj02Time;
+  @Column(name = "cj03_degrade", columnDefinition = "varchar(100) comment '생분해성-분해도'")
+  private String cj03Degrade;
+  @Column(name = "cj04_ref", columnDefinition = "varchar(255) comment '생분해성-출처'")
+  private String cj04Ref;
+  @Column(name = "cj05_other", columnDefinition = "varchar(100) comment '생분해성-비고'")
+  private String cj05Other;
+
+  @Column(name = "ck01_value1", columnDefinition = "varchar(100) comment '농축성-유일값'")
+  private String ck01Value1;
+  @Column(name = "ck02_value2", columnDefinition = "varchar(100) comment '농축성-최소값1'")
+  private String ck02Value2;
+  @Column(name = "ck03_value3", columnDefinition = "varchar(100) comment '농축성-최소값2'")
+  private String ck03Value3;
+  @Column(name = "ck04_value4", columnDefinition = "varchar(100) comment '농축성-최대값1'")
+  private String ck04Value4;
+  @Column(name = "ck05_value5", columnDefinition = "varchar(100) comment '농축성-최대값2'")
+  private String ck05Value5;
+  @Column(name = "ck06_ref", columnDefinition = "varchar(255) comment '농축성-출처'")
+  private String ck06Ref;
+  @Column(name = "ck06_other", columnDefinition = "varchar(255) comment '농축성-비고'")
+  private String ck06Other;
+
+  @Column(name = "cl01_value1", columnDefinition = "varchar(100) comment '토양이동성-유일값'")
+  private String cl01Value1;
+  @Column(name = "cl02_value2", columnDefinition = "varchar(100) comment '토양이동성-최소값1'")
+  private String cl02Value2;
+  @Column(name = "cl03_value3", columnDefinition = "varchar(100) comment '토양이동성-최소값2'")
+  private String cl03Value3;
+  @Column(name = "cl04_value4", columnDefinition = "varchar(100) comment '토양이동성-최대값1'")
+  private String cl04Value4;
+  @Column(name = "cl05_value5", columnDefinition = "varchar(100) comment '토양이동성-최대값2'")
+  private String cl05Value5;
+  @Column(name = "cl06_ref", columnDefinition = "varchar(255) comment '토양이동성-출처'")
+  private String cl06Ref;
+  @Column(name = "cl06_other", columnDefinition = "varchar(100) comment '토양이동성-비고'")
+  private String cl06Other;
+
+  @Column(name = "division_C03", columnDefinition = "varchar(100) comment '기타유해영향-구분'")
+  private String divisionC03;
+  @Column(name = "cm01_data", columnDefinition = "varchar(100) comment '기타유해영향-오존층유해성값'")
+  private String cm01Data;
+  @Column(name = "cm02_ref", columnDefinition = "varchar(100) comment '기타유해영향-출처'")
+  private String cm02Ref;
+  @Column(name = "cm03_other", columnDefinition = "varchar(100) comment '기타유해영향-비고'")
+  private String cm03Other;
 }
