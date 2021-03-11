@@ -41,9 +41,9 @@ public class ClientMemberBoardService {
     return memberBoardService.selectMemberBoard(id);
   }
 
-  public void insertMemberBoard(MemberBoardDTO memberBoardDto,
+  public void insertMemberBoard(MemberBoardDTO memberBoardDTO,
       MultipartHttpServletRequest multipartHttpServletRequest) {
-    long seq = memberBoardService.insertMemberBoard(memberBoardDto.toEntity());
+    long seq = memberBoardService.insertMemberBoard(memberBoardDTO.toEntity());
     insertFile(seq, multipartHttpServletRequest);
   }
 

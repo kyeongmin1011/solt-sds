@@ -1,5 +1,6 @@
 package com.safetyas.sds.client.api.controller;
 
+import com.safetyas.sds.client.api.request.MemberBoardRequest;
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
 import com.safetyas.sds.client.api.response.SingleResult;
@@ -32,7 +33,7 @@ public class MemberBoardController {
   private final ClientMemberBoardService clientMemberBoardService;
   private final ResponseService responseService;
 
-  @GetMapping("")
+  @GetMapping("/")
   @ApiOperation("고객 게시판 목록 조회")
   public SingleResult<Page<MemberBoardDTO>> selectMemberBoardList(
       @PageableDefault Pageable pageable, BoardSearchCondition condition) {
@@ -46,11 +47,11 @@ public class MemberBoardController {
     return responseService.getSingleResult(clientMemberBoardService.selectMemberBoard(id));
   }
 
-  @PostMapping("")
+  @PostMapping("/")
   @ApiOperation("고객 게시판 저장")
-  public CommonResult insertMemberBoard(MemberBoardDTO memberBoardDto,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
-    clientMemberBoardService.insertMemberBoard(memberBoardDto, multipartHttpServletRequest);
+  public CommonResult insertMemberBoard(MemberBoardRequest memberBoardRequest) {
+    System.out.println("memberBoardRequest = " + memberBoardRequest.toString());
+//    clientMemberBoardService.insertMemberBoard(memberBoardRequest.toDTO(), multipartHttpServletRequest);
     return responseService.getSuccessResult();
   }
 
