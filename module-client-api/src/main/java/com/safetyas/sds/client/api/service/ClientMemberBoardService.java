@@ -17,7 +17,6 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Slf4j
 @Service
@@ -42,17 +41,17 @@ public class ClientMemberBoardService {
   }
 
   public void insertMemberBoard(MemberBoardDTO memberBoardDTO,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
+      List<MultipartFile> files) {
     long seq = memberBoardService.insertMemberBoard(memberBoardDTO.toEntity());
-    insertFile(seq, multipartHttpServletRequest);
+    insertFile(seq, files);
   }
 
   public void updateMemberBoard(Long id, MemberBoardDTO memberBoardDto,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
+      List<MultipartFile> files) {
     memberBoardService.updateMemberBoard(id, memberBoardDto);
 
-    if (!multipartHttpServletRequest.getFiles(TYPE_NAME).isEmpty()) {
-      updateFile(id, memberBoardDto, multipartHttpServletRequest);
+    if (files.isEmpty()) {
+      updateFile(id, memberBoardDto, files);
     }
   }
 
@@ -60,8 +59,7 @@ public class ClientMemberBoardService {
     memberBoardService.deleteMemberBoard(id);
   }
 
-  private void insertFile(long seq, MultipartHttpServletRequest multipartHttpServletRequest) {
-    List<MultipartFile> attachList = multipartHttpServletRequest.getFiles(TYPE_NAME);
+  private void insertFile(long seq, List<MultipartFile> attachList) {
     Map<String, MultipartFile> fileMap = new HashMap<>();
 
     int i = 1;
@@ -86,7 +84,7 @@ public class ClientMemberBoardService {
   }
 
   private void updateFile(long memberBoardSeq, MemberBoardDTO memberBoardDto,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
+      List<MultipartFile> attachList) {
 
     List<Long> originFileList = fileService.selectFileList(memberBoardSeq, TABLE_NAME)
         .stream()
@@ -108,6 +106,6 @@ public class ClientMemberBoardService {
         fileUtil.deleteFile(file.getPath(), file.getName());
       }
     }
-    insertFile(memberBoardSeq, multipartHttpServletRequest);
+    insertFile(memberBoardSeq, attachList);
   }
 }

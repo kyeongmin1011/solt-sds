@@ -9,6 +9,7 @@ import com.safetyas.sds.common.model.BoardSearchCondition;
 import com.safetyas.sds.common.model.MemberBoardDTO;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.data.domain.Page;
@@ -20,8 +21,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 @Slf4j
 @Api("고객 게시판")
@@ -49,17 +51,18 @@ public class MemberBoardController {
 
   @PostMapping("/")
   @ApiOperation("고객 게시판 저장")
-  public CommonResult insertMemberBoard(MemberBoardRequest memberBoardRequest) {
-    System.out.println("memberBoardRequest = " + memberBoardRequest.toString());
-//    clientMemberBoardService.insertMemberBoard(memberBoardRequest.toDTO(), multipartHttpServletRequest);
+  public CommonResult insertMemberBoard(MemberBoardRequest memberBoardRequest, @RequestParam("file") List<MultipartFile> files) {
+    System.out.println(files.toString());
+    clientMemberBoardService.insertMemberBoard(memberBoardRequest.toDTO(), files);
     return responseService.getSuccessResult();
   }
 
   @PutMapping("/{id}")
   @ApiOperation("고객 게시판 수정")
   public CommonResult updateMemberBoard(@PathVariable Long id,
-      MemberBoardDTO memberBoardDto, MultipartHttpServletRequest multipartHttpServletRequest) {
-    clientMemberBoardService.updateMemberBoard(id, memberBoardDto, multipartHttpServletRequest);
+      MemberBoardDTO memberBoardDto,
+      @RequestParam("file") List<MultipartFile> files) {
+    clientMemberBoardService.updateMemberBoard(id, memberBoardDto, files);
     return responseService.getSuccessResult();
   }
 

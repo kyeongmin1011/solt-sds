@@ -1,12 +1,13 @@
 package com.safetyas.sds.client.api.request;
 
 import com.safetyas.sds.common.model.MemberBoardDTO;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.multipart.MultipartFile;
 
 @Getter
 @Setter
@@ -21,7 +22,7 @@ public class MemberBoardRequest {
   private String writerName;
   private String writerEmail;
   private String content;
-  private MultipartHttpServletRequest attach;
+  private List<MultipartFile> file;
 
   public MemberBoardDTO toDTO() {
     return MemberBoardDTO.builder()
