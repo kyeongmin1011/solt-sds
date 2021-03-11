@@ -3,6 +3,7 @@ package com.safetyas.sds.common.entity.msds;
 import com.safetyas.sds.common.entity.CommonEntity;
 import com.safetyas.sds.common.entity.MemberSupplier;
 import com.safetyas.sds.common.model.ProductMatterDTO;
+import java.time.LocalDate;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -69,6 +70,15 @@ public class ProductMatter extends CommonEntity {
 
   @Column(name = "alter_content_rate", columnDefinition = "float(12) comment '대체함유율'")
   private Float alterContentRate;
+
+  @Column(name = "alter_no", columnDefinition = "varchar(50) comment '대체자료 승인번호'")
+  private String msdsNo;
+
+  @Column(name = "valid_start", columnDefinition = "varchar(50) comment '대체자료 유효기간 시작'")
+  private LocalDate vaildStart;
+
+  @Column(name = "valid_finish", columnDefinition = "varchar(50) comment '대체자료 유효기간 끝'")
+  private LocalDate vaildFinish;
 
   @Column(name = "alter_content_yn", columnDefinition = "varchar(1) comment '대체명칭 신청여부'")
   private String alterContentYn;
