@@ -23,7 +23,7 @@ public class TranslationAgencyProgressDTO extends CommonDTO implements Serializa
   private String note;
 
   @QueryProjection
-  public TranslationAgencyProgressDTO(String state, String note, LocalDateTime inDate) {
+  public TranslationAgencyProgressDTO(LocalDateTime inDate, String state, String note) {
     super(inDate);
     this.state = state;
     this.note = note;

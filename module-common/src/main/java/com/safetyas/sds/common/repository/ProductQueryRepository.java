@@ -36,11 +36,11 @@ import static com.safetyas.sds.common.entity.QMember.member;
 import static com.safetyas.sds.common.entity.QMemberInfo.memberInfo;
 import static com.safetyas.sds.common.entity.QMemberSupplier.memberSupplier;
 import static com.safetyas.sds.common.entity.agency.QOrAgency.orAgency;
-import static com.safetyas.sds.common.entity.msds.QProduct.product;
 import static com.safetyas.sds.common.entity.agency.QRenewAgency.renewAgency;
 import static com.safetyas.sds.common.entity.agency.QRevisionAgency.revisionAgency;
 import static com.safetyas.sds.common.entity.agency.QSubmissionAgency.submissionAgency;
 import static com.safetyas.sds.common.entity.agency.QTranslationAgency.translationAgency;
+import static com.safetyas.sds.common.entity.msds.QProduct.product;
 import static org.reflections.util.Utils.isEmpty;
 
 @Repository
@@ -62,7 +62,8 @@ public class ProductQueryRepository {
 
   public List<SubmissionAgencyDTO> selectProductSubmissionAgency(Long id) {
     return queryFactory
-        .select(new QSubmissionAgencyDTO(submissionAgency.state, submissionAgency.note))
+        .select(new QSubmissionAgencyDTO(submissionAgency.inDate, submissionAgency.state,
+            submissionAgency.note))
         .from(product)
         .leftJoin(product.submissionAgencyList, submissionAgency)
         .where(product.productSeq.eq(id), product.agencySubmissionYn.eq("Y"))
@@ -104,14 +105,14 @@ public class ProductQueryRepository {
         .fetchOne();
   }
 
-  public TranslationAgencyProgressDTO selectTranslationProgress(Long id) {
+  public List<TranslationAgencyProgressDTO> selectTranslationProgress(Long id) {
     return queryFactory
-        .select(new QTranslationAgencyProgressDTO(translationAgency.state, translationAgency.note,
-            translationAgency.inDate))
+        .select(new QTranslationAgencyProgressDTO(translationAgency.inDate, translationAgency.state,
+            translationAgency.note))
         .from(product)
         .leftJoin(product.translationAgencyList, translationAgency)
         .where(product.productSeq.eq(id), product.agencyTranslateYn.eq("Y"))
-        .fetchOne();
+        .fetch();
   }
 
   public TranslationAgencyRequestInfoDTO selectTranslationRequestInfo(Long id) {

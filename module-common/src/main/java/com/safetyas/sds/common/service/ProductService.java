@@ -5,18 +5,20 @@ import com.safetyas.sds.common.entity.CbiSentence;
 import com.safetyas.sds.common.entity.MemberSupplier;
 import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.model.CbiDocumentDTO;
+import com.safetyas.sds.common.model.MemberSupplierDTO;
 import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.repository.CbiDocumentRepository;
 import com.safetyas.sds.common.repository.CbiSentenceRepository;
+import com.safetyas.sds.common.repository.MemberSupplierQueryRepository;
 import com.safetyas.sds.common.repository.MemberSupplierRepository;
-import com.safetyas.sds.common.repository.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductQueryRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.List;
 import java.util.NoSuchElementException;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
+import org.modelmapper.TypeToken;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
@@ -26,10 +28,10 @@ import org.springframework.stereotype.Service;
 public class ProductService {
 
   private final ProductRepository productRepository;
-  private final ProductMatterRepository productMatterRepository;
-  private final MemberSupplierRepository memberSupplierRepository;
-  private final CbiSentenceRepository cbiSentenceRepository;
   private final ProductQueryRepository productQueryRepository;
+  private final MemberSupplierRepository memberSupplierRepository;
+  private final MemberSupplierQueryRepository memberSupplierQueryRepository;
+  private final CbiSentenceRepository cbiSentenceRepository;
   private final CbiDocumentRepository cbiDocumentRepository;
 
   private final ModelMapper modelMapper;
@@ -91,6 +93,17 @@ public class ProductService {
   public ProductDTO selectProductAndProductMatter(Long productSeq) {
     Product product = productRepository.findById(productSeq)
         .orElseThrow(NoSuchElementException::new);
-    return modelMapper.map(product, ProductDTO.class);
+
+    ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
+
+    productDTO.setMemberSupplierSeq(product.getMemberSupplier().getMemberSupplierSeq());
+
+    //TODO:: 멤버 시퀀스 넣어줘야 함
+    productDTO.setMemberSupplierList(
+        modelMapper.map(memberSupplierQueryRepository.selectMemberSuppliers(1L),
+            new TypeToken<List<MemberSupplierDTO>>() {
+            }.getType()));
+
+    return productDTO;
   }
 }

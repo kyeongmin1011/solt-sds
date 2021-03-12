@@ -101,7 +101,7 @@ public class AgencyController {
 
   @ApiOperation(value = "번역대행 진행상태 조회")
   @GetMapping(value = "/translate/progress/{productSeq}")
-  public SingleResult<TranslationAgencyProgressDTO> selectTranslateAgencyProgress(
+  public SingleResult<List<TranslationAgencyProgressDTO>> selectTranslateAgencyProgress(
       @ApiParam(value = "제품 번호", required = true) @PathVariable Long productSeq) {
 
     return responseService

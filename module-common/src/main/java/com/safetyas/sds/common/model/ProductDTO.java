@@ -49,15 +49,15 @@ public class ProductDTO extends CommonDTO implements Serializable {
 
   private String casList;
 
-  private List<CbiAgencyDTO> cbiAgencyList = new ArrayList<>();
   private List<ProductMatterDTO> productMatterList = new ArrayList<>();
+  private List<MemberSupplierDTO> memberSupplierList = new ArrayList<>();
   private List<FileDTO> fileList = new ArrayList<>();
 
   @QueryProjection
   public ProductDTO(LocalDateTime inDate, Long productSeq, String productUid, String finalSaveYn,
       String language,
       String agencyTranslateYn, String agencyRevisionYn, String tonsYear, String agencySubmissionYn,
-      String agencyCbiDocYn, String orYn,String casList) {
+      String agencyCbiDocYn, String orYn, String casList) {
     super(inDate);
     this.productSeq = productSeq;
     this.productUid = productUid;

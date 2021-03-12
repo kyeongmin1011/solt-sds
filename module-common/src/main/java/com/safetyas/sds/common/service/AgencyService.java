@@ -80,7 +80,7 @@ public class AgencyService {
           .orElseThrow(NoSuchElementException::new);
 
       productMatter.updateAlterContentYn(productMatterDTO.getAlterContentYn());
-      productMatter.updateProduct(product);
+      // productMatter.updateProduct(product);
 
       productMatterRepository.save(productMatter);
     }
@@ -124,7 +124,7 @@ public class AgencyService {
     return revisionAgencyRequestInfoDTO;
   }
 
-  public TranslationAgencyProgressDTO selectTranslationProgress(Long productSeq) {
+  public List<TranslationAgencyProgressDTO> selectTranslationProgress(Long productSeq) {
     return productQueryRepository.selectTranslationProgress(productSeq);
   }
 

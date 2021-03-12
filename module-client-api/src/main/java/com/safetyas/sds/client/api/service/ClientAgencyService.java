@@ -81,7 +81,7 @@ public class ClientAgencyService {
     }
   }
 
-  public TranslationAgencyProgressDTO selectTranslationProgress(Long productSeq) {
+  public List<TranslationAgencyProgressDTO> selectTranslationProgress(Long productSeq) {
     return agencyService.selectTranslationProgress(productSeq);
   }
 
