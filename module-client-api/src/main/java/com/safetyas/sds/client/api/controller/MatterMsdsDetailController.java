@@ -2,6 +2,8 @@ package com.safetyas.sds.client.api.controller;
 
 import com.safetyas.sds.client.api.response.CommonResult;
 import com.safetyas.sds.client.api.response.ResponseService;
+import com.safetyas.sds.client.api.service.ClientMatterMsdsService;
+import com.safetyas.sds.client.api.service.ClientProductMatterService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import lombok.RequiredArgsConstructor;
@@ -12,16 +14,19 @@ import org.springframework.web.bind.annotation.RestController;
 
 @Api(tags = {"물질 MSDS 문서 디테일 작성"})
 @RestController
-@RequestMapping(value = "/product-matter")
+@RequestMapping(value = "/matter-msds")
 @RequiredArgsConstructor
 public class MatterMsdsDetailController {
 
   private final ResponseService responseService;
+  private final ClientProductMatterService clientProductMatterService;
+  private final ClientMatterMsdsService clientMatterMsdsService;
 
-  @PostMapping
+  @PostMapping("/step1")
   @ApiOperation("step1 작성 업데이트")
   public CommonResult selectStep1() {
 
+    clientMatterMsdsService.updateStep1();
     return responseService.getSuccessResult();
   }
 

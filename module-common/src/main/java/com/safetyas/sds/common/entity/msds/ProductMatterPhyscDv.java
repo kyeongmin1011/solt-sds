@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.MatterPhyscDvDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_physc_dv")
-public class ProductMatterPhyscDv {
+public class ProductMatterPhyscDv implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -72,4 +77,12 @@ public class ProductMatterPhyscDv {
   private String divisionA18;
   @Column(name = "division_a19", columnDefinition = "varchar(100) comment '둔감폭발물 구분'")
   private String divisionA19;
+
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterPhyscDv toEntity(MatterPhyscDvDTO matterPhyscDvDTO) {
+    return ModelMapperUtils.getModelMapper().map(matterPhyscDvDTO, ProductMatterPhyscDv.class);
+  }
 }

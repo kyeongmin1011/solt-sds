@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.MatterPhyscChemDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_physc_chem")
-public class ProductMatterPhyscChem {
+public class ProductMatterPhyscChem implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -250,5 +255,13 @@ public class ProductMatterPhyscChem {
   private String as1Data;
   @Column(name = "as2_ref", columnDefinition = "varchar(100) comment '분자량-출처'")
   private String as2Ref;
+
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterPhyscChem toEntity(MatterPhyscChemDTO matterPhyscChemDTO) {
+    return ModelMapperUtils.getModelMapper().map(matterPhyscChemDTO, ProductMatterPhyscChem.class);
+  }
 
 }

@@ -30,9 +30,11 @@ import lombok.NoArgsConstructor;
 public class ProductMatter extends CommonEntity {
 
   @Builder
-  public ProductMatter(String cas, String otherNumber, String chemName, Float contentRate,
-      String alterNo, LocalDate validStart, LocalDate validFinish,
-      String alterContentYn, String alterMatterName, Float alterContentRate) {
+  public ProductMatter(Product product, String cas, String otherNumber, String chemName,
+      Float contentRate, String alterNo, LocalDate validStart, LocalDate validFinish,
+      String alterContentYn, String alterMatterName, Float alterContentRate,
+      String premiumDbYn, String matterDatabaseKey) {
+    updateProduct(product);
     this.cas = cas;
     this.otherNumber = otherNumber;
     this.chemName = chemName;
@@ -43,6 +45,8 @@ public class ProductMatter extends CommonEntity {
     this.alterNo = alterNo;
     this.validStart = validStart;
     this.validFinish = validFinish;
+    this.premiumDbYn = premiumDbYn;
+    this.matterDatabaseKey = matterDatabaseKey;
   }
 
 /*  @Builder
@@ -90,8 +94,8 @@ public class ProductMatter extends CommonEntity {
   @Column(name = "premium_db_yn", columnDefinition = "varchar(1) comment '프리미엄디비여부'")
   private String premiumDbYn;
 
-  @Column(name = "matter_database_seq", length = 20)
-  private Long matterDatabaseSeq;  // 참조 물질디비시퀀스
+  @Column(name = "matter_database_key", length = 20)
+  private String matterDatabaseKey;  // 참조 물질디비시퀀스
 
   @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
   @JoinColumn(name = "member_supplier_seq", foreignKey = @ForeignKey(name = "member_supplier_seq_product_matter_fk"))
@@ -104,6 +108,21 @@ public class ProductMatter extends CommonEntity {
   @OneToOne(fetch = FetchType.LAZY)
   @JoinColumn(name = "matter_data_key", foreignKey = @ForeignKey(name = "matter_data_key_product_matter_fk"))
   private MatterData matterData;
+
+  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  private ProductMatterPhyscChem productMatterPhyscChem;
+
+  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  private ProductMatterHealth productMatterHealth;
+
+  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  private ProductMatterEnv productMatterEnv;
+
+  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  private ProductMatterLaw productMatterLaw;
+
+  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  private ProductMatterPhyscDv productMatterPhyscDv;
 
   public void updateProduct(Product product) {
     if (this.product != null) {
@@ -129,4 +148,6 @@ public class ProductMatter extends CommonEntity {
     this.validStart = productMatterDTO.getValidStart();
     this.validFinish = productMatterDTO.getValidFinish();
   }
+
+
 }

@@ -1,5 +1,6 @@
 package com.safetyas.sds.common.entity.msds;
 
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_matter_env")
-public class MatterEnv {
+public class MatterEnv implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)

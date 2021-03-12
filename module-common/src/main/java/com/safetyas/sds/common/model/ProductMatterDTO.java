@@ -1,22 +1,23 @@
 package com.safetyas.sds.common.model;
 
 import com.safetyas.sds.common.entity.msds.ProductMatter;
+import com.safetyas.sds.common.modelMapper.CustomModelMapper;
 import java.io.Serializable;
 import java.time.LocalDate;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Autowired;
 
-@Getter
-@Setter
-@NoArgsConstructor
-@AllArgsConstructor
-@ToString
+@Data
 public class ProductMatterDTO implements Serializable {
 
   private static final long serialVersionUID = -2855176401095936738L;
+  private static ModelMapper modelMapper;
 
   private Long productMatterSeq;
   private String cas;
@@ -32,8 +33,8 @@ public class ProductMatterDTO implements Serializable {
   private String alterContentYn;
   private MemberSupplierDTO memberSupplier;
 
-  public ProductMatter toEntity() {
-    return ProductMatter.builder()
+  public static ProductMatter toEntity(ProductMatterDTO productMatterDTO) {
+/*    return ProductMatter.builder()
         .cas(this.cas)
         .otherNumber(this.otherNumber)
         .chemName(this.chemName)
@@ -44,7 +45,7 @@ public class ProductMatterDTO implements Serializable {
         .alterNo(this.alterNo)
         .validStart(this.validStart)
         .validFinish(this.validFinish)
-        .build();
-
+        .build();*/
+    return modelMapper.map(productMatterDTO, ProductMatter.class);
   }
 }

@@ -41,7 +41,7 @@ public class ProductMatterController {
   }
 
   @PutMapping("/{productMatterSeq}")
-  @ApiOperation("한 제품의 물질리스트")
+  @ApiOperation("한 제품의 물질 정보 업데이트")
   public CommonResult updateProductMatter(@PathVariable Long productMatterSeq, @RequestBody ProductMatterDTO productMatterDTO) {
     clientProductMatterService.updateProductMatter(productMatterSeq,productMatterDTO);
     return responseService.getSuccessResult();

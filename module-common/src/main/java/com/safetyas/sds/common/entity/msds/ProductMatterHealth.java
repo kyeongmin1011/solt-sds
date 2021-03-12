@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.MatterHealthDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_health")
-public class ProductMatterHealth {
+public class ProductMatterHealth implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -333,4 +338,12 @@ public class ProductMatterHealth {
   private String bm04Ref;
   @Column(name = "bm05_other", columnDefinition = "varchar(100) comment '흡인유해성-비고'")
   private String bm05Other;
+
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterHealth toEntity(MatterHealthDTO matterHealthDTO) {
+    return ModelMapperUtils.getModelMapper().map(matterHealthDTO, ProductMatterHealth.class);
+  }
 }
