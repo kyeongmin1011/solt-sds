@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity.msds;
 
-import com.safetyas.sds.common.model.MatterHealthDTO;
+import com.safetyas.sds.common.model.msds.MatterHealthDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -37,7 +37,7 @@ public class ProductMatterHealth implements Serializable {
   @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_health_fk"))
   private ProductMatter productMatter;
 
-  //----------------------------------------------------------------- B그룹 11 독성에 관한 정보
+  //----------------------------------------------------------------- B그룹 건강유해성 11 독성에 관한 정보
   @Column(name = "division_b01", columnDefinition = "varchar(100) comment '급성 경구독성-구분'")
   private String divisionB01;  // 구분값
   @Column(name = "ba01_species", columnDefinition = "varchar(100) comment '급성 경구독성-실험종'")
@@ -154,20 +154,22 @@ public class ProductMatterHealth implements Serializable {
   private String be04Ref;
   @Column(name = "be05_data1", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-각막불투명도'")
   private String be05Data1;
-  @Column(name = "be06_other1", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
+  @Column(name = "be06_other1", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고1'")
   private String be06Other1;
   @Column(name = "be07_data2", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-홍채염'")
   private String be07Data2;
-  @Column(name = "be08_other2", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
+  @Column(name = "be08_other2", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고2'")
   private String be08Other2;
   @Column(name = "be09_data3", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-결막충혈상태'")
   private String be09Data3;
-  @Column(name = "be10_Other3", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
+  @Column(name = "be10_Other3", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고3'")
   private String be10Other3;
   @Column(name = "be11_data4", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-결막부종상태'")
   private String be11Data4;
-  @Column(name = "be12_other4", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
+  @Column(name = "be12_other4", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고4'")
   private String be5Other4;
+  @Column(name = "be13_other", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
+  private String be13Other; // 추가
 
   @Column(name = "division_b06", columnDefinition = "varchar(100) comment '호흡기과민성-구분'")
   private String divisionB06;  // 구분값
@@ -221,6 +223,8 @@ public class ProductMatterHealth implements Serializable {
   private String bh11Ref2;
   @Column(name = "bh12_other2", columnDefinition = "varchar(100) comment '생식세포 변이원성-비고2'")
   private String bh12Other2;
+  @Column(name = "bh13_other", columnDefinition = "varchar(100) comment '생식세포 변이원성-비고'")
+  private String bh13Other; //추가
 
   @Column(name = "division_b09", columnDefinition = "varchar(100) comment '발암성-구분'")
   private String divisionB09;  // 구분값

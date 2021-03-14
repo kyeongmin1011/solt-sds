@@ -1,7 +1,6 @@
 package com.safetyas.sds.common.service;
 
 import com.safetyas.sds.common.entity.msds.MatterData;
-import com.safetyas.sds.common.entity.msds.MatterEnv;
 import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.entity.msds.ProductMatter;
 import com.safetyas.sds.common.entity.msds.ProductMatterEnv;
@@ -9,11 +8,11 @@ import com.safetyas.sds.common.entity.msds.ProductMatterHealth;
 import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
-import com.safetyas.sds.common.model.MatterEnvDTO;
-import com.safetyas.sds.common.model.MatterHealthDTO;
-import com.safetyas.sds.common.model.MatterLawDTO;
-import com.safetyas.sds.common.model.MatterPhyscChemDTO;
-import com.safetyas.sds.common.model.MatterPhyscDvDTO;
+import com.safetyas.sds.common.model.msds.MatterEnvDTO;
+import com.safetyas.sds.common.model.msds.MatterHealthDTO;
+import com.safetyas.sds.common.model.msds.MatterLawDTO;
+import com.safetyas.sds.common.model.msds.MatterPhyscChemDTO;
+import com.safetyas.sds.common.model.msds.MatterPhyscDvDTO;
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.repository.MatterDataRepository;
 import com.safetyas.sds.common.repository.ProductMatterEnvRepository;
@@ -24,7 +23,7 @@ import com.safetyas.sds.common.repository.ProductMatterPhyscDvRepository;
 import com.safetyas.sds.common.repository.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.NoSuchElementException;
-import java.util.Optional;
+
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;

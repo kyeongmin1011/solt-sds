@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity.msds;
 
-import com.safetyas.sds.common.model.MatterEnvDTO;
+import com.safetyas.sds.common.model.msds.MatterEnvDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import java.io.Serializable;
 import javax.persistence.CascadeType;
@@ -19,7 +19,6 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.beans.BeanUtils;
 
 @Getter
 @Setter
@@ -321,10 +320,8 @@ public class ProductMatterEnv implements Serializable {
   }
 
   public static ProductMatterEnv toEntity(MatterEnvDTO matterEnvDTO) {
-    System.out.println("14day??:"+matterEnvDTO.getCj02Time());
 /*    ProductMatterEnv productMatterEnv = new ProductMatterEnv();
     BeanUtils.copyProperties(matterEnvDTO, productMatterEnv);*/
-    ProductMatterEnv productMatterEnv = ModelMapperUtils.getModelMapper().map(matterEnvDTO, ProductMatterEnv.class);
-    return productMatterEnv;
+    return ModelMapperUtils.getModelMapper().map(matterEnvDTO, ProductMatterEnv.class);
   }
 }

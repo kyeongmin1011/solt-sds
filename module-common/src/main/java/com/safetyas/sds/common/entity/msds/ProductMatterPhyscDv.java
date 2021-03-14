@@ -1,6 +1,6 @@
 package com.safetyas.sds.common.entity.msds;
 
-import com.safetyas.sds.common.model.MatterPhyscDvDTO;
+import com.safetyas.sds.common.model.msds.MatterPhyscDvDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import java.io.Serializable;
 import javax.persistence.CascadeType;

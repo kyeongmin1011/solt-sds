@@ -1,4 +1,4 @@
-package com.safetyas.sds.common.model;
+package com.safetyas.sds.common.model.msds;
 
 import com.safetyas.sds.common.entity.msds.MatterPhyscChem;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;

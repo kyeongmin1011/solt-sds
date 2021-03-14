@@ -1,0 +1,99 @@
+package com.safetyas.sds.common.model.msds;
+
+import com.safetyas.sds.common.entity.msds.MatterLaw;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
+import org.modelmapper.ModelMapper;
+
+import javax.persistence.Column;
+
+@Getter
+@Setter
+@Builder
+@NoArgsConstructor
+@AllArgsConstructor
+public class MatterLawDTO {
+
+  private Long LawSeq;
+
+  //------------------------------------------------------------- D그룹 14 un번호
+
+  //(name = "da1_un", columnDefinition = "varchar(100) comment '번호'")
+  private String da1Un;
+
+  //------------------------------------------------------------- E그룹 8 노출기준
+
+  //(name = "ea1_domestic", columnDefinition = "varchar(100) comment '노출기준-국내규정'")
+  private String ea1Domestic;
+  //(name = "ea2_acgih", columnDefinition = "varchar(100) comment '노출기준-ACGIH'")
+  private String ea2Acgih;
+  //(name = "ea3_osha", columnDefinition = "varchar(100) comment '노출기준-OSHA'")
+  private String ea3Osha;
+  //(name = "ea4_niosh", columnDefinition = "varchar(100) comment '노출기준-NIOSH'")
+  private String ea4Niosh;
+  //(name = "ea5_eu", columnDefinition = "varchar(100) comment '노출기준-EU'")
+  private String ea5EU;
+  //(name = "ea6_other", columnDefinition = "varchar(100) comment '노출기준-비고'")
+  private String ea6Other;
+
+  //------------------------------------------------------------- F그룹 15 법적규제현황
+
+  //(name = "fa1_data1", columnDefinition = "varchar(100) comment '산안법-노출기준설정물질'")
+  private String fa1Data1;
+  //(name = "fa2_data2", columnDefinition = "varchar(100) comment '산안법-작업환경측정대상'")
+  private String fa2Data2;
+  //(name = "fa3_data3", columnDefinition = "varchar(100) comment '산안법-특수건강진단대상'")
+  private String fa3Data3;
+  //(name = "fa4_data4", columnDefinition = "varchar(100) comment '산안법-관리대상유해물질'")
+  private String fa4Data4;
+  //(name = "fa5_data5", columnDefinition = "varchar(100) comment '산안법-특별관리물질'")
+  private String fa5Data5;
+  //(name = "fa6_data6", columnDefinition = "varchar(100) comment '산안법-허용기준이하유지'")
+  private String fa6Data6;
+  //(name = "fa7_data7", columnDefinition = "varchar(100) comment '산안법-공정안전보고서'")
+  private String fa7Data7;
+  //(name = "fa8_data8", columnDefinition = "varchar(100) comment '산안법-법117조'")
+  private String fa8Data8;
+  //(name = "fa9_data9", columnDefinition = "varchar(100) comment '산안법-법118'")
+  private String fa9Data9;
+
+  //(name = "fb1_data1", columnDefinition = "varchar(100) comment '화관법-유독물질'")
+  private String fb1Data1;
+  //(name = "fb2_data2", columnDefinition = "varchar(100) comment '화관법-허가물질'")
+  private String fb2Data2;
+  //(name = "fb3_data3", columnDefinition = "varchar(100) comment '화관법-제한물질'")
+  private String fb3Date3;
+  //(name = "fb4_data4", columnDefinition = "varchar(100) comment '화관법-금지물질'")
+  private String fb4Data4;
+  //(name = "fb5_data5", columnDefinition = "varchar(100) comment '화관법-사고대비물'")
+  private String fb5Data5;
+
+  //(name = "fc1_data1", columnDefinition = "varchar(100) comment '위안법-값'")
+  private String fc1Data1;
+
+  //(name = "fd1_data1", columnDefinition = "varchar(100) comment '폐기물관리법-값'")
+  private String fd1Data1;
+
+  //(name = "fe1_data1", columnDefinition = "varchar(100) comment '기타규제-잔류성유기오염물질관리법'")
+  private String fe1Data1;
+  //(name = "fe2_data2", columnDefinition = "varchar(100) comment '기타규제-화평법'")
+  private String fe2Data2;
+  //(name = "fe3Data3", columnDefinition = "varchar(100) comment '기타규제-EU분류정보'")
+  private String fe3Data3;
+  //(name = "fe4_data4", columnDefinition = "varchar(100) comment '기타규제-로테르담협약물질'")
+  private String fe4Data4;
+  //(name = "fe5_data5", columnDefinition = "varchar(100) comment '기타규제-스톡홀름협약물질'")
+  private String fe5Data5;
+  //(name = "fe6_data6", columnDefinition = "varchar(100) comment '기타규제-몬트리올의정서'")
+  private String fe6Data6;
+
+
+  public static  MatterLawDTO of(MatterLaw matterLaw) {
+    return ModelMapperUtils.getModelMapper().map(matterLaw, MatterLawDTO.class);
+  }
+
+}
