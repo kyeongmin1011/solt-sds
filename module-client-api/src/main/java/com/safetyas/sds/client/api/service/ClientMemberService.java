@@ -35,7 +35,7 @@ public class ClientMemberService {
   private final FileService fileService;
   private final FileUtil fileUtil;
   private final ModelMapper modelMapper;
-  
+
   private static final String TYPE_NAME = "companyCertificate";
   private static final String PATH_NAME = "companyCertificate";
   private static final String RELATE_TABLE_NAME = "sds_member";
@@ -46,8 +46,9 @@ public class ClientMemberService {
 
   /**
    * 회원가입 멤버
+   *
    * @param memberInfoRequest MemberInfoRequest
-   * @param file MultipartFile
+   * @param file              MultipartFile
    */
   public void saveJoinMember(MemberInfoRequest memberInfoRequest, MultipartFile file) {
     long memberSeq = saveMember(memberInfoRequest);
@@ -69,6 +70,7 @@ public class ClientMemberService {
 
   /**
    * 멤버 저장
+   *
    * @param memberInfoRequest MemberInfoRequest
    */
   public long saveMember(MemberInfoRequest memberInfoRequest) {
@@ -106,7 +108,7 @@ public class ClientMemberService {
   public void updateMemberInfo(MemberInfoRequest memberInfoRequest) {
     Member member = memberService.findMemberByMemberId(memberInfoRequest.getMemberId()).orElseThrow(
         NoSuchElementException::new);
-    if(memberInfoRequest.getPwd() != null) { //패스워드 재설정
+    if (memberInfoRequest.getPwd() != null) { //패스워드 재설정
       memberInfoRequest.setPwd(passwordEncoder.encode(memberInfoRequest.getPwd()));
     }
     member.updateMemberInfo(memberInfoRequest.toMemberInfoDTO());
@@ -140,6 +142,7 @@ public class ClientMemberService {
 
   /**
    * 멤버 수정할 정보 가져오기
+   *
    * @param id Bass64 아이디
    */
   public MemberInfoDTO selectMemberInfo(String id) {
@@ -147,14 +150,7 @@ public class ClientMemberService {
     Member member = memberService.selectMemberInfo(decodedId)
         .orElseThrow(CustomUserNotFoundException::new);
 
-    FileDTO fileDTO = FileDTO.builder()
-        .relateTable(RELATE_TABLE_NAME)
-        .recordSeq(member.getMemberSeq())
-        .type(TYPE_NAME)
-        .build();
-    File companyFile = fileService.selectFileByFileDTO(fileDTO);
-
-    return MemberInfoDTO.builder()
+    MemberInfoDTO memberInfoDTO = MemberInfoDTO.builder()
         .memberSeq(member.getMemberSeq())
         .memberId(member.getMemberId())
         .companyName(member.getMemberInfo().getCompanyName())
@@ -172,32 +168,46 @@ public class ClientMemberService {
         .consultingYn(member.getMemberInfo().getConsultingYn())
         .msdsTermsYn(member.getMemberInfo().getMsdsTermsYn())
         .privateTermsYn(member.getMemberInfo().getPrivateTermsYn())
-        .companyCertificate(companyFile.getOriName())
         .build();
+
+    FileDTO fileDTO = FileDTO.builder()
+        .relateTable(RELATE_TABLE_NAME)
+        .recordSeq(member.getMemberSeq())
+        .type(TYPE_NAME)
+        .build();
+    File companyFile = fileService.selectFileByFileDTO(fileDTO);
+
+    if (companyFile != null) {
+      memberInfoDTO.setCompanyCertificate(companyFile.getOriName());
+    }
+
+    return memberInfoDTO;
+
   }
 
   /**
-   *
    * @return list
    */
   public List<MemberSupplierDTO> selectMemberSuppliers(Long memberSeq) {
     List<MemberSupplier> memberSuppliers = memberService.selectMemberSuppliers(memberSeq);
-    return modelMapper.map(memberSuppliers, new TypeToken<List<MemberSupplierDTO>>() {}.getType());
+    return modelMapper.map(memberSuppliers, new TypeToken<List<MemberSupplierDTO>>() {
+    }.getType());
 
   }
 
   /**
-   *
    * @param memberSupplierDTO 공급자 정보
    * @return dto
    */
   public void saveMemberSupplier(MemberSupplierDTO memberSupplierDTO, Long memberSeq) {
-    Member member = memberService.findMemberById(memberSeq).orElseThrow(CustomUserNotFoundException::new);
+    Member member = memberService.findMemberById(memberSeq)
+        .orElseThrow(CustomUserNotFoundException::new);
     memberService.saveMemberSupplier(memberSupplierDTO.toEntity(member));
   }
 
   /**
    * 공급자 수정
+   *
    * @param memberSupplierDTO
    */
   public void updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
@@ -211,11 +221,12 @@ public class ClientMemberService {
 
   /**
    * 공급자 삭제
+   *
    * @param memberSupplierSeq
    */
   public boolean deleteMemberSupplier(Long memberSupplierSeq) {
     // 공급자가 제품을 가지고 있는지 확인
-    if(!memberService.checkMemberSupplierProduct(memberSupplierSeq)) {
+    if (!memberService.checkMemberSupplierProduct(memberSupplierSeq)) {
       return false;
     } else {
       memberService.deleteMemberSupplier(memberSupplierSeq);

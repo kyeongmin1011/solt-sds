@@ -95,7 +95,7 @@ public class MemberInfo extends CommonEntity implements Serializable {
   @Column(name = "join_route", columnDefinition = "varchar(50) comment '가입경로'")
   private String joinRoute;  // 가입경로
 
-  @Column(name = "consulting_yn", columnDefinition = "varchar(1) comment '컨설팅 여부'")
+  @Column(name = "consulting_yn", columnDefinition = "varchar(50) comment '컨설팅 여부'")
   private String consultingYn;  // 컨설팅 여부
 
   @Column(name = "msds_terms_yn", columnDefinition = "varchar(1) comment 'MSDS 이용약관 동의 여부'")
