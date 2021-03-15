@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MatterHealthDTO {
 
-  private Long HealthSeq;
+  private Long healthSeq;
 
   //----------------------------------------------------------------- B그룹 건강유해성 11 독성에 관한 정보
   //(name = "division_b01", columnDefinition = "varchar(100) comment '급성 경구독성-구분'")

@@ -18,7 +18,7 @@ import javax.persistence.Column;
 @AllArgsConstructor
 public class MatterLawDTO {
 
-  private Long LawSeq;
+  private Long lawSeq;
 
   //------------------------------------------------------------- D그룹 14 un번호
 

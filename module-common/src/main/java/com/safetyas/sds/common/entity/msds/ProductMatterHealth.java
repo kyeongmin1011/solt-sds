@@ -131,7 +131,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b04", columnDefinition = "varchar(100) comment '피부 부식성/피부 자극성-구분'")
   private String divisionB04;  // 구분값
-  @Column(name = "bd01_data", columnDefinition = "LONGTEXT comment '피부 부식성/피부 자극성-값'")
+  @Column(name = "bd01_data", columnDefinition = "TEXT comment '피부 부식성/피부 자극성-값'")
   private String bd01Data;
   @Column(name = "bd02_tg", columnDefinition = "varchar(100) comment '피부 부식성/피부 자극성-시험지침'")
   private String bd02Tg;
@@ -144,7 +144,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b05", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-구분'")
   private String divisionB05;  // 구분값
-  @Column(name = "be01_data", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-값'")
+  @Column(name = "be01_data", columnDefinition = "TEXT comment '심한 눈 손상성/눈 자극성-값'")
   private String be01Data;
   @Column(name = "be02_tg", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-시험지침'")
   private String be02Tg;
@@ -152,28 +152,28 @@ public class ProductMatterHealth implements Serializable {
   private String be03Glp;
   @Column(name = "be04_ref", columnDefinition = "varchar(255) comment '심한 눈 손상성/눈 자극성-출처'")
   private String be04Ref;
-  @Column(name = "be05_data1", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-각막불투명도'")
+  @Column(name = "be05_data1", columnDefinition = "TEXT comment '심한 눈 손상성/눈 자극성-각막불투명도'")
   private String be05Data1;
   @Column(name = "be06_other1", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고1'")
   private String be06Other1;
-  @Column(name = "be07_data2", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-홍채염'")
+  @Column(name = "be07_data2", columnDefinition = "TEXT comment '심한 눈 손상성/눈 자극성-홍채염'")
   private String be07Data2;
   @Column(name = "be08_other2", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고2'")
   private String be08Other2;
-  @Column(name = "be09_data3", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-결막충혈상태'")
+  @Column(name = "be09_data3", columnDefinition = "TEXT comment '심한 눈 손상성/눈 자극성-결막충혈상태'")
   private String be09Data3;
   @Column(name = "be10_Other3", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고3'")
   private String be10Other3;
-  @Column(name = "be11_data4", columnDefinition = "LONGTEXT comment '심한 눈 손상성/눈 자극성-결막부종상태'")
+  @Column(name = "be11_data4", columnDefinition = "TEXT comment '심한 눈 손상성/눈 자극성-결막부종상태'")
   private String be11Data4;
   @Column(name = "be12_other4", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고4'")
-  private String be5Other4;
+  private String be12Other4;
   @Column(name = "be13_other", columnDefinition = "varchar(100) comment '심한 눈 손상성/눈 자극성-비고'")
   private String be13Other; // 추가
 
   @Column(name = "division_b06", columnDefinition = "varchar(100) comment '호흡기과민성-구분'")
   private String divisionB06;  // 구분값
-  @Column(name = "bf01_data", columnDefinition = "LONGTEXT comment '호흡기과민성-값'")
+  @Column(name = "bf01_data", columnDefinition = "TEXT comment '호흡기과민성-값'")
   private String bf01Data;
   @Column(name = "bf02_tg", columnDefinition = "varchar(100) comment '호흡기과민성-시험지침'")
   private String bf02Tg;
@@ -186,7 +186,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b07", columnDefinition = "varchar(100) comment '피부 과민성-구분'")
   private String divisionB07;  // 구분값
-  @Column(name = "bg01_data", columnDefinition = "LONGTEXT comment '피부 과민성-값'")
+  @Column(name = "bg01_data", columnDefinition = "TEXT comment '피부 과민성-값'")
   private String bg01Data;
   @Column(name = "bg02_tg", columnDefinition = "varchar(100) comment '피부 과민성-시험지침'")
   private String bg02Tg;
@@ -201,7 +201,7 @@ public class ProductMatterHealth implements Serializable {
   private String divisionB08;  // 구분값
   @Column(name = "bh01_method1", columnDefinition = "varchar(100) comment '생식세포 변이원성-시험방법1'")
   private String bh01Method1;
-  @Column(name = "bh02_data1", columnDefinition = "LONGTEXT comment '생식세포 변이원성-값1'")
+  @Column(name = "bh02_data1", columnDefinition = "TEXT comment '생식세포 변이원성-값1'")
   private String bh02Data1;
   @Column(name = "bh03_tg1", columnDefinition = "varchar(100) comment '생식세포 변이원성-시험지침1'")
   private String bh03Tg1;
@@ -211,7 +211,7 @@ public class ProductMatterHealth implements Serializable {
   private String bh05Ref1;
   @Column(name = "bh06_other1", columnDefinition = "varchar(100) comment '생식세포 변이원성-비고1'")
   private String bh06Other1;
-  @Column(name = "bh07_data2", columnDefinition = "LONGTEXT comment '생식세포 변이원성-시험방법2'")
+  @Column(name = "bh07_data2", columnDefinition = "TEXT comment '생식세포 변이원성-시험방법2'")
   private String bh07Data2;
   @Column(name = "bh08_method2", columnDefinition = "varchar(100) comment '생식세포 변이원성-값2'")
   private String bh08Method2;
@@ -245,7 +245,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b10", columnDefinition = "varchar(100) comment '생식독성-구분1'")
   private String divisionB10;  // 구분값
-  @Column(name = "bj01_data1", columnDefinition = "LONGTEXT comment '생식독성-값1'")
+  @Column(name = "bj01_data1", columnDefinition = "TEXT comment '생식독성-값1'")
   private String bj01Data1;
   @Column(name = "bj02_tg1", columnDefinition = "varchar(100) comment '생식독성-시험지침1'")
   private String bj02Tg1;
@@ -253,11 +253,11 @@ public class ProductMatterHealth implements Serializable {
   private String bj03Glp1;
   @Column(name = "bj04_ref1", columnDefinition = "varchar(255) comment '생식독성-출처1'")
   private String bj04Ref1;
-  @Column(name = "bj05_other1", columnDefinition = "LONGTEXT comment '생식독성-비고1'")
+  @Column(name = "bj05_other1", columnDefinition = "TEXT comment '생식독성-비고1'")
   private String bj05Other1;
   @Column(name = "division_b11", columnDefinition = "varchar(100) comment '생식독성-구분2'")
   private String divisionB11;  // 구분값
-  @Column(name = "bj06_data2", columnDefinition = "LONGTEXT comment '생식독성-값2'")
+  @Column(name = "bj06_data2", columnDefinition = "TEXT comment '생식독성-값2'")
   private String bj06Data2;
   @Column(name = "bj07_tg2", columnDefinition = "varchar(100) comment '생식독성-시험지침2'")
   private String bj07Tg2;
@@ -274,7 +274,7 @@ public class ProductMatterHealth implements Serializable {
   private String divisionB13;  // 구분값2
   @Column(name = "division_b14", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-구분3'")
   private String divisionB14;  // 구분값3
-  @Column(name = "bk01_data1", columnDefinition = "LONGTEXT comment '특정표적장기 독성 1회-값1'")
+  @Column(name = "bk01_data1", columnDefinition = "TEXT comment '특정표적장기 독성 1회-값1'")
   private String bk01Data1;
   @Column(name = "bk02_tg1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침1'")
   private String bk02Tg1;
@@ -284,7 +284,7 @@ public class ProductMatterHealth implements Serializable {
   private String bk04Ref1;
   @Column(name = "bk05_other1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고1'")
   private String bk05Other1;
-  @Column(name = "bk06_data2", columnDefinition = "LONGTEXT comment '특정표적장기 독성 1회-시험종값2'")
+  @Column(name = "bk06_data2", columnDefinition = "TEXT comment '특정표적장기 독성 1회-시험종값2'")
   private String bk06Data2;
   @Column(name = "bk07_noael2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-NOAEL2'")
   private String bk07Noael2;
@@ -303,7 +303,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b15", columnDefinition = "varchar(100) comment '특정표적장기 독성 반복-구분1'")
   private String divisionB15;  // 구분값1
-  @Column(name = "bl01_data1", columnDefinition = "LONGTEXT comment '특정표적장기 독성 1회-값1'")
+  @Column(name = "bl01_data1", columnDefinition = "TEXT comment '특정표적장기 독성 1회-값1'")
   private String bl01Data1;
   @Column(name = "bl02_tg1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-시험지침1'")
   private String bl02Tg1;
@@ -313,7 +313,7 @@ public class ProductMatterHealth implements Serializable {
   private String bl04Ref1;
   @Column(name = "bl05_other1", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-비고1'")
   private String bl05Other1;
-  @Column(name = "bl06_data2", columnDefinition = "LONGTEXT comment '특정표적장기 독성 1회-시험종값2'")
+  @Column(name = "bl06_data2", columnDefinition = "TEXT comment '특정표적장기 독성 1회-시험종값2'")
   private String bl06Data2;
   @Column(name = "bl07_noael2", columnDefinition = "varchar(100) comment '특정표적장기 독성 1회-NOAEL2'")
   private String bl07Noael2;
@@ -332,7 +332,7 @@ public class ProductMatterHealth implements Serializable {
 
   @Column(name = "division_b16", columnDefinition = "varchar(100) comment '흡인유해성-구분'")
   private String divisionB16;  // 구분값
-  @Column(name = "bm01_data", columnDefinition = "LONGTEXT comment '흡인유해성-값'")
+  @Column(name = "bm01_data", columnDefinition = "TEXT comment '흡인유해성-값'")
   private String bm01Data;
   @Column(name = "bm02_tg", columnDefinition = "varchar(100) comment '흡인유해성-시험지침'")
   private String bm02Tg;

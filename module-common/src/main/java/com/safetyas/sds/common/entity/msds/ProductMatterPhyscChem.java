@@ -61,7 +61,7 @@ public class ProductMatterPhyscChem implements Serializable {
   private String ac2Unit;
   @Column(name = "ac3_ref", columnDefinition = "varchar(100) comment '냄새역치-출처'")
   private String ac3Ref;
-  @Column(name = "ab4_other", columnDefinition = "varchar(500) comment '냄새역치-비고'")
+  @Column(name = "ac4_other", columnDefinition = "varchar(500) comment '냄새역치-비고'")
   private String ac4Other;  //추가
 
   @Column(name = "ad1_value1", columnDefinition = "varchar(100) comment 'PH-유일값'")

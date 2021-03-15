@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MatterEnvDTO {
 
-  private Long EnvSeq;
+  private Long envSeq;
 
   //------------------------------------------------------------- C그룹 12 환경유해성
   //(name = "division_C01", columnDefinition = "varchar(100) comment '급성-구분'")

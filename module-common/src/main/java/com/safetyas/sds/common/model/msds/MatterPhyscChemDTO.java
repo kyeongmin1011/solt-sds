@@ -15,7 +15,7 @@ import lombok.Setter;
 @AllArgsConstructor
 public class MatterPhyscChemDTO {
 
-  private Long PhyscChemSeq;
+  private Long physcChemSeq;
 
   //------------------------------------------------------------- A그룹 9 물리화학적 특성
 
