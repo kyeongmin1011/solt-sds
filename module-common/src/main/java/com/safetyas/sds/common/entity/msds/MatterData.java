@@ -23,8 +23,11 @@ public class MatterData extends CommonEntity implements Serializable {
   @Id
   @Column(name = "matter_data_key", length = 50)
   private String matterDataKey; // 카스번호+'#'+번
-
-  @Column(name = "db_type", columnDefinition = "varchar(1) 물질명'")
+  @Column(name = "db_type", columnDefinition = "varchar(50) comment '디비구분타입-일반:G, 프리미엄:P'")
+  private String dbType;
+  @Column(name = "cas", columnDefinition = "varchar(50) comment '카스번호'")
+  private String cas;
+  @Column(name = "chem_name", columnDefinition = "varchar(500) comment '물질명'")
   private String chemName;
   @Column(name = "other_name", columnDefinition = "varchar(500) comment '이명'")
   private String otherName;
