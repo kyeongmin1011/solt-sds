@@ -39,23 +39,23 @@ public class ProductMatterPhyscDv implements Serializable {
 
   //------------------------------------------------------------- 구분그룹 2 물리화학위험성 구분
 
-  @Column(name = "division_a1", columnDefinition = "varchar(100) comment '폭발성물질 구분'")
-  private String divisionA1;
-  @Column(name = "division_a2", columnDefinition = "varchar(100) comment '인화성 가스 구분'")
-  private String divisionA2;
-  @Column(name = "division_a3", columnDefinition = "varchar(100) comment '인화성 가스 불안정 구분'")
-  private String divisionA3;
-  @Column(name = "division_a4", columnDefinition = "varchar(100) comment '인화성 가스 자연발화성 구분'")
-  private String divisionA4;
-  @Column(name = "division_a5", columnDefinition = "varchar(100) comment '인화성 에어로졸 구분'")
-  private String divisionA5;
-  @Column(name = "division_a6", columnDefinition = "varchar(100) comment '산화성 가스 구분'")
-  private String divisionA6;
-  @Column(name = "division_a7", columnDefinition = "varchar(100) comment '고압가스 구분'")
-  private String divisionA7;
-  @Column(name = "division_a8", columnDefinition = "varchar(100) comment '인화성 액체 구분'")
-  private String divisionA8;
-  @Column(name = "division_a9", columnDefinition = "varchar(100) comment '인화성 고체 구분'")
+  @Column(name = "division_a01", columnDefinition = "varchar(100) comment '폭발성물질 구분'")
+  private String divisionA01;
+  @Column(name = "division_a02", columnDefinition = "varchar(100) comment '인화성 가스 구분'")
+  private String divisionA02;
+  @Column(name = "division_a03", columnDefinition = "varchar(100) comment '인화성 가스 불안정 구분'")
+  private String divisionA03;
+  @Column(name = "division_a04", columnDefinition = "varchar(100) comment '인화성 가스 자연발화성 구분'")
+  private String divisionA04;
+  @Column(name = "division_a05", columnDefinition = "varchar(100) comment '인화성 에어로졸 구분'")
+  private String divisionA05;
+  @Column(name = "division_a06", columnDefinition = "varchar(100) comment '산화성 가스 구분'")
+  private String divisionA06;
+  @Column(name = "division_a07", columnDefinition = "varchar(100) comment '고압가스 구분'")
+  private String divisionA07;
+  @Column(name = "division_a08", columnDefinition = "varchar(100) comment '인화성 액체 구분'")
+  private String divisionA08;
+  @Column(name = "division_a09", columnDefinition = "varchar(100) comment '인화성 고체 구분'")
   private String divisionA9;
   @Column(name = "division_a10", columnDefinition = "varchar(100) comment '자기반응성 물질 및 혼합물 구분'")
   private String divisionA10;
