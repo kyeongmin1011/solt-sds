@@ -54,7 +54,7 @@ public class MemberController {
 
   @ApiOperation(value = "멤버 공급자 입력", notes = "새로운 멤버 공급자 입력한다.")
   @PostMapping(value = "/suppliers")
-  public CommonResult insertMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
+  public CommonResult insertMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
     Long memberSeq = 1L;
     clientMemberService.saveMemberSupplier(memberSupplierDTO, memberSeq);
     return responseService.getSuccessResult();
@@ -62,7 +62,7 @@ public class MemberController {
 
   @ApiOperation(value = "멤버 공급자 수정", notes = "새로운 멤버 공급자 수정 입력한다.")
   @PutMapping(value = "/suppliers")
-  public CommonResult updateMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
+  public CommonResult updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
     clientMemberService.updateMemberSupplier(memberSupplierDTO);
     return responseService.getSuccessResult();
   }

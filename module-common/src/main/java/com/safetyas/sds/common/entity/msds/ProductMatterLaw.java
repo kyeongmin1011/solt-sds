@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.msds.MatterLawDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_law")
-public class ProductMatterLaw {
+public class ProductMatterLaw implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -76,7 +81,7 @@ public class ProductMatterLaw {
   @Column(name = "fb1_data1", columnDefinition = "varchar(100) comment '화관법-유독물질'")
   private String fb1Data1;
   @Column(name = "fb2_data2", columnDefinition = "varchar(100) comment '화관법-허가물질'")
-  private String fb2_data2;
+  private String fb2Data2;
   @Column(name = "fb3_data3", columnDefinition = "varchar(100) comment '화관법-제한물질'")
   private String fb3Date3;
   @Column(name = "fb4_data4", columnDefinition = "varchar(100) comment '화관법-금지물질'")
@@ -103,4 +108,11 @@ public class ProductMatterLaw {
   @Column(name = "fe6_data6", columnDefinition = "varchar(100) comment '기타규제-몬트리올의정서'")
   private String fe6Data6;
 
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterLaw toEntity(MatterLawDTO matterLawDTO) {
+    return ModelMapperUtils.getModelMapper().map(matterLawDTO, ProductMatterLaw.class);
+  }
 }

@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.msds.MatterPhyscChemDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_physc_chem")
-public class ProductMatterPhyscChem {
+public class ProductMatterPhyscChem implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -47,6 +52,8 @@ public class ProductMatterPhyscChem {
   private String ab1Data;
   @Column(name = "ab2_ref", columnDefinition = "varchar(100) comment '냄새-출처'")
   private String ab2Ref;
+  @Column(name = "ab3_other", columnDefinition = "varchar(500) comment '냄새-비고'")
+  private String ab3Other;  //추가
 
   @Column(name = "ac1_data", columnDefinition = "varchar(100) comment '냄새역치-값'")
   private String ac1Data;
@@ -54,6 +61,8 @@ public class ProductMatterPhyscChem {
   private String ac2Unit;
   @Column(name = "ac3_ref", columnDefinition = "varchar(100) comment '냄새역치-출처'")
   private String ac3Ref;
+  @Column(name = "ac4_other", columnDefinition = "varchar(500) comment '냄새역치-비고'")
+  private String ac4Other;  //추가
 
   @Column(name = "ad1_value1", columnDefinition = "varchar(100) comment 'PH-유일값'")
   private String ad1Value1;
@@ -78,6 +87,8 @@ public class ProductMatterPhyscChem {
   private String ae3Tg;
   @Column(name = "ae4_ref", columnDefinition = "varchar(100) comment '녹는점/어는점-출처'")
   private String ae1Ref;
+  @Column(name = "ae5_other", columnDefinition = "varchar(500) comment '녹는점/어는점-비고'")
+  private String ae5Other;  //추가
 
   @Column(name = "af1_value1", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-유일값'")
   private String af1Value1;
@@ -95,6 +106,8 @@ public class ProductMatterPhyscChem {
   private String af7Tg;
   @Column(name = "af8_ref", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-출처'")
   private String af8Ref;
+  @Column(name = "af9_other", columnDefinition = "varchar(500) comment '초기 끓는점과 끓는점 범위-비고'")
+  private String af9Other;  //추가
 
   @Column(name = "ag1_value1", columnDefinition = "varchar(100) comment '인화점-유일값'")
   private String ag1Value1;
@@ -123,6 +136,8 @@ public class ProductMatterPhyscChem {
   private String ah3Tg;
   @Column(name = "ah4_ref", columnDefinition = "varchar(100) comment '증발속도-출처'")
   private String ah4Ref;
+  @Column(name = "ah5_other", columnDefinition = "varchar(500) comment '증발속도-비고'")
+  private String ah5Other;  //추가
 
   @Column(name = "ai1_data", columnDefinition = "varchar(100) comment '인화성(고체,기체)-값'")
   private String ai1Data;
@@ -156,6 +171,8 @@ public class ProductMatterPhyscChem {
   private String ak4Tg;
   @Column(name = "ak5_ref", columnDefinition = "varchar(100) comment '증기압-출처'")
   private String ak5Ref;
+  @Column(name = "ak6_other", columnDefinition = "varchar(500) comment '증기압-비고'")
+  private String ak6Other;  //추가
 
   @Column(name = "al1_data", columnDefinition = "varchar(100) comment '용해도-값'")
   private String al1Data;
@@ -180,6 +197,8 @@ public class ProductMatterPhyscChem {
   private String am4Tg;
   @Column(name = "am5_ref", columnDefinition = "varchar(100) comment '증기밀도-출처'")
   private String am5Ref;
+  @Column(name = "am6_other", columnDefinition = "varchar(500) comment '증기밀도-비고'")
+  private String am6Other;  //추가
 
   @Column(name = "an1_data", columnDefinition = "varchar(100) comment '비중-값'")
   private String an1Data;
@@ -191,6 +210,8 @@ public class ProductMatterPhyscChem {
   private String an4Tg;
   @Column(name = "an5_ref", columnDefinition = "varchar(100) comment '비중-출처'")
   private String an5Ref;
+  @Column(name = "an6_other", columnDefinition = "varchar(500) comment '비중-비고'")
+  private String an6Other;  //추가
 
   @Column(name = "ao1_value1", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-유일값'")
   private String ao1Value1;
@@ -219,6 +240,8 @@ public class ProductMatterPhyscChem {
   private String ap4Tg;
   @Column(name = "ap5_ref", columnDefinition = "varchar(100) comment '자연발화 온도-출처'")
   private String ap5Ref;
+  @Column(name = "ap6_other", columnDefinition = "varchar(500) comment '자연발화 온도-비고'")
+  private String ap6Other;  //추가
 
   @Column(name = "aq1_data", columnDefinition = "varchar(100) comment '분해온도-값'")
   private String aq1Data;
@@ -230,6 +253,8 @@ public class ProductMatterPhyscChem {
   private String aq4Tg;
   @Column(name = "aq5_ref", columnDefinition = "varchar(100) comment '분해온도-출처'")
   private String aq5Ref;
+  @Column(name = "aq6_other", columnDefinition = "varchar(500) comment '분해온도-비고'")
+  private String aq6Other;  //추가
 
   @Column(name = "ar1_data1", columnDefinition = "varchar(100) comment '점도-값1'")
   private String ar1Data1;
@@ -245,10 +270,22 @@ public class ProductMatterPhyscChem {
   private String ar6Temper;
   @Column(name = "ar7_ref2", columnDefinition = "varchar(100) comment '점도-동점도 출처2'")
   private String ar7Ref2;
+  @Column(name = "ar8_other", columnDefinition = "varchar(500) comment '점도-비고'")
+  private String ar8Other;  //추가
 
   @Column(name = "as1_data", columnDefinition = "varchar(100) comment '분자량-값'")
   private String as1Data;
   @Column(name = "as2_ref", columnDefinition = "varchar(100) comment '분자량-출처'")
   private String as2Ref;
+  @Column(name = "as3_other", columnDefinition = "varchar(500) comment '분자량-비고'")
+  private String as3Other;  //추가
+
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterPhyscChem toEntity(MatterPhyscChemDTO matterPhyscChemDTO) {
+    return ModelMapperUtils.getModelMapper().map(matterPhyscChemDTO, ProductMatterPhyscChem.class);
+  }
 
 }

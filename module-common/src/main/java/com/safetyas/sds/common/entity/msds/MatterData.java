@@ -22,8 +22,7 @@ public class MatterData extends CommonEntity implements Serializable {
 
   @Id
   @Column(name = "matter_data_key", length = 50)
-  private String matterDataKey; // 구분값+순번+카스번호
-
+  private String matterDataKey; // 카스번호+'#'+번
   @Column(name = "db_type", columnDefinition = "varchar(50) comment '디비구분타입-일반:G, 프리미엄:P'")
   private String dbType;
   @Column(name = "cas", columnDefinition = "varchar(50) comment '카스번호'")
@@ -46,6 +45,9 @@ public class MatterData extends CommonEntity implements Serializable {
 
   @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
   private MatterLaw matterLaw;
+
+  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  private MatterPhyscDv matterPhyscDv;
 
   @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
   private ProductMatter productMatter;

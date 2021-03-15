@@ -1,5 +1,8 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.model.msds.MatterEnvDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import java.io.Serializable;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -15,13 +18,15 @@ import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_matter_env")
-public class ProductMatterEnv {
+public class ProductMatterEnv implements Serializable {
 
   @Id
   @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -309,4 +314,14 @@ public class ProductMatterEnv {
   private String cm02Ref;
   @Column(name = "cm03_other", columnDefinition = "varchar(100) comment '기타유해영향-비고'")
   private String cm03Other;
+
+  public void setProductMatter(ProductMatter productMatter) {
+    this.productMatter = productMatter;
+  }
+
+  public static ProductMatterEnv toEntity(MatterEnvDTO matterEnvDTO) {
+/*    ProductMatterEnv productMatterEnv = new ProductMatterEnv();
+    BeanUtils.copyProperties(matterEnvDTO, productMatterEnv);*/
+    return ModelMapperUtils.getModelMapper().map(matterEnvDTO, ProductMatterEnv.class);
+  }
 }
