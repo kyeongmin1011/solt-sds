@@ -39,7 +39,7 @@ public class InfoPhraseQueryRepository {
   private BooleanBuilder hazardGradeKeyEq(List<String> keyList) {
     BooleanBuilder builder = new BooleanBuilder();
     for (String key: keyList) {
-      if(key != null && isEmpty(key)) {
+      if(key != null && !isEmpty(key)) {
         builder.or(infoHazardGrade.hazardGradeKey.eq(key));
       }
     }

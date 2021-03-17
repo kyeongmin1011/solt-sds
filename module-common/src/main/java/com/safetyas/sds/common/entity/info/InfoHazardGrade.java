@@ -2,10 +2,13 @@ package com.safetyas.sds.common.entity.info;
 
 import java.util.ArrayList;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.ForeignKey;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.Table;
@@ -55,7 +58,8 @@ public class InfoHazardGrade {
   @Column(name = "eu_clp", columnDefinition = "varchar(255) comment '유럽'")
   private String euClp;
 
-  @OneToOne(mappedBy = "infoHazardGrade", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "grade_detail_seq", foreignKey = @ForeignKey(name = "grade_detail_seq_info_hazard_grade_fk"))
   private InfoHazardGradeDetail infoHazardGradeDetail;
 
   @OneToMany(mappedBy = "infoHazardGrade")

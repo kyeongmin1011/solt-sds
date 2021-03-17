@@ -49,7 +49,6 @@ public class InfoHazardGradeDetail {
   @Column(name = "discard_code", columnDefinition = "varchar(255) comment '폐기문구 코드'")
   private String discardCode;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "hazard_grade_key", foreignKey = @ForeignKey(name = "hazard_grade_key_info_hazard_grade_detail_fk"))
+  @OneToOne(mappedBy = "infoHazardGradeDetail", fetch = FetchType.LAZY)
   private InfoHazardGrade infoHazardGrade;
 }

@@ -10,12 +10,14 @@ import com.safetyas.sds.common.entity.msds.ProductMatterHealth;
 import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
+import com.safetyas.sds.common.model.info.InfoHazardGradeDTO;
 import com.safetyas.sds.common.model.msds.MatterEnvDTO;
 import com.safetyas.sds.common.model.msds.MatterHealthDTO;
 import com.safetyas.sds.common.model.msds.MatterLawDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscChemDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscDvDTO;
 import com.safetyas.sds.common.model.ProductMatterDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import com.safetyas.sds.common.repository.MatterDataRepository;
 import com.safetyas.sds.common.repository.ProductMatterEnvRepository;
 import com.safetyas.sds.common.repository.ProductMatterHealthRepository;
@@ -27,12 +29,15 @@ import com.safetyas.sds.common.repository.ProductRepository;
 import com.safetyas.sds.common.repository.info.InfoHazardGradeRepository;
 import com.safetyas.sds.common.repository.info.InfoPhraseQueryRepository;
 import java.util.ArrayList;
+import java.util.Dictionary;
 import java.util.HashMap;
+import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
 import lombok.RequiredArgsConstructor;
+import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -118,19 +123,15 @@ public class ProductMatterService {
     productMatterLaw.setProductMatter(productMatter);
     productMatterLawRepository.save(productMatterLaw);
 
-    // TODO: 문구세팅, 구분선택과 성상에 따른 구분값 가져와 세팅, 리스트 반환.
     String matterType = "";
-    switch (matterPhyscChemDTO.getAa1Apr()) {
-      case "고체" :
-        matterType = "solid";
-        break;
-      case "액체" :
-        matterType = "liquid";
-        break;
-      case "기체" :
-        matterType = "gas";
-        break;
+    if (matterPhyscChemDTO.getAa1Apr().contains("고체")) {
+      matterType = "solid";
+    }else if (matterPhyscChemDTO.getAa1Apr().contains("액체")) {
+      matterType = "liquid";
+    } else if (matterPhyscChemDTO.getAa1Apr().contains("기체")) {
+      matterType = "gas";
     }
+
     List<String> keyList = getKeyList(matterPhyscDvDTO, matterHealthDTO, productMatterEnv);
 
     Map<String, Object> param = new HashMap<>();
@@ -138,6 +139,8 @@ public class ProductMatterService {
     param.put("keyList", keyList);
 
     List<InfoPhrase> infoPhraseList = infoPhraseQueryRepository.selectMsdsPhrase(param);
+// TODO: 문구세팅, 리스트 반환.
+    Map<String, String> phraseMap = new HashMap<>();
 
 
   }
@@ -173,6 +176,7 @@ public class ProductMatterService {
     divList.add(matterHealthDTO.getDivisionB08());
     divList.add(matterHealthDTO.getDivisionB09());
     divList.add(matterHealthDTO.getDivisionB10());
+    divList.add(matterHealthDTO.getDivisionB11());
     divList.add(matterHealthDTO.getDivisionB12());
     divList.add(matterHealthDTO.getDivisionB13());
     divList.add(matterHealthDTO.getDivisionB14());
@@ -189,14 +193,17 @@ public class ProductMatterService {
 
     // 모든 구분값 리스트
     List<InfoHazardGrade> allHazardGrade = infoHazardGradeRepository.findAllByOrderByHazardGradeKeyAsc();
+    List<InfoHazardGradeDTO> hazardGradeDTOList = ModelMapperUtils.getModelMapper()
+        .map(allHazardGrade, new TypeToken<List<InfoHazardGradeDTO>>() {
+        }.getType());
 
-    for(InfoHazardGrade grade : allHazardGrade ) {
+    for(InfoHazardGradeDTO grade : hazardGradeDTOList ) {
       if(grade.getKor().equals(divList.get(grade.getElementNum()-1))) {
         keyList.add(grade.getHazardGradeKey());
       }
     }
 
-    return divList;
+    return keyList;
   }
 
 }
