@@ -11,6 +11,7 @@ import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
 import com.safetyas.sds.common.model.info.InfoHazardGradeDTO;
+import com.safetyas.sds.common.model.info.InfoPhraseDTO;
 import com.safetyas.sds.common.model.msds.MatterEnvDTO;
 import com.safetyas.sds.common.model.msds.MatterHealthDTO;
 import com.safetyas.sds.common.model.msds.MatterLawDTO;
@@ -36,6 +37,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.NoSuchElementException;
 
+import java.util.TreeMap;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -139,8 +141,11 @@ public class ProductMatterService {
     param.put("keyList", keyList);
 
     List<InfoPhrase> infoPhraseList = infoPhraseQueryRepository.selectMsdsPhrase(param);
+    List<InfoPhraseDTO> infoPhraseDTOList = ModelMapperUtils.getModelMapper()
+        .map(infoPhraseList, new TypeToken<List<InfoPhraseDTO>>() {
+        }.getType());
 // TODO: 문구세팅, 리스트 반환.
-    Map<String, String> phraseMap = new HashMap<>();
+    Map<String, List<String>> stringListMap = setMsdsPhrases(infoPhraseDTOList);
 
 
   }
@@ -204,6 +209,22 @@ public class ProductMatterService {
     }
 
     return keyList;
+  }
+
+  /**
+   * 문구 그룹핑
+   * @param infoPhraseDTOList
+   * @return
+   */
+  private Map<String, List<String>> setMsdsPhrases(List<InfoPhraseDTO> infoPhraseDTOList) {
+
+    Map<String, List<String>> phraseMap = new TreeMap<>();
+    for(InfoPhraseDTO infoPhraseDTO: infoPhraseDTOList) {
+      phraseMap.computeIfAbsent(infoPhraseDTO.getStepGroup()+"_"+infoPhraseDTO.getSubGroup(),
+          (x -> new ArrayList<>())).add(infoPhraseDTO.getPhrase()
+      );
+    }
+    return phraseMap;
   }
 
 }

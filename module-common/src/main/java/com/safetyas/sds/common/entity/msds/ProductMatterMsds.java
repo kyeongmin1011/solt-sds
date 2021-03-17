@@ -222,6 +222,9 @@ public class ProductMatterMsds {
   @Column(name = "step13_01_extra", columnDefinition = "TEXT comment '폐기방법 extra'")
   private String step13_01Extra;
 
+  @Column(name = "step13_02", columnDefinition = "TEXT comment '폐기 시 주의사항'")
+  private String step13_02;
+
   @Column(name = "step13_02_extra", columnDefinition = "TEXT comment '폐기 시 주의사항 extra'")
   private String step13_02Extra;
 
