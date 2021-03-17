@@ -1,5 +1,7 @@
 package com.safetyas.sds.common.service;
 
+import com.safetyas.sds.common.entity.info.InfoHazardGrade;
+import com.safetyas.sds.common.entity.info.InfoPhrase;
 import com.safetyas.sds.common.entity.msds.MatterData;
 import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.entity.msds.ProductMatter;
@@ -22,10 +24,15 @@ import com.safetyas.sds.common.repository.ProductMatterPhyscChemRepository;
 import com.safetyas.sds.common.repository.ProductMatterPhyscDvRepository;
 import com.safetyas.sds.common.repository.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
+import com.safetyas.sds.common.repository.info.InfoHazardGradeRepository;
+import com.safetyas.sds.common.repository.info.InfoPhraseQueryRepository;
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import java.util.NoSuchElementException;
 
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +47,8 @@ public class ProductMatterService {
   private final ProductMatterLawRepository productMatterLawRepository;
   private final ProductMatterPhyscDvRepository productMatterPhyscDvRepository;
   private final ProductMatterPhyscChemRepository productMatterPhyscChemRepository;
-  private final ModelMapper modelMapper;
+  private final InfoHazardGradeRepository infoHazardGradeRepository;
+  private final InfoPhraseQueryRepository infoPhraseQueryRepository;
 
   public void insertProductMatter(ProductMatter productMatter) {
     productMatterRepository.save(productMatter);
@@ -84,7 +92,7 @@ public class ProductMatterService {
     ProductMatter productMatter = ProductMatter.builder()
         .cas(matterData.getCas())
         .chemName(matterData.getChemName())
-        .premiumDbYn((matterData.getDbType() == "P") ? "Y" : "N")
+        .premiumDbYn((matterData.getDbType().equals("P")) ? "Y" : "N")
         .matterDatabaseKey(matterData.getMatterDataKey())
         .product(product)
         .build();
@@ -110,6 +118,85 @@ public class ProductMatterService {
     productMatterLaw.setProductMatter(productMatter);
     productMatterLawRepository.save(productMatterLaw);
 
-    // TODO: 문구세팅, 리스트 반환.
+    // TODO: 문구세팅, 구분선택과 성상에 따른 구분값 가져와 세팅, 리스트 반환.
+    String matterType = "";
+    switch (matterPhyscChemDTO.getAa1Apr()) {
+      case "고체" :
+        matterType = "solid";
+        break;
+      case "액체" :
+        matterType = "liquid";
+        break;
+      case "기체" :
+        matterType = "gas";
+        break;
+    }
+    List<String> keyList = getKeyList(matterPhyscDvDTO, matterHealthDTO, productMatterEnv);
+
+    Map<String, Object> param = new HashMap<>();
+    param.put("matterType", matterType);
+    param.put("keyList", keyList);
+
+    List<InfoPhrase> infoPhraseList = infoPhraseQueryRepository.selectMsdsPhrase(param);
+
+
   }
+
+  public List<String> getKeyList(MatterPhyscDvDTO matterPhyscDvDTO, MatterHealthDTO matterHealthDTO, ProductMatterEnv productMatterEnv) {
+    List<String> divList = new ArrayList<>();
+    divList.add(matterPhyscDvDTO.getDivisionA01());
+    divList.add(matterPhyscDvDTO.getDivisionA02());
+    divList.add(matterPhyscDvDTO.getDivisionA03());
+    divList.add(matterPhyscDvDTO.getDivisionA04());
+    divList.add(matterPhyscDvDTO.getDivisionA05());
+    divList.add(matterPhyscDvDTO.getDivisionA06());
+    divList.add(matterPhyscDvDTO.getDivisionA07());
+    divList.add(matterPhyscDvDTO.getDivisionA08());
+    divList.add(matterPhyscDvDTO.getDivisionA09());
+    divList.add(matterPhyscDvDTO.getDivisionA10());
+    divList.add(matterPhyscDvDTO.getDivisionA11());
+    divList.add(matterPhyscDvDTO.getDivisionA12());
+    divList.add(matterPhyscDvDTO.getDivisionA13());
+    divList.add(matterPhyscDvDTO.getDivisionA14());
+    divList.add(matterPhyscDvDTO.getDivisionA15());
+    divList.add(matterPhyscDvDTO.getDivisionA16());
+    divList.add(matterPhyscDvDTO.getDivisionA17());
+    divList.add(matterPhyscDvDTO.getDivisionA18());
+    divList.add(matterPhyscDvDTO.getDivisionA19());
+    divList.add(matterHealthDTO.getDivisionB01());
+    divList.add(matterHealthDTO.getDivisionB02());
+    divList.add(matterHealthDTO.getDivisionB03());
+    divList.add(matterHealthDTO.getDivisionB04());
+    divList.add(matterHealthDTO.getDivisionB05());
+    divList.add(matterHealthDTO.getDivisionB06());
+    divList.add(matterHealthDTO.getDivisionB07());
+    divList.add(matterHealthDTO.getDivisionB08());
+    divList.add(matterHealthDTO.getDivisionB09());
+    divList.add(matterHealthDTO.getDivisionB10());
+    divList.add(matterHealthDTO.getDivisionB12());
+    divList.add(matterHealthDTO.getDivisionB13());
+    divList.add(matterHealthDTO.getDivisionB14());
+    divList.add(matterHealthDTO.getDivisionB15());
+    divList.add(matterHealthDTO.getDivisionB16());
+    divList.add(matterHealthDTO.getDivisionB17());
+    divList.add(matterHealthDTO.getDivisionB18());
+    divList.add(productMatterEnv.getDivisionC01());
+    divList.add(productMatterEnv.getDivisionC02());
+    divList.add(productMatterEnv.getDivisionC03());
+
+    // 모든 구분값 hazard_grade_key 리스트
+    List<String> keyList = new ArrayList<>();
+
+    // 모든 구분값 리스트
+    List<InfoHazardGrade> allHazardGrade = infoHazardGradeRepository.findAllByOrderByHazardGradeKeyAsc();
+
+    for(InfoHazardGrade grade : allHazardGrade ) {
+      if(grade.getKor().equals(divList.get(grade.getElementNum()-1))) {
+        keyList.add(grade.getHazardGradeKey());
+      }
+    }
+
+    return divList;
+  }
+
 }

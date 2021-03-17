@@ -9,6 +9,8 @@ import lombok.*;
 @AllArgsConstructor
 public class HazardDivisions {
 
+    private String divisionA08;
+
     private String divisionB01;
     private String divisionB02;
     private String divisionB03;
@@ -25,6 +27,8 @@ public class HazardDivisions {
     private String divisionB14;
     private String divisionB15;
     private String divisionB16;
+    private String divisionB17;
+    private String divisionB18;
 
     private String divisionC01;
     private String divisionC02;

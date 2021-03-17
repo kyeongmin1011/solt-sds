@@ -34,6 +34,9 @@ public class InfoHazardGrade {
   @Column(name = "element_idx", columnDefinition = "varchar(50) comment '항목인덱스'")
   private String elementIdx;
 
+  @Column(name = "element_num", columnDefinition = "varchar(50) comment '항목번호'")
+  private Integer elementNum;
+
   @Column(name = "element_title", columnDefinition = "varchar(255) comment '항목명'")
   private String elementTitle;
 
