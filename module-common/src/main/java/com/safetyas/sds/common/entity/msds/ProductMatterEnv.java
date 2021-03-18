@@ -33,8 +33,7 @@ public class ProductMatterEnv implements Serializable {
   @Column(name = "product_matter_env_seq", length = 20)
   private Long productMatterEnvSeq;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_env_fk"))
+  @OneToOne(mappedBy = "productMatterEnv", fetch = FetchType.LAZY)
   private ProductMatter productMatter;
 
   //------------------------------------------------------------- C그룹 12 환경유해성

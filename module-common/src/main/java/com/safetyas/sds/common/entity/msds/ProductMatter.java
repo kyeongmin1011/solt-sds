@@ -29,12 +29,22 @@ import lombok.NoArgsConstructor;
 @Table(name = "sds_product_matter")
 public class ProductMatter extends CommonEntity {
 
+  private static final long serialVersionUID = -2775919955094286576L;
+
   @Builder
-  public ProductMatter(Product product, String cas, String otherNumber, String chemName,
-      Float contentRate, String alterNo, LocalDate validStart, LocalDate validFinish,
+  public ProductMatter(Product product, ProductMatterEnv productMatterEnv, ProductMatterHealth productMatterHealth,
+      ProductMatterPhyscDv productMatterPhyscDv, ProductMatterPhyscChem productMatterPhyscChem,
+      ProductMatterLaw productMatterLaw, ProductMatterMsds productMatterMsds, String cas, String otherNumber,
+      String chemName, Float contentRate, String alterNo, LocalDate validStart, LocalDate validFinish,
       String alterContentYn, String alterMatterName, Float alterContentRate,
       String premiumDbYn, String matterDatabaseKey) {
     updateProduct(product);
+    this.productMatterEnv = productMatterEnv;
+    this.productMatterHealth = productMatterHealth;
+    this.productMatterPhyscDv = productMatterPhyscDv;
+    this.productMatterLaw = productMatterLaw;
+    this.productMatterPhyscChem = productMatterPhyscChem;
+    this.productMatterMsds = productMatterMsds;
     this.cas = cas;
     this.otherNumber = otherNumber;
     this.chemName = chemName;
@@ -105,24 +115,29 @@ public class ProductMatter extends CommonEntity {
   @JoinColumn(name = "product_seq", foreignKey = @ForeignKey(name = "product_seq_product_matter_fk"))
   private Product product;
 
-  @OneToOne(fetch = FetchType.LAZY)
-  @JoinColumn(name = "matter_data_key", foreignKey = @ForeignKey(name = "matter_data_key_product_matter_fk"))
-  private MatterData matterData;
-
-  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_physc_chem_seq", foreignKey = @ForeignKey(name = "product_matter_physc_chem_seq_product_matter_fk"))
   private ProductMatterPhyscChem productMatterPhyscChem;
 
-  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_health_seq", foreignKey = @ForeignKey(name = "product_matter_health_seq_product_matter_fk"))
   private ProductMatterHealth productMatterHealth;
 
-  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_env_seq", foreignKey = @ForeignKey(name = "product_matter_env_seq_product_matter_fk"))
   private ProductMatterEnv productMatterEnv;
 
-  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_law_seq", foreignKey = @ForeignKey(name = "product_matter_law_seq_product_matter_fk"))
   private ProductMatterLaw productMatterLaw;
 
-  @OneToOne(mappedBy = "productMatter", fetch = FetchType.LAZY)
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_physc_dv_seq", foreignKey = @ForeignKey(name = "product_matter_physc_dv_seq_product_matter_fk"))
   private ProductMatterPhyscDv productMatterPhyscDv;
+
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_matter_msds_seq", foreignKey = @ForeignKey(name = "product_matter_msds_seq_product_matter_fk"))
+  private ProductMatterMsds productMatterMsds;
 
   public void updateProduct(Product product) {
     if (this.product != null) {
@@ -149,5 +164,8 @@ public class ProductMatter extends CommonEntity {
     this.validFinish = productMatterDTO.getValidFinish();
   }
 
+  public void setProductMatterMsds(ProductMatterMsds productMatterMsds) {
+    this.productMatterMsds = productMatterMsds;
+  }
 
 }

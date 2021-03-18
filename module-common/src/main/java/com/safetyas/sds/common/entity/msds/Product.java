@@ -42,6 +42,8 @@ import lombok.NoArgsConstructor;
 @Table(name = "sds_product")
 public class Product extends CommonEntity implements Serializable {
 
+  private static final long serialVersionUID = 7233544716870913503L;
+
   @Builder
   public Product(Long productSeq, String productUid, String msds, String language, String writer,
       String writerEmail, String tonsYear, String submissionYn, String orYn,
@@ -176,6 +178,10 @@ public class Product extends CommonEntity implements Serializable {
   @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
   @JoinColumn(name = "cbi_document_seq")
   private CbiDocument cbiDocument;
+
+  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
+  @JoinColumn(name = "product_msds_seq", foreignKey = @ForeignKey(name = "product_msds_seq_product_fk"))
+  private ProductMsds productMsds;
 
   public void updateMemberSupplier(MemberSupplier memberSupplier) {
     if (this.memberSupplier != null) {

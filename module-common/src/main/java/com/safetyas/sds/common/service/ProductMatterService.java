@@ -8,6 +8,7 @@ import com.safetyas.sds.common.entity.msds.ProductMatter;
 import com.safetyas.sds.common.entity.msds.ProductMatterEnv;
 import com.safetyas.sds.common.entity.msds.ProductMatterHealth;
 import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
+import com.safetyas.sds.common.entity.msds.ProductMatterMsds;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
 import com.safetyas.sds.common.model.info.InfoHazardGradeDTO;
@@ -18,26 +19,29 @@ import com.safetyas.sds.common.model.msds.MatterLawDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscChemDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscDvDTO;
 import com.safetyas.sds.common.model.ProductMatterDTO;
+import com.safetyas.sds.common.model.msds.MsdsPhrasesDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import com.safetyas.sds.common.repository.MatterDataRepository;
-import com.safetyas.sds.common.repository.ProductMatterEnvRepository;
-import com.safetyas.sds.common.repository.ProductMatterHealthRepository;
-import com.safetyas.sds.common.repository.ProductMatterLawRepository;
-import com.safetyas.sds.common.repository.ProductMatterPhyscChemRepository;
-import com.safetyas.sds.common.repository.ProductMatterPhyscDvRepository;
-import com.safetyas.sds.common.repository.ProductMatterRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterEnvRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterHealthRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterLawRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterMsdsRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterPhyscChemRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterPhyscDvRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import com.safetyas.sds.common.repository.info.InfoHazardGradeRepository;
 import com.safetyas.sds.common.repository.info.InfoPhraseQueryRepository;
+import com.safetyas.sds.common.util.ObjectUtil;
 import java.util.ArrayList;
-import java.util.Dictionary;
 import java.util.HashMap;
-import java.util.Hashtable;
 import java.util.List;
 import java.util.Map;
+import java.util.Map.Entry;
 import java.util.NoSuchElementException;
 
 import java.util.TreeMap;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.modelmapper.TypeToken;
 import org.springframework.stereotype.Service;
@@ -56,6 +60,7 @@ public class ProductMatterService {
   private final ProductMatterPhyscChemRepository productMatterPhyscChemRepository;
   private final InfoHazardGradeRepository infoHazardGradeRepository;
   private final InfoPhraseQueryRepository infoPhraseQueryRepository;
+  private final ProductMatterMsdsRepository productMatterMsdsRepository;
 
   public void insertProductMatter(ProductMatter productMatter) {
     productMatterRepository.save(productMatter);
@@ -87,6 +92,7 @@ public class ProductMatterService {
 
     MatterData matterData = matterDataRepository.findById(matterDataKey)
         .orElseThrow(NoSuchElementException::new);
+
     MatterEnvDTO matterEnvDTO = MatterEnvDTO.of(matterData.getMatterEnv());
     MatterHealthDTO matterHealthDTO = MatterHealthDTO.of(matterData.getMatterHealth());
     MatterPhyscDvDTO matterPhyscDvDTO = MatterPhyscDvDTO.of(matterData.getMatterPhyscDv());
@@ -96,33 +102,19 @@ public class ProductMatterService {
     Product product = productRepository.findById(productSeq)
         .orElseThrow(NoSuchElementException::new);
 
-    ProductMatter productMatter = ProductMatter.builder()
-        .cas(matterData.getCas())
-        .chemName(matterData.getChemName())
-        .premiumDbYn((matterData.getDbType().equals("P")) ? "Y" : "N")
-        .matterDatabaseKey(matterData.getMatterDataKey())
-        .product(product)
-        .build();
-    productMatterRepository.save(productMatter);
-
     ProductMatterEnv productMatterEnv = ProductMatterEnv.toEntity(matterEnvDTO);
-    productMatterEnv.setProductMatter(productMatter);
     productMatterEnvRepository.save(productMatterEnv);
 
     ProductMatterHealth productMatterHealth = ProductMatterHealth.toEntity(matterHealthDTO);
-    productMatterHealth.setProductMatter(productMatter);
     productMatterHealthRepository.save(productMatterHealth);
 
     ProductMatterPhyscDv productMatterPhyscDv = ProductMatterPhyscDv.toEntity(matterPhyscDvDTO);
-    productMatterPhyscDv.setProductMatter(productMatter);
     productMatterPhyscDvRepository.save(productMatterPhyscDv);
 
     ProductMatterPhyscChem productMatterPhyscChem = ProductMatterPhyscChem.toEntity(matterPhyscChemDTO);
-    productMatterPhyscChem.setProductMatter(productMatter);
     productMatterPhyscChemRepository.save(productMatterPhyscChem);
 
     ProductMatterLaw productMatterLaw = ProductMatterLaw.toEntity(matterLawDTO);
-    productMatterLaw.setProductMatter(productMatter);
     productMatterLawRepository.save(productMatterLaw);
 
     String matterType = "";
@@ -144,9 +136,26 @@ public class ProductMatterService {
     List<InfoPhraseDTO> infoPhraseDTOList = ModelMapperUtils.getModelMapper()
         .map(infoPhraseList, new TypeToken<List<InfoPhraseDTO>>() {
         }.getType());
-// TODO: 문구세팅, 리스트 반환.
-    Map<String, List<String>> stringListMap = setMsdsPhrases(infoPhraseDTOList);
 
+    MsdsPhrasesDTO phrasesDTO = setMsdsPhrases(infoPhraseDTOList);
+
+    ProductMatterMsds productMatterMsds = ProductMatterMsds.toEntity(phrasesDTO);
+    productMatterMsdsRepository.save(productMatterMsds);
+
+    ProductMatter productMatter = ProductMatter.builder()
+        .cas(matterData.getCas())
+        .chemName(matterData.getChemName())
+        .premiumDbYn((matterData.getDbType().equals("P")) ? "Y" : "N")
+        .matterDatabaseKey(matterData.getMatterDataKey())
+        .product(product)
+        .productMatterEnv(productMatterEnv)
+        .productMatterHealth(productMatterHealth)
+        .productMatterPhyscDv(productMatterPhyscDv)
+        .productMatterPhyscChem(productMatterPhyscChem)
+        .productMatterLaw(productMatterLaw)
+        .productMatterMsds(productMatterMsds)
+        .build();
+    productMatterRepository.save(productMatter);
 
   }
 
@@ -216,15 +225,23 @@ public class ProductMatterService {
    * @param infoPhraseDTOList
    * @return
    */
-  private Map<String, List<String>> setMsdsPhrases(List<InfoPhraseDTO> infoPhraseDTOList) {
+  private MsdsPhrasesDTO setMsdsPhrases(List<InfoPhraseDTO> infoPhraseDTOList) {
 
     Map<String, List<String>> phraseMap = new TreeMap<>();
     for(InfoPhraseDTO infoPhraseDTO: infoPhraseDTOList) {
       phraseMap.computeIfAbsent(infoPhraseDTO.getStepGroup()+"_"+infoPhraseDTO.getSubGroup(),
-          (x -> new ArrayList<>())).add(infoPhraseDTO.getPhrase()
+          (x -> new ArrayList<>()))
+          .add(infoPhraseDTO.getPhrase()
       );
     }
-    return phraseMap;
+
+    Map<String, Object> collectPhrases = phraseMap.entrySet().stream()
+        .collect(Collectors
+            .toMap(Entry::getKey,
+                x -> String.join(";", x.getValue())));
+
+    MsdsPhrasesDTO phrasesDTO = new MsdsPhrasesDTO();
+    return (MsdsPhrasesDTO)ObjectUtil.convertMapToObject(collectPhrases, phrasesDTO);
   }
 
 }

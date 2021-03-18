@@ -1,31 +1,41 @@
 package com.safetyas.sds.common.entity.msds;
 
+import com.safetyas.sds.common.entity.CommonEntity;
 import com.safetyas.sds.common.entity.info.InfoMatterUsage;
+import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Getter
+@Setter
 @Entity
 @AllArgsConstructor
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Table(name = "sds_product_msds")   // 물질 msds 문서 정보
-public class ProductMsds {
+public class ProductMsds extends CommonEntity implements Serializable {
+
+    private static final long serialVersionUID = 6845345843291016995L;
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "product_msds_seq", length = 20)
     private Long productMsdsSeq;
 
@@ -38,6 +48,8 @@ public class ProductMsds {
         inverseJoinColumns = @JoinColumn(name = "serial_number"))
     private List<InfoMatterUsage> infoMatterUsageList = new ArrayList<>();
 
+    @OneToOne(mappedBy = "productMsds", fetch = FetchType.LAZY)
+    private Product product;
 
     @Column(name = "step01_02", columnDefinition = "varchar(255) comment '제품의 사용상의 제한'")
     private String step01_02;
@@ -127,6 +139,9 @@ public class ProductMsds {
 
     @Column(name = "step05_03_extra", columnDefinition = "TEXT comment '화재 진압 시 착용할 보호구 및 예방조치 extra'")
     private String step05_03Extra;
+
+    @Column(name = "step06_01", columnDefinition = "TEXT comment '인체를 보호하기 위해 필요한 조치사항 및 보호구'")
+    private String step06_01;
 
     @Column(name = "step06_01_extra", columnDefinition = "TEXT comment '인체를 보호하기 위해 필요한 조치사항 및 보호구 extra'")
     private String step06_01Extra;
@@ -290,4 +305,5 @@ public class ProductMsds {
 
     @Column(name = "step16_05_extra", columnDefinition = "TEXT comment '기타 extra'")
     private String step16_05Extra;
+
 }

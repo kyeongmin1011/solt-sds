@@ -33,8 +33,7 @@ public class ProductMatterHealth implements Serializable {
   @Column(name = "product_matter_health_seq", length = 20)
   private Long productMatterHealthSeq;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_health_fk"))
+  @OneToOne(mappedBy = "productMatterHealth", fetch = FetchType.LAZY)
   private ProductMatter productMatter;
 
   //----------------------------------------------------------------- B그룹 건강유해성 11 독성에 관한 정보

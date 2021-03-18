@@ -10,7 +10,7 @@ import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.repository.CbiDocumentRepository;
 import com.safetyas.sds.common.repository.CbiSentenceRepository;
 import com.safetyas.sds.common.repository.MemberSupplierRepository;
-import com.safetyas.sds.common.repository.ProductMatterRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductQueryRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.List;

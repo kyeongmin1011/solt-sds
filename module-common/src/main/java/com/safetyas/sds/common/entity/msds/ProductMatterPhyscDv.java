@@ -33,8 +33,7 @@ public class ProductMatterPhyscDv implements Serializable {
   @Column(name = "product_matter_physc_dv_seq", length = 20)
   private Long productMatterPhyscDvSeq;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_physc_dv_fk"))
+  @OneToOne(mappedBy = "productMatterPhyscDv", fetch = FetchType.LAZY)
   private ProductMatter productMatter;
 
   //------------------------------------------------------------- 구분그룹 2 물리화학위험성 구분

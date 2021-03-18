@@ -1,7 +1,9 @@
 package com.safetyas.sds.common.model.msds;
 
+import com.safetyas.sds.common.entity.msds.MatterData;
 import com.safetyas.sds.common.entity.msds.MatterEnv;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
+import javax.persistence.OneToOne;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;

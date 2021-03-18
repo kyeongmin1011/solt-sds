@@ -33,8 +33,7 @@ public class ProductMatterLaw implements Serializable {
   @Column(name = "product_matter_law_seq", length = 20)
   private Long productMatterLawSeq;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_law_fk"))
+  @OneToOne(mappedBy = "productMatterLaw", fetch = FetchType.LAZY)
   private ProductMatter productMatter;
 
   //------------------------------------------------------------- D그룹 14 un번호

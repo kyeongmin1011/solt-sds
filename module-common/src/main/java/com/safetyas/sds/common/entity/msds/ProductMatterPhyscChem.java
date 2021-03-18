@@ -33,8 +33,7 @@ public class ProductMatterPhyscChem implements Serializable {
   @Column(name = "product_matter_physc_chem_seq", length = 20)
   private Long productMatterPhyscChemSeq;
 
-  @OneToOne(cascade = {CascadeType.ALL}, orphanRemoval = true, fetch = FetchType.LAZY)
-  @JoinColumn(name = "product_matter_seq", foreignKey = @ForeignKey(name = "product_matter_seq_product_matter_physc_chem_fk"))
+  @OneToOne(mappedBy = "productMatterPhyscChem", fetch = FetchType.LAZY)
   private ProductMatter productMatter;
 
   //------------------------------------------------------------- A그룹 9 물리화학적 특성
