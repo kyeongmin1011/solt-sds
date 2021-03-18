@@ -10,6 +10,7 @@ import com.safetyas.sds.common.entity.MemberSupplier;
 import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.MemberInfoDTO;
 import com.safetyas.sds.common.model.MemberSupplierDTO;
+import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import com.safetyas.sds.common.service.client.FileService;
 import com.safetyas.sds.common.service.client.MemberService;
 import java.nio.charset.StandardCharsets;
@@ -119,18 +120,22 @@ public class ClientMemberService {
       FileDTO fileDTO = FileDTO.builder()
           .relateTable(RELATE_TABLE_NAME)
           .recordSeq(member.getMemberSeq())
+          .regUserSeq(member.getMemberSeq())
           .type(TYPE_NAME)
           .build();
       File preFile = fileService.selectFileByFileDTO(fileDTO);
-      fileUtil.deleteFile(preFile.getPath(), preFile.getName());
-      fileService.deleteFileData(preFile);
+
+      if (preFile != null) {
+        fileUtil.deleteFile(preFile.getPath(), preFile.getName());
+        fileService.deleteFileData(preFile);
+      }
 
       Map<String, Object> info = new HashMap<>();
       info.put("path", PATH_NAME);
       info.put("relateTable", RELATE_TABLE_NAME);
       info.put("recordSeq", member.getMemberSeq());
       info.put("type", TYPE_NAME);
-      info.put("regUserSeq", memberInfoRequest.getMemberSeq());
+      info.put("regUserSeq", member.getMemberSeq());
       // 첨부파일 등록
       FileDTO companyFile = fileUtil.parseFile(file, info);
 
@@ -178,7 +183,7 @@ public class ClientMemberService {
     File companyFile = fileService.selectFileByFileDTO(fileDTO);
 
     if (companyFile != null) {
-      memberInfoDTO.setCompanyCertificate(companyFile.getOriName());
+      memberInfoDTO.setFile(ModelMapperUtils.getModelMapper().map(companyFile,FileDTO.class));
     }
 
     return memberInfoDTO;
@@ -202,6 +207,11 @@ public class ClientMemberService {
   public void saveMemberSupplier(MemberSupplierDTO memberSupplierDTO, Long memberSeq) {
     Member member = memberService.findMemberById(memberSeq)
         .orElseThrow(CustomUserNotFoundException::new);
+
+    if (("Y").equals(memberSupplierDTO.getDefaultYn())) {
+      updateMemberSupplierDefaultYn();
+    }
+
     memberService.saveMemberSupplier(memberSupplierDTO.toEntity(member));
   }
 
@@ -214,8 +224,12 @@ public class ClientMemberService {
     MemberSupplier memberSupplier = memberService
         .selectMemberSupplier(memberSupplierDTO.getMemberSupplierSeq())
         .orElseThrow(CustomUserNotFoundException::new);
-    memberSupplier.update(memberSupplierDTO);
 
+    if (("Y").equals(memberSupplierDTO.getDefaultYn())) {
+      updateMemberSupplierDefaultYn();
+    }
+
+    memberSupplier.update(memberSupplierDTO);
     memberService.saveMemberSupplier(memberSupplier);
   }
 
@@ -232,5 +246,16 @@ public class ClientMemberService {
       memberService.deleteMemberSupplier(memberSupplierSeq);
     }
     return true;
+  }
+
+  public MemberSupplierDTO selectMemberSupplier(Long id) {
+    return ModelMapperUtils.getModelMapper()
+        .map(memberService.selectMemberSupplier(id).orElseThrow(NoSuchElementException::new),
+            MemberSupplierDTO.class);
+  }
+
+  private void updateMemberSupplierDefaultYn() {
+    MemberSupplier memberSupplier = memberService.selectDefaultSupplier();
+    memberSupplier.updateDefaultDefaultYn();
   }
 }

@@ -16,23 +16,29 @@ public class MemberSupplierQueryRepository {
   private final JPAQueryFactory queryFactory;
   private final QMemberSupplier memberSupplier;
 
-  public MemberSupplierQueryRepository (EntityManager em) {
+  public MemberSupplierQueryRepository(EntityManager em) {
     this.queryFactory = new JPAQueryFactory(em);
     memberSupplier = new QMemberSupplier("memberSupplier");
   }
 
-  public List<MemberSupplier> selectMemberSuppliers (Long memberSeq) {
+  public List<MemberSupplier> selectMemberSuppliers(Long memberSeq) {
     return queryFactory.selectFrom(memberSupplier)
         .leftJoin(memberSupplier.member, member)
-        .where(member.memberSeq.eq(memberSeq))
+        .where(member.memberSeq.eq(memberSeq), memberSupplier.delDate.isNull())
         .orderBy(memberSupplier.inDate.desc())
         .fetch();
   }
 
-     public boolean existsByProduct(Long memberSupplierSeq) {
+  public boolean existsByProduct(Long memberSupplierSeq) {
     return queryFactory.selectFrom(memberSupplier)
         .leftJoin(memberSupplier.productList, product)
         .where(memberSupplier.memberSupplierSeq.eq(memberSupplierSeq))
         .fetchFirst() != null;
+  }
+
+  public MemberSupplier selectDefaultSupplier() {
+    return queryFactory.selectFrom(memberSupplier)
+        .where(memberSupplier.defaultYn.eq("Y"))
+        .fetchOne();
   }
 }

@@ -47,11 +47,9 @@ import static org.reflections.util.Utils.isEmpty;
 public class ProductQueryRepository {
 
   private final JPAQueryFactory queryFactory;
-  private final ModelMapper modelMapper;
 
   public ProductQueryRepository(EntityManager em, ModelMapper modelMapper) {
     this.queryFactory = new JPAQueryFactory(em);
-    this.modelMapper = modelMapper;
   }
 
   public Product selectProductCbiAgencyById(Long id) {
@@ -168,7 +166,7 @@ public class ProductQueryRepository {
             product.getProductMatterList()
                 .stream()
                 .map(ProductMatter::getCas)
-                .collect(Collectors.joining(","))))
+                .collect(Collectors.toList())))
         .collect(Collectors.toList());
 
     long total = results.getTotal();
@@ -178,5 +176,25 @@ public class ProductQueryRepository {
 
   private BooleanExpression productUidEq(String productUid) {
     return isEmpty(productUid) ? null : product.productUid.eq(productUid);
+  }
+
+  public List<ProductDTO> selectProductLibrary(Long seq) {
+    List<Product> productList = queryFactory.select(product)
+        .from(product)
+        .where(product.productSeq.eq(seq))
+        .fetch();
+
+    List<ProductDTO> productDTOList = productList
+        .stream()
+        .map(product -> new ProductDTO(product.getInDate(), product.getModDate(),
+            product.getProductSeq(),
+            product.getProductUid(),
+            product.getProductMatterList()
+                .stream()
+                .map(ProductMatter::getCas)
+                .collect(Collectors.toList())))
+        .collect(Collectors.toList());
+
+    return productDTOList;
   }
 }

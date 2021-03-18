@@ -11,6 +11,7 @@ import com.safetyas.sds.common.model.ProductSearchCondition;
 import com.safetyas.sds.common.repository.FileQueryRepository;
 import com.safetyas.sds.common.service.ProductService;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
@@ -65,7 +66,7 @@ public class ClientProductService {
   }
 
   public long insertProduct(ProductRequest productRequest) {
-  return  productService.insertProductAndMemberSupplier(productRequest.toEntity(),
+    return productService.insertProductAndMemberSupplier(productRequest.toEntity(),
         productRequest.getMemberSupplierSeq());
   }
 
@@ -79,5 +80,9 @@ public class ClientProductService {
 
   public ProductDTO selectProduct(Long productSeq) {
     return productService.selectProductAndProductMatter(productSeq);
+  }
+
+  public List<ProductDTO> selectProductLibrary(Long seq) {
+    return productService.selectProductLibrary(seq);
   }
 }

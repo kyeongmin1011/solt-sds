@@ -18,10 +18,17 @@ public abstract class CommonDTO implements Serializable {
 
   @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime inDate;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime modDate;
+  @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm", timezone = "Asia/Seoul")
   private LocalDateTime delDate;
 
   public CommonDTO(LocalDateTime inDate) {
     this.inDate = inDate;
+  }
+
+  public CommonDTO(LocalDateTime inDate, LocalDateTime modDate) {
+    this.inDate = inDate;
+    this.modDate = modDate;
   }
 }

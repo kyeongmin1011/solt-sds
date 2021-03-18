@@ -117,4 +117,8 @@ public class MemberService {
     memberSupplier.updateDelDate();
     memberSupplierRepository.save(memberSupplier);
   }
+
+  public MemberSupplier selectDefaultSupplier() {
+    return memberSupplierQueryRepository.selectDefaultSupplier();
+  }
 }

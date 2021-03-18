@@ -40,4 +40,6 @@ public class MemberInfoDTO implements Serializable {
   private String companyCertificate;
   private LocalDateTime memberValidStart;
   private LocalDateTime memberValidFinish;
+
+  private FileDTO file;
 }

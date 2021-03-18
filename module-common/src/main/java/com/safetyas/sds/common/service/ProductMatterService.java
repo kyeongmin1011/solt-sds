@@ -8,24 +8,24 @@ import com.safetyas.sds.common.entity.msds.ProductMatterHealth;
 import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
+import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.model.msds.MatterEnvDTO;
 import com.safetyas.sds.common.model.msds.MatterHealthDTO;
 import com.safetyas.sds.common.model.msds.MatterLawDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscChemDTO;
 import com.safetyas.sds.common.model.msds.MatterPhyscDvDTO;
-import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.repository.MatterDataRepository;
 import com.safetyas.sds.common.repository.ProductMatterEnvRepository;
 import com.safetyas.sds.common.repository.ProductMatterHealthRepository;
 import com.safetyas.sds.common.repository.ProductMatterLawRepository;
 import com.safetyas.sds.common.repository.ProductMatterPhyscChemRepository;
 import com.safetyas.sds.common.repository.ProductMatterPhyscDvRepository;
+import com.safetyas.sds.common.repository.ProductMatterQueryRepository;
 import com.safetyas.sds.common.repository.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
+import java.util.List;
 import java.util.NoSuchElementException;
-
 import lombok.RequiredArgsConstructor;
-import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -40,7 +40,7 @@ public class ProductMatterService {
   private final ProductMatterLawRepository productMatterLawRepository;
   private final ProductMatterPhyscDvRepository productMatterPhyscDvRepository;
   private final ProductMatterPhyscChemRepository productMatterPhyscChemRepository;
-  private final ModelMapper modelMapper;
+  private final ProductMatterQueryRepository productMatterQueryRepository;
 
   public void insertProductMatter(ProductMatter productMatter) {
     productMatterRepository.save(productMatter);
@@ -61,14 +61,11 @@ public class ProductMatterService {
   }
 
   /**
-   * 오픈소스 물질 라이브러리에서 가져온 정보로 제품 물질 입력.
-   * - 오픈소스 데이터 가져오기.v
-   * - 제품 물질에 오픈소스 데이터 세팅 v
-   * - 제품 물질 구분값에 따른 msds 문구 세팅
-   * - ProductMatter 리스트 반환.
+   * 오픈소스 물질 라이브러리에서 가져온 정보로 제품 물질 입력. - 오픈소스 데이터 가져오기.v - 제품 물질에 오픈소스 데이터 세팅 v - 제품 물질 구분값에 따른 msds
+   * 문구 세팅 - ProductMatter 리스트 반환.
    */
   public void insertFromMatterData(String matterDataKey, Long productSeq) {
-    System.out.println("params3: matterdatakey "+matterDataKey+", productseq "+productSeq);
+    System.out.println("params3: matterdatakey " + matterDataKey + ", productseq " + productSeq);
 
     MatterData matterData = matterDataRepository.findById(matterDataKey)
         .orElseThrow(NoSuchElementException::new);
@@ -102,7 +99,8 @@ public class ProductMatterService {
     productMatterPhyscDv.setProductMatter(productMatter);
     productMatterPhyscDvRepository.save(productMatterPhyscDv);
 
-    ProductMatterPhyscChem productMatterPhyscChem = ProductMatterPhyscChem.toEntity(matterPhyscChemDTO);
+    ProductMatterPhyscChem productMatterPhyscChem = ProductMatterPhyscChem
+        .toEntity(matterPhyscChemDTO);
     productMatterPhyscChem.setProductMatter(productMatter);
     productMatterPhyscChemRepository.save(productMatterPhyscChem);
 
@@ -111,5 +109,9 @@ public class ProductMatterService {
     productMatterLawRepository.save(productMatterLaw);
 
     // TODO: 문구세팅, 리스트 반환.
+  }
+
+  public List<ProductMatterDTO> selectMatterLibrary() {
+    return productMatterQueryRepository.selectMatterLibrary(1L);
   }
 }

@@ -23,7 +23,7 @@ spring:
     database: mysql
     database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
   jwt:
-    secret: safetyas@$&!use;
+    secret: safetyas@$&!use;`
   smtp:
     host: smtps.hiworks.com
     user: web@safety-as.com

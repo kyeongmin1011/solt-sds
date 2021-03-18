@@ -95,15 +95,16 @@ public class ProductService {
         .orElseThrow(NoSuchElementException::new);
 
     ProductDTO productDTO = modelMapper.map(product, ProductDTO.class);
-
     productDTO.setMemberSupplierSeq(product.getMemberSupplier().getMemberSupplierSeq());
-
-    //TODO:: 멤버 시퀀스 넣어줘야 함
     productDTO.setMemberSupplierList(
         modelMapper.map(memberSupplierQueryRepository.selectMemberSuppliers(1L),
             new TypeToken<List<MemberSupplierDTO>>() {
             }.getType()));
 
     return productDTO;
+  }
+
+  public List<ProductDTO> selectProductLibrary(Long seq) {
+    return productQueryRepository.selectProductLibrary(seq);
   }
 }

@@ -13,6 +13,7 @@ import javax.persistence.Entity;
 import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
@@ -48,8 +49,8 @@ public class MemberSupplier extends CommonEntity implements Serializable {
   }
 
   @Id
-  @GeneratedValue
-  @Column(name = "member_supplier_seq", nullable = false, length = 20)
+  @GeneratedValue(strategy = GenerationType.IDENTITY)
+  @Column(name = "member_supplier_seq", length = 20)
   private Long memberSupplierSeq;
 
   @Column(name = "supplier_group", columnDefinition = "varchar(10) comment '공급사 그룹 구분. 당사, 타사'")
@@ -99,5 +100,9 @@ public class MemberSupplier extends CommonEntity implements Serializable {
     this.addr1 = memberSupplierDTO.getAddr1();
     this.addr2 = memberSupplierDTO.getAddr2();
     this.defaultYn = memberSupplierDTO.getDefaultYn();
+  }
+
+  public void updateDefaultDefaultYn() {
+    this.defaultYn = "N";
   }
 }

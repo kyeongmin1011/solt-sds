@@ -2,6 +2,7 @@ package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.service.ProductMatterService;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
@@ -28,8 +29,12 @@ public class ClientProductMatterService {
    * 오픈소스 물질 라이브러리에서 가져온 정보로 제품 물질 입력.
    */
   public void insertFromMatterData(String matterDataKey, Long productSeq) {
-    System.out.println("params2: matterdatakey "+matterDataKey+", productseq "+productSeq);
+    System.out.println("params2: matterdatakey " + matterDataKey + ", productseq " + productSeq);
 
     productMatterService.insertFromMatterData(matterDataKey, productSeq);
+  }
+
+  public List<ProductMatterDTO> selectMatterLibrary() {
+    return productMatterService.selectMatterLibrary();
   }
 }

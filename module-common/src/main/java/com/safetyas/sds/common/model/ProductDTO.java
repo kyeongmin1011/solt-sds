@@ -47,7 +47,7 @@ public class ProductDTO extends CommonDTO implements Serializable {
 
   private Long memberSupplierSeq;
 
-  private String casList;
+  private List<String> casList;
 
   private List<ProductMatterDTO> productMatterList = new ArrayList<>();
   private List<MemberSupplierDTO> memberSupplierList = new ArrayList<>();
@@ -57,7 +57,7 @@ public class ProductDTO extends CommonDTO implements Serializable {
   public ProductDTO(LocalDateTime inDate, Long productSeq, String productUid, String finalSaveYn,
       String language,
       String agencyTranslateYn, String agencyRevisionYn, String tonsYear, String agencySubmissionYn,
-      String agencyCbiDocYn, String orYn, String casList) {
+      String agencyCbiDocYn, String orYn, List<String> casList) {
     super(inDate);
     this.productSeq = productSeq;
     this.productUid = productUid;
@@ -69,6 +69,14 @@ public class ProductDTO extends CommonDTO implements Serializable {
     this.agencySubmissionYn = agencySubmissionYn;
     this.agencyCbiDocYn = agencyCbiDocYn;
     this.orYn = orYn;
+    this.casList = casList;
+  }
+
+  public ProductDTO(LocalDateTime inDate, LocalDateTime modDate, Long productSeq, String productUid,
+      List<String> casList) {
+    super(inDate, modDate);
+    this.productSeq = productSeq;
+    this.productUid = productUid;
     this.casList = casList;
   }
 }

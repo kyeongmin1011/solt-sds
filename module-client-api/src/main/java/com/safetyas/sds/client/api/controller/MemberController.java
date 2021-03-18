@@ -52,9 +52,15 @@ public class MemberController {
     return responseService.getSingleResult(clientMemberService.selectMemberSuppliers(memberSeq));
   }
 
+  @GetMapping(value = "/suppliers/{id}")
+  public SingleResult<MemberSupplierDTO> selectMemberSupplier(@PathVariable Long id) {
+
+    return responseService.getSingleResult(clientMemberService.selectMemberSupplier(id));
+  }
+
   @ApiOperation(value = "멤버 공급자 입력", notes = "새로운 멤버 공급자 입력한다.")
   @PostMapping(value = "/suppliers")
-  public CommonResult insertMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+  public CommonResult insertMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
     Long memberSeq = 1L;
     clientMemberService.saveMemberSupplier(memberSupplierDTO, memberSeq);
     return responseService.getSuccessResult();
@@ -62,7 +68,7 @@ public class MemberController {
 
   @ApiOperation(value = "멤버 공급자 수정", notes = "새로운 멤버 공급자 수정 입력한다.")
   @PutMapping(value = "/suppliers")
-  public CommonResult updateMemberSupplier(MemberSupplierDTO memberSupplierDTO) {
+  public CommonResult updateMemberSupplier(@RequestBody MemberSupplierDTO memberSupplierDTO) {
     clientMemberService.updateMemberSupplier(memberSupplierDTO);
     return responseService.getSuccessResult();
   }

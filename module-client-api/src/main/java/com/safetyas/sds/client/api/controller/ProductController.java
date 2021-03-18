@@ -11,6 +11,7 @@ import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.ProductSearchCondition;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import java.util.List;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -81,5 +82,13 @@ public class ProductController {
       MultipartHttpServletRequest multipartHttpServletRequest) {
     clientProductService.insertCbiDocument(cbiDocumentRequest, multipartHttpServletRequest);
     return responseService.getSuccessResult();
+  }
+
+  @GetMapping("/product-library/{seq}")
+  @ApiOperation("내 제품 라이브러리")
+  public SingleResult<List<ProductDTO>> selectProductLibrary(@PathVariable Long seq) {
+
+    System.out.println(seq);
+    return responseService.getSingleResult(clientProductService.selectProductLibrary(seq));
   }
 }
