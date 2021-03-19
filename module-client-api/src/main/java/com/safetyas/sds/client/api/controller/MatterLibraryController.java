@@ -16,17 +16,17 @@ import org.springframework.web.bind.annotation.RestController;
 @RestController
 @RequestMapping(value = "/matter-sas-library")
 @RequiredArgsConstructor
-public class MatterOpenSourceController {
+public class MatterLibraryController {
 
   private final ResponseService responseService;
   private final ClientProductMatterService clientProductMatterService;
 
   @PostMapping("/select-into")
-  @ApiOperation("선택 오픈소스 데이터로 제품 물질로 추가")
+  @ApiOperation("선택 크롤링 물질 데이터로 제품 물질로 추가")
   public CommonResult insertFromLibMatter(String matterDataKey, Long productSeq) {
-    System.out.println("params: matterdatakey "+matterDataKey+", productseq "+productSeq);
     clientProductMatterService.insertFromMatterData(matterDataKey, productSeq);
-    //추가되어 업데이트한 ProductMatter 리스트 반환
+    // TODO:추가되어 업데이트한 ProductMatter 리스트 반환
+
     return responseService.getSuccessResult();
   }
 }

@@ -11,6 +11,7 @@ import com.safetyas.sds.common.entity.msds.ProductMatterLaw;
 import com.safetyas.sds.common.entity.msds.ProductMatterMsds;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscChem;
 import com.safetyas.sds.common.entity.msds.ProductMatterPhyscDv;
+import com.safetyas.sds.common.model.info.InfoGradeDetailDTO;
 import com.safetyas.sds.common.model.info.InfoHazardGradeDTO;
 import com.safetyas.sds.common.model.info.InfoPhraseDTO;
 import com.safetyas.sds.common.model.msds.MatterEnvDTO;
@@ -22,6 +23,8 @@ import com.safetyas.sds.common.model.ProductMatterDTO;
 import com.safetyas.sds.common.model.msds.MsdsPhrasesDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
 import com.safetyas.sds.common.repository.MatterDataRepository;
+import com.safetyas.sds.common.repository.info.InfoGradeDetailQueryRepository;
+import com.safetyas.sds.common.repository.info.InfoPrecautionQueryRepository;
 import com.safetyas.sds.common.repository.msds.ProductMatterEnvRepository;
 import com.safetyas.sds.common.repository.msds.ProductMatterHealthRepository;
 import com.safetyas.sds.common.repository.msds.ProductMatterLawRepository;
@@ -34,7 +37,9 @@ import com.safetyas.sds.common.repository.info.InfoHazardGradeRepository;
 import com.safetyas.sds.common.repository.info.InfoPhraseQueryRepository;
 import com.safetyas.sds.common.util.ObjectUtil;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Map;
 import java.util.Map.Entry;
@@ -61,6 +66,8 @@ public class ProductMatterService {
   private final InfoHazardGradeRepository infoHazardGradeRepository;
   private final InfoPhraseQueryRepository infoPhraseQueryRepository;
   private final ProductMatterMsdsRepository productMatterMsdsRepository;
+  private final InfoGradeDetailQueryRepository infoGradeDetailQueryRepository;
+  private final InfoPrecautionQueryRepository infoPrecautionQueryRepository;
 
   public void insertProductMatter(ProductMatter productMatter) {
     productMatterRepository.save(productMatter);
@@ -88,8 +95,6 @@ public class ProductMatterService {
    * - ProductMatter 리스트 반환.
    */
   public void insertFromMatterData(String matterDataKey, Long productSeq) {
-    System.out.println("params3: matterdatakey "+matterDataKey+", productseq "+productSeq);
-
     MatterData matterData = matterDataRepository.findById(matterDataKey)
         .orElseThrow(NoSuchElementException::new);
 
@@ -137,9 +142,12 @@ public class ProductMatterService {
         .map(infoPhraseList, new TypeToken<List<InfoPhraseDTO>>() {
         }.getType());
 
-    MsdsPhrasesDTO phrasesDTO = setMsdsPhrases(infoPhraseDTOList);
+    MsdsPhrasesDTO phrasesDTO = getMsdsPhrases(infoPhraseDTOList);
 
     ProductMatterMsds productMatterMsds = ProductMatterMsds.toEntity(phrasesDTO);
+    // 예방문구 세팅
+    InfoGradeDetailDTO precautions = getGhsCode(keyList);
+    productMatterMsds.updatePrecautions(precautions);
     productMatterMsdsRepository.save(productMatterMsds);
 
     ProductMatter productMatter = ProductMatter.builder()
@@ -159,6 +167,13 @@ public class ProductMatterService {
 
   }
 
+  /**
+   * 유해성구분키 가져오기
+   * @param matterPhyscDvDTO
+   * @param matterHealthDTO
+   * @param productMatterEnv
+   * @return
+   */
   public List<String> getKeyList(MatterPhyscDvDTO matterPhyscDvDTO, MatterHealthDTO matterHealthDTO, ProductMatterEnv productMatterEnv) {
     List<String> divList = new ArrayList<>();
     divList.add(matterPhyscDvDTO.getDivisionA01());
@@ -221,11 +236,11 @@ public class ProductMatterService {
   }
 
   /**
-   * 문구 그룹핑
+   * MSDS step4,5,6,7,8,10,13 문구 그룹핑
    * @param infoPhraseDTOList
    * @return
    */
-  private MsdsPhrasesDTO setMsdsPhrases(List<InfoPhraseDTO> infoPhraseDTOList) {
+  private MsdsPhrasesDTO getMsdsPhrases(List<InfoPhraseDTO> infoPhraseDTOList) {
 
     Map<String, List<String>> phraseMap = new TreeMap<>();
     for(InfoPhraseDTO infoPhraseDTO: infoPhraseDTOList) {
@@ -242,6 +257,43 @@ public class ProductMatterService {
 
     MsdsPhrasesDTO phrasesDTO = new MsdsPhrasesDTO();
     return (MsdsPhrasesDTO)ObjectUtil.convertMapToObject(collectPhrases, phrasesDTO);
+  }
+
+  /**
+   * keyList 에 따른 GHS 코드 문구
+   */
+  private InfoGradeDetailDTO getGhsCode(List<String> keyList) {
+    List<InfoGradeDetailDTO> infoGradeDetailDTOList = infoGradeDetailQueryRepository
+        .selectGradeCode(keyList);
+    //중복값 제거한 코드.
+    HashSet<String> ghsImageList = new HashSet<>();
+    HashSet<String> hazardSignalList = new HashSet<>();
+    HashSet<String> hazardCodeList = new HashSet<>();
+    HashSet<String> precautionCodeList = new HashSet<>();
+    HashSet<String> actionCodeList = new HashSet<>();
+    HashSet<String> storeCodeList = new HashSet<>();
+    HashSet<String> discardCodeList = new HashSet<>();
+
+    for(InfoGradeDetailDTO infoGradeDetailDTO: infoGradeDetailDTOList) {
+      ghsImageList.addAll(Arrays.asList(infoGradeDetailDTO.getGhsImage().split(";")));
+      hazardSignalList.addAll(Arrays.asList(infoGradeDetailDTO.getHazardSignal().split(";")));
+      hazardCodeList.addAll(Arrays.asList(infoGradeDetailDTO.getHazardCode().split(";")));
+      precautionCodeList.addAll(Arrays.asList(infoGradeDetailDTO.getPrecautionCode().split(";")));
+      actionCodeList.addAll(Arrays.asList(infoGradeDetailDTO.getActionCode().split(";")));
+      storeCodeList.addAll(Arrays.asList(infoGradeDetailDTO.getStoreCode().split(";")));
+      discardCodeList.addAll(Arrays.asList(infoGradeDetailDTO.getDiscardCode().split(";")));
+    }
+
+    Map<String, Object> param = new HashMap<>();
+    param.put("ghsImageList", ghsImageList);
+    param.put("hazardSignalList", hazardSignalList);
+    param.put("hazardCodeList", hazardCodeList);
+    param.put("precautionCodeList", precautionCodeList);
+    param.put("actionCodeList", actionCodeList);
+    param.put("storeCodeList", storeCodeList);
+    param.put("discardCodeList", discardCodeList);
+
+    return infoPrecautionQueryRepository.getPrecautionsBy(param);
   }
 
 }

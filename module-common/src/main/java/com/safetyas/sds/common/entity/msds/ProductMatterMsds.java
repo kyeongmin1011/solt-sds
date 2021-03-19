@@ -2,6 +2,7 @@ package com.safetyas.sds.common.entity.msds;
 
 import com.safetyas.sds.common.entity.CommonEntity;
 import com.safetyas.sds.common.entity.info.InfoMatterUsage;
+import com.safetyas.sds.common.model.info.InfoGradeDetailDTO;
 import com.safetyas.sds.common.model.msds.MsdsPhrasesDTO;
 import com.safetyas.sds.common.model.msds.ProductMatterMsdsDTO;
 import com.safetyas.sds.common.modelMapper.ModelMapperUtils;
@@ -314,5 +315,32 @@ public class ProductMatterMsds extends CommonEntity implements Serializable {
 
   public static ProductMatterMsds toEntity(MsdsPhrasesDTO phrasesDTO) {
     return ModelMapperUtils.getModelMapper().map(phrasesDTO, ProductMatterMsds.class);
+  }
+
+  public void updatePrecautions(InfoGradeDetailDTO precautions) {
+    this.step02_01 = hasValue(precautions.getGhsImage()) ;
+    this.step02_02 = getHazardSignal(precautions.getHazardSignal());
+    this.step02_03 = hasValue(precautions.getHazardCode());
+    this.step02_04 = hasValue(precautions.getPrecautionCode());
+    this.step02_05 = hasValue(precautions.getActionCode());
+    this.step02_06 = hasValue(precautions.getStoreCode());
+    this.step02_07 = hasValue(precautions.getDiscardCode());
+    this.step02_08 = "자료없음";
+  }
+
+  public String hasValue(String str) {
+    return (str == null || str.isEmpty())? "해당없음": str;
+  }
+
+  public String getHazardSignal(String str) {
+    String signal = "";
+    if (str.contains("위험")) {
+      signal = "위험";
+    }else if (str.contains("경고")) {
+      signal = "경고";
+    } else {
+      signal = "해당없음";
+    }
+    return signal;
   }
 }
