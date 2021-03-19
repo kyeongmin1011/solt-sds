@@ -34,21 +34,18 @@ public class MatterData extends CommonEntity implements Serializable {
   @Column(name = "note", columnDefinition = "varchar(50) comment '비고'")
   private String note;
 
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "matterData")
   private MatterPhyscChem matterPhyscChem;
 
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "matterData")
   private MatterHealth matterHealth;
 
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "matterData")
   private MatterEnv matterEnv;
 
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "matterData")
   private MatterLaw matterLaw;
 
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
+  @OneToOne(mappedBy = "matterData")
   private MatterPhyscDv matterPhyscDv;
-
-  @OneToOne(mappedBy = "matterData", fetch = FetchType.LAZY)
-  private ProductMatter productMatter;
 }

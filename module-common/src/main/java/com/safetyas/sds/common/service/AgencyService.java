@@ -16,7 +16,7 @@ import com.safetyas.sds.common.model.SubmissionAgencyDTO;
 import com.safetyas.sds.common.model.TranslationAgencyProgressDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import com.safetyas.sds.common.repository.FileQueryRepository;
-import com.safetyas.sds.common.repository.ProductMatterRepository;
+import com.safetyas.sds.common.repository.msds.ProductMatterRepository;
 import com.safetyas.sds.common.repository.ProductQueryRepository;
 import com.safetyas.sds.common.repository.ProductRepository;
 import java.util.List;
