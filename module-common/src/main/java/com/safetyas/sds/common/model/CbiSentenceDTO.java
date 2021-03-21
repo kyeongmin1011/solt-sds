@@ -16,7 +16,7 @@ import lombok.ToString;
 @ToString
 @Builder
 public class CbiSentenceDTO {
-  private List<String> nonKnowledgeList = new ArrayList<>();  // 비공지성
-  private List<String> confidentialityList = new ArrayList<>(); // 비밀관리성
-  private List<String> economicUsefulnessList = new ArrayList<>();  // 경제적 유용성
+  private List<String> nonKnowledgeList;  // 비공지성
+  private List<String> confidentialityList; // 비밀관리성
+  private List<String> economicUsefulnessList;  // 경제적 유용성
 }

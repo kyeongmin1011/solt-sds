@@ -24,7 +24,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Api(tags = {"대행 서비스"})
@@ -94,8 +96,9 @@ public class AgencyController {
   @ApiOperation(value = "번역대행 요청정보 저장")
   @PostMapping(value = "/translate/request-info")
   public CommonResult insertTranslateAgencyRequestInfo(TranslationAgencyRequestInfoDTO translationAgencyRequestInfoDTO,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
-    clientAgencyService.insertTranslationRequestInfo(translationAgencyRequestInfoDTO, multipartHttpServletRequest);
+      @RequestParam("file") List<MultipartFile> files) {
+    System.out.println("??");
+    clientAgencyService.insertTranslationRequestInfo(translationAgencyRequestInfoDTO, files);
     return responseService.getSuccessResult();
   }
 

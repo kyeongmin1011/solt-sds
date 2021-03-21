@@ -1,9 +1,11 @@
 package com.safetyas.sds.client.api.service;
 
 import com.safetyas.sds.client.api.util.FileUtil;
+import com.safetyas.sds.common.entity.File;
 import com.safetyas.sds.common.entity.msds.Product;
 import com.safetyas.sds.common.model.CbiAgencyProgressDTO;
 import com.safetyas.sds.common.model.CbiAgencyRequestInfoDTO;
+import com.safetyas.sds.common.model.FileDTO;
 import com.safetyas.sds.common.model.OrAgencyDTO;
 import com.safetyas.sds.common.model.ProductDTO;
 import com.safetyas.sds.common.model.RenewAgencyDTO;
@@ -14,11 +16,14 @@ import com.safetyas.sds.common.model.TranslationAgencyProgressDTO;
 import com.safetyas.sds.common.model.TranslationAgencyRequestInfoDTO;
 import com.safetyas.sds.common.service.AgencyService;
 import com.safetyas.sds.common.service.ProductService;
+import com.safetyas.sds.common.service.client.FileService;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 @Service
@@ -28,6 +33,8 @@ public class ClientAgencyService {
   private final ProductService productService;
   private final ClientFileService clientFileService;
   private final AgencyService agencyService;
+  private final FileUtil fileUtil;
+  private final FileService fileService;
 
   private static final String TYPE_NAME = "attach";
 
@@ -91,20 +98,36 @@ public class ClientAgencyService {
 
   public void insertTranslationRequestInfo(
       TranslationAgencyRequestInfoDTO translationAgencyRequestInfoDTO,
-      MultipartHttpServletRequest multipartHttpServletRequest) {
+      List<MultipartFile> files) {
 
     Product product = productService.selectProduct(translationAgencyRequestInfoDTO.getProductSeq());
     product.updateProductTranslation(translationAgencyRequestInfoDTO);
     productService.insertProduct(product);
 
-    if (!FileUtil.isEmpty(multipartHttpServletRequest.getFiles(TYPE_NAME))) {
+    if (!FileUtil.isEmpty(files)) {
       Map<String, Object> infoMap = new HashMap<>();
-      infoMap.put("path", "revision");
-      infoMap.put("relateTable", "revisionAgency");
+      infoMap.put("path", "translation");
+      infoMap.put("relateTable", "translationAgency");
       infoMap.put("recordSeq", product.getProductSeq());
       infoMap.put("type", TYPE_NAME);
       infoMap.put("regUserSeq", product.getProductSeq());
-      clientFileService.insertFile(multipartHttpServletRequest, infoMap);
+      insertFile(files, infoMap);
     }
+  }
+
+  private void insertFile(List<MultipartFile> attachList, Map<String, Object> infoMap) {
+    Map<String, MultipartFile> fileMap = new HashMap<>();
+
+    int i = 1;
+    for (MultipartFile multipartFile : attachList) {
+      fileMap.put(TYPE_NAME + i, multipartFile);
+      i++;
+    }
+
+    List<File> fileList = fileUtil.parseFiles(fileMap, infoMap)
+        .stream()
+        .map(FileDTO::toEntity)
+        .collect(Collectors.toList());
+    fileService.saveFiles(fileList);
   }
 }
