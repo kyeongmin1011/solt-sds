@@ -86,17 +86,17 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ae5_other", columnDefinition = "varchar(500) comment '녹는점/어는점-비고'")
   private String ae5Other;  //추가
 
-  @Column(name = "af1_value1", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-유일값'")
+  @Column(name = "af1_value1", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-유일값'")
   private String af1Value1;
-  @Column(name = "af2_value2", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-최소값1'")
+  @Column(name = "af2_value2", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-최소값1'")
   private String af2Value2;
-  @Column(name = "af3_value3", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-최소값2'")
+  @Column(name = "af3_value3", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-최소값2'")
   private String af3Value3;
-  @Column(name = "af4_value4", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-최대값1'")
+  @Column(name = "af4_value4", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-최대값1'")
   private String af4Value4;
-  @Column(name = "af5_value5", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-최대값2'")
+  @Column(name = "af5_value5", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-최대값2'")
   private String af5Value5;
-  @Column(name = "af6_unit", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-단위'")
+  @Column(name = "af6_unit", columnDefinition = "varchar(20) comment '초기 끓는점과 끓는점 범위-단위'")
   private String af6Unit;
   @Column(name = "af7_tg", columnDefinition = "varchar(100) comment '초기 끓는점과 끓는점 범위-시험지침'")
   private String af7Tg;
@@ -105,17 +105,17 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "af9_other", columnDefinition = "varchar(500) comment '초기 끓는점과 끓는점 범위-비고'")
   private String af9Other;  //추가
 
-  @Column(name = "ag1_value1", columnDefinition = "varchar(100) comment '인화점-유일값'")
+  @Column(name = "ag1_value1", columnDefinition = "varchar(20) comment '인화점-유일값'")
   private String ag1Value1;
-  @Column(name = "ag2_value2", columnDefinition = "varchar(100) comment '인화점-최소값1'")
+  @Column(name = "ag2_value2", columnDefinition = "varchar(20) comment '인화점-최소값1'")
   private String ag2Value2;
-  @Column(name = "ag3_value3", columnDefinition = "varchar(100) comment '인화점-최소값2'")
+  @Column(name = "ag3_value3", columnDefinition = "varchar(20) comment '인화점-최소값2'")
   private String ag3Value3;
-  @Column(name = "ag4_value4", columnDefinition = "varchar(100) comment '인화점-최대값1'")
+  @Column(name = "ag4_value4", columnDefinition = "varchar(20) comment '인화점-최대값1'")
   private String ag4Value4;
-  @Column(name = "ag5_value5", columnDefinition = "varchar(100) comment '인화점-최대값2'")
+  @Column(name = "ag5_value5", columnDefinition = "varchar(20) comment '인화점-최대값2'")
   private String ag5Value5;
-  @Column(name = "ag6_unit", columnDefinition = "varchar(100) comment '인화점-단위'")
+  @Column(name = "ag6_unit", columnDefinition = "varchar(20) comment '인화점-단위'")
   private String ag6Unit;
   @Column(name = "ag7_tg", columnDefinition = "varchar(100) comment '인화점-시험지침'")
   private String ag7Tg;
@@ -124,7 +124,7 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ag9_other", columnDefinition = "varchar(500) comment '인화점-비고'")
   private String ag9Other;
 
-  @Column(name = "ah1_data", columnDefinition = "varchar(100) comment '증발속도-값'")
+  @Column(name = "ah1_data", columnDefinition = "varchar(20) comment '증발속도-값'")
   private String ah1Data;
   @Column(name = "ah2_method", columnDefinition = "varchar(100) comment '증발속도-시험조건'")
   private String ah2Method;
@@ -135,7 +135,7 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ah5_other", columnDefinition = "varchar(500) comment '증발속도-비고'")
   private String ah5Other;  //추가
 
-  @Column(name = "ai1_data", columnDefinition = "varchar(100) comment '인화성(고체,기체)-값'")
+  @Column(name = "ai1_data", columnDefinition = "varchar(20) comment '인화성(고체,기체)-값'")
   private String ai1Data;
   @Column(name = "ai2_tg", columnDefinition = "varchar(100) comment '인화성(고체,기체)-시험지침'")
   private String ai2Tg;
@@ -157,9 +157,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "aj6_other", columnDefinition = "varchar(500) comment '인화 또는 폭발 범위의 상한/하한-비고'")
   private String aj6Other;
 
-  @Column(name = "ak1_data", columnDefinition = "varchar(100) comment '증기압-값'")
+  @Column(name = "ak1_data", columnDefinition = "varchar(20) comment '증기압-값'")
   private String ak1Data;
-  @Column(name = "ak2_unit", columnDefinition = "varchar(100) comment '증기압-단위'")
+  @Column(name = "ak2_unit", columnDefinition = "varchar(20) comment '증기압-단위'")
   private String ak2Unit;
   @Column(name = "ak3_method", columnDefinition = "varchar(100) comment '증기압-시험조건'")
   private String ak3Method;
@@ -170,9 +170,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ak6_other", columnDefinition = "varchar(500) comment '증기압-비고'")
   private String ak6Other;  //추가
 
-  @Column(name = "al1_data", columnDefinition = "varchar(100) comment '용해도-값'")
+  @Column(name = "al1_data", columnDefinition = "varchar(20) comment '용해도-값'")
   private String al1Data;
-  @Column(name = "al2_unit", columnDefinition = "varchar(100) comment '용해도-단위'")
+  @Column(name = "al2_unit", columnDefinition = "varchar(20) comment '용해도-단위'")
   private String al2Unit;
   @Column(name = "al3_method", columnDefinition = "varchar(100) comment '용해도-시험조건'")
   private String al3Method;
@@ -183,9 +183,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ak5_other", columnDefinition = "varchar(500) comment '용해도-비고'")
   private String al6Other;
 
-  @Column(name = "am1_data", columnDefinition = "varchar(100) comment '증기밀도-값'")
+  @Column(name = "am1_data", columnDefinition = "varchar(20) comment '증기밀도-값'")
   private String am1Data;
-  @Column(name = "am2_unit", columnDefinition = "varchar(100) comment '증기밀도-단위'")
+  @Column(name = "am2_unit", columnDefinition = "varchar(20) comment '증기밀도-단위'")
   private String am2Unit;
   @Column(name = "am3_method", columnDefinition = "varchar(100) comment '증기밀도-시험조건'")
   private String am3Method;
@@ -196,9 +196,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "am6_other", columnDefinition = "varchar(500) comment '증기밀도-비고'")
   private String am6Other;  //추가
 
-  @Column(name = "an1_data", columnDefinition = "varchar(100) comment '비중-값'")
+  @Column(name = "an1_data", columnDefinition = "varchar(20) comment '비중-값'")
   private String an1Data;
-  @Column(name = "an2_unit", columnDefinition = "varchar(100) comment '비중-단위'")
+  @Column(name = "an2_unit", columnDefinition = "varchar(20) comment '비중-단위'")
   private String an2Unit;
   @Column(name = "an3_method", columnDefinition = "varchar(100) comment '비중-시험조건'")
   private String an3Method;
@@ -209,15 +209,15 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "an6_other", columnDefinition = "varchar(500) comment '비중-비고'")
   private String an6Other;  //추가
 
-  @Column(name = "ao1_value1", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-유일값'")
+  @Column(name = "ao1_value1", columnDefinition = "varchar(20) comment 'n 옥탄올/물 분배계수-유일값'")
   private String ao1Value1;
-  @Column(name = "ao2_value2", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-최소값1'")
+  @Column(name = "ao2_value2", columnDefinition = "varchar(20) comment 'n 옥탄올/물 분배계수-최소값1'")
   private String ao2Value2;
-  @Column(name = "ao3_value3", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-최소값2'")
+  @Column(name = "ao3_value3", columnDefinition = "varchar(20) comment 'n 옥탄올/물 분배계수-최소값2'")
   private String ao3Value3;
-  @Column(name = "ao4_value4", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-최대값1'")
+  @Column(name = "ao4_value4", columnDefinition = "varchar(20) comment 'n 옥탄올/물 분배계수-최대값1'")
   private String ao4Value4;
-  @Column(name = "ao5_value5", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-최대값2'")
+  @Column(name = "ao5_value5", columnDefinition = "varchar(20) comment 'n 옥탄올/물 분배계수-최대값2'")
   private String ao5Value5;
   @Column(name = "ao6_tg", columnDefinition = "varchar(100) comment 'n 옥탄올/물 분배계수-시험지침'")
   private String ao6Tg;
@@ -226,9 +226,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ao8_other", columnDefinition = "varchar(500) comment 'n 옥탄올/물 분배계수-비고'")
   private String ao8Other;
 
-  @Column(name = "ap1_data", columnDefinition = "varchar(100) comment '자연발화 온도-값'")
+  @Column(name = "ap1_data", columnDefinition = "varchar(20) comment '자연발화 온도-값'")
   private String ap1Data;
-  @Column(name = "ap2_unit", columnDefinition = "varchar(100) comment '자연발화 온도-단위'")
+  @Column(name = "ap2_unit", columnDefinition = "varchar(20) comment '자연발화 온도-단위'")
   private String ap2Unit;
   @Column(name = "ap3_method", columnDefinition = "varchar(100) comment '자연발화 온도-시험조건'")
   private String ap3Method;
@@ -239,9 +239,9 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ap6_other", columnDefinition = "varchar(500) comment '자연발화 온도-비고'")
   private String ap6Other;  //추가
 
-  @Column(name = "aq1_data", columnDefinition = "varchar(100) comment '분해온도-값'")
+  @Column(name = "aq1_data", columnDefinition = "varchar(20) comment '분해온도-값'")
   private String aq1Data;
-  @Column(name = "aq2_unit", columnDefinition = "varchar(100) comment '분해온도-단위'")
+  @Column(name = "aq2_unit", columnDefinition = "varchar(20) comment '분해온도-단위'")
   private String aq2Unit;
   @Column(name = "aq3_method", columnDefinition = "varchar(100) comment '분해온도-시험조건'")
   private String aq3Method;
@@ -252,15 +252,15 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "aq6_other", columnDefinition = "varchar(500) comment '분해온도-비고'")
   private String aq6Other;  //추가
 
-  @Column(name = "ar1_data1", columnDefinition = "varchar(100) comment '점도-값1'")
+  @Column(name = "ar1_data1", columnDefinition = "varchar(20) comment '점도-값1'")
   private String ar1Data1;
-  @Column(name = "ar2_unit1", columnDefinition = "varchar(100) comment '점도-단위1'")
+  @Column(name = "ar2_unit1", columnDefinition = "varchar(20) comment '점도-단위1'")
   private String ar2Unit1;
   @Column(name = "ar3_ref1", columnDefinition = "varchar(255) comment '점도-출처1'")
   private String ar3Ref1;
   @Column(name = "ar4_data2", columnDefinition = "varchar(100) comment '점도-동점도값'")
   private String ar4Data2;
-  @Column(name = "ar5_unit2", columnDefinition = "varchar(100) comment '점도-동점도 단위'")
+  @Column(name = "ar5_unit2", columnDefinition = "varchar(20) comment '점도-동점도 단위'")
   private String ar5Unit2;
   @Column(name = "ar6_temper", columnDefinition = "varchar(100) comment '점도-동점도 온도'")
   private String ar6Temper;
@@ -269,7 +269,7 @@ public class MatterPhyscChem implements Serializable {
   @Column(name = "ar8_other", columnDefinition = "varchar(500) comment '점도-비고'")
   private String ar8Other;  //추가
 
-  @Column(name = "as1_data", columnDefinition = "varchar(100) comment '분자량-값'")
+  @Column(name = "as1_data", columnDefinition = "varchar(20) comment '분자량-값'")
   private String as1Data;
   @Column(name = "as2_ref", columnDefinition = "varchar(255) comment '분자량-출처'")
   private String as2Ref;
